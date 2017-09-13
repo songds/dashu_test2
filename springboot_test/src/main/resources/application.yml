@@ -20,3 +20,10 @@ spring.jpa:
 
 logging:
   path: ${LOG_PATH:logs}
+  
+spring:
+  thymeleaf.prefix=classpath:/templates/
+  thymeleaf.suffix=.html
+  thymeleaf.mode=HTML5
+  thymeleaf.encoding=UTF-8
+  thymeleaf.cache=false

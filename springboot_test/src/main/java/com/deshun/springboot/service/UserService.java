@@ -31,4 +31,8 @@ public class UserService {
 	public SysUser findByName(String name){
 		return sysUserDao.findByName(name);
 	}
+	
+	public void save(SysUser sysUser){
+		sysUserDao.save(sysUser);
+	}
 }

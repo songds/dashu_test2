@@ -1,7 +1,9 @@
 package com.deshun.springboot.Po;
 
+import java.util.ArrayList;
 import java.util.Date;  
-import java.util.HashSet;  
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;  
   
 import javax.persistence.Column;  
@@ -13,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;  
 import javax.persistence.Table;  
 import javax.persistence.Temporal;  
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;
+
+import com.mysql.fabric.xmlrpc.base.Array;  
 @Entity  
 @Table(name = "s_user")//code11  
 public class SysUser implements java.io.Serializable {  
@@ -39,17 +43,19 @@ public class SysUser implements java.io.Serializable {
 	private Date dob;//时间  
 	  
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "SUser")  
-	private Set<SysRole> SysRoles = new HashSet<SysRole>(0);// 所对应的角色集合  
+	private List<SysRole> sysRoles = new ArrayList<SysRole>();// 所对应的角色集合  
 	  
         public SysUser() {  
         }  
   
-        public SysUser(String name, String email, String password, Date dob, Set<SysRole> SysRoles) {  
+        public SysUser(String name, String email, String password, Date dob, 
+        		//Set<SysRole> SysRoles
+        		List<SysRole> sysRoles) {  
             this.name = name;  
             this.email = email;  
             this.password = password;  
             this.dob = dob;  
-            this.SysRoles = SysRoles;  
+            this.sysRoles = sysRoles;  
         }  
   
           
@@ -93,15 +99,26 @@ public class SysUser implements java.io.Serializable {
   
         public void setDob(Date dob) {  
             this.dob = dob;  
-        }  
+        }
+
+        @OneToMany(fetch = FetchType.EAGER, mappedBy = "SUser")
+		public List<SysRole> getSysRoles() {
+			return sysRoles;
+		}
+
+		public void setSysRoles(List<SysRole> sysRoles) {
+			this.sysRoles = sysRoles;
+		}  
   
-        @OneToMany(fetch = FetchType.EAGER, mappedBy = "SUser")  
+      /*  @OneToMany(fetch = FetchType.EAGER, mappedBy = "SUser")  
         public Set<SysRole> getSysRoles() {  
             return this.SysRoles;  
         }  
   
         public void setSRoles(Set<SysRole> SysRoles) {  
             this.SysRoles = SysRoles;  
-        }  
+        }  */
+        
+        
   
 }  

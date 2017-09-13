@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
     <title>Spring Security Example </title>  
 </head>  
 <body>  
-    <div th:if="${param.error}">  
+    <div >  
         Invalid username and password.  
     </div>  
-    <div th:if="${param.logout}">  
+    <div >  
         You have been logged out.  
     </div>  
-    <form th:action="@{/login}" method="post">  
+    <form  method="post">  
         <div><label> User Name : <input type="text" name="username"/> </label></div>  
         <div><label> Password: <input type="password" name="password"/> </label></div>  
         <div><input type="submit" value="Sign In"/></div>  
-        <input type="checkbox" name="remember-me" value="true" th:checked="checked"/><p>Remember me</p>  
-    </form>  
-</body>  
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="checkbox" name="remember-me" value="true" /><p>Remember me</p>  
+    </form>
+    <a href="/html/page/register">注册</a>  
+</body>
+</html>  

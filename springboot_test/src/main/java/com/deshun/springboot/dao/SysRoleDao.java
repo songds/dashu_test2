@@ -10,4 +10,6 @@ import com.deshun.springboot.Po.SysRole;
 public interface SysRoleDao extends JpaRepository<SysRole, Integer>{
 
 	List<SysRole> findByName(String name);
+	
+	List<SysRole> findByIdIn(List<Integer> ids); 
 }

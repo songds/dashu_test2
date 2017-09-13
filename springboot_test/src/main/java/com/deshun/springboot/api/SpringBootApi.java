@@ -3,11 +3,14 @@ package com.deshun.springboot.api;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.deshun.springboot.Po.SysUser;
 import com.deshun.springboot.Po.TUser;
 import com.deshun.springboot.service.UserService;
 
@@ -22,4 +25,10 @@ public class SpringBootApi {
     List<TUser> home() {
         return userService.findUserAll();//返回结果为字符串
     }
+    @RequestMapping("/login")
+    String login(){
+    	return "login";
+    }
+    
+   
 }

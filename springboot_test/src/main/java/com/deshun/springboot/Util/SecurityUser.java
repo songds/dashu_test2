@@ -2,6 +2,7 @@ package com.deshun.springboot.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +28,7 @@ public class SecurityUser extends SysUser implements UserDetails {
 			this.setEmail(suser.getEmail());
 			this.setPassword(suser.getPassword());
 			this.setDob(suser.getDob());
-			this.setSRoles(suser.getSysRoles());
+			this.setSysRoles(suser.getSysRoles());
 		}
 		
 	}
@@ -36,7 +37,7 @@ public class SecurityUser extends SysUser implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();  
-        Set<SysRole> userRoles = this.getSysRoles();  
+        List<SysRole> userRoles = this.getSysRoles();  
           
         if(userRoles != null)  
         {  

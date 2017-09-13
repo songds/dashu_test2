@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
 		.authorizeRequests()
-		.antMatchers("/home").permitAll()//访问：/home无需登录认证权限
+		.antMatchers("/home","/css/**","/image/**","/js/**").permitAll()//访问：/home无需登录认证权限
+		.antMatchers("/html/page/register").permitAll()
+		.antMatchers("/html/saveUser").permitAll()
 		.anyRequest().authenticated() //其他所有资源都需要认证，登录后访问
 		//.antMatchers("/hellow").hasAnyAuthority("ADMIN")//登录后之后拥有“ADMIN”权限才可以访问/hello方法，否则系统会出现“403”权限不足的提示
 		.and().formLogin()
@@ -50,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 		.rememberMe()//登录后记住用户，下次自动登录，数据库中必须存在名为persistent_logins的表
 		.tokenValiditySeconds(1209600);
+		//http.csrf().disable();
 	}
 	
 	
@@ -71,4 +75,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public LoginSuccessHandler loginSuccessHandler(){  
         return new LoginSuccessHandler();  
     }  
+    
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/static/**");
+        //可以仿照上面一句忽略静态资源
+        
+   }
 }
