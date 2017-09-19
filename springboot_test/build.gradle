@@ -5,6 +5,7 @@ buildscript {
     dependencies {
         //使用1.4.2.RELEASE版本的Spring框架
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+        
     }
 }
 
@@ -33,6 +34,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")  
 	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.projectlombok:lombok")
+	compile("com.alibaba:fastjson:1.2.30")
+	compile("org.springframework.cloud:spring-cloud-starter-feign:1.2.4.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-starter-zuul:1.2.4.RELEASE")
+    compile("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile("org.springframework.security:spring-security-test")
 }

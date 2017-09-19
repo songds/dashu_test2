@@ -27,3 +27,25 @@ spring:
   thymeleaf.mode=HTML5
   thymeleaf.encoding=UTF-8
   thymeleaf.cache=false
+
+
+  
+zuul:
+  max:
+    host:
+      connections: 100
+  host:
+    socket-timeout-millis: ${httpRequest.callTimeout}
+    connect-timeout-millis: ${httpRequest.connectTimeout}
+  routes:
+    MicroExpressionService:
+      path: /MicroExpression/**
+      url: http://127.0.0.1:8070/
+      
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 60000  

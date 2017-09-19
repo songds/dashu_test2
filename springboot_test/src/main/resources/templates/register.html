@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8"/>
-<meta name="_csrf" th:content="${_csrf.token}"/>
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<!-- <meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/> -->
 <title>Insert title here</title>
 <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
@@ -14,16 +14,18 @@
 	$(document).ajaxSend(function(e,xhr,options){
 		xhr.setRequestHeader(toheaderken,token);
 	});*/
+	
+	
 </script>
 </head>
 <body>
 
-	<form action="/html/saveUser" method="post">
-		用户名：<input name="name" type="text"/>
-		密码：<input name="password" type="password"/>
-		邮箱：<input name="email" type="email"/>
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+	 <form action="/html/page/httpTest.do" method="post">
+		客户姓名：<input name="customerName" type="text"/>
+		联系电话：<input name="mobile" type="text"/>
+		证件号码：<input name="certId" type="text"/>
+		<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
 		<input type="submit" value="提交"/>
-	</form>
+	</form> 
 </body>
 </html>
