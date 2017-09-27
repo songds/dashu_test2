@@ -1,0 +1,49 @@
+### the frame config
+
+spring.application.name: DataManage
+server.port: ${port:8081}
+
+frame:
+  instance:
+    env: ${EVN_NAME:DEV}
+    name: ${INST_NAME:NONE}
+
+logging:
+  path: ${LOG_PATH:logs}
+#  level:
+#    com.dashuf: DEBUG
+    
+
+##### database add begin
+# 
+spring.datasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://d0ahtow.mysql.dbdev.dsfdc.com:5064/ahtow?useUnicode=yes&characterEncoding=UTF8&useSSL=false
+  username: ahtowopr
+  password: Tafd9352d0e46#
+  
+
+spring.jpa:
+  database: MYSQL
+  show-sql: false
+  hibernate.ddl-auto: validate
+  properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+##### database add end
+
+##### event drive add begin @EnableService @EnableMicroService
+spring:
+  redis:
+    database: 0
+    host: d0cva.redis.dbdev.dsfdc.com
+    password: dsrd1234
+    port: 4410
+    pool:
+      max-idle: 8  
+      min-idle: 0  
+      max-active: 8  
+      max-wait: -1
+
+message.kafka.host: kafka1.intsit.dsfdc.com:9092,kafka2.intsit.dsfdc.com:9092,kafka3.intsit.dsfdc.com:9092
+##### event drive add end
+
+### add application config hear and start the key with "application:"
