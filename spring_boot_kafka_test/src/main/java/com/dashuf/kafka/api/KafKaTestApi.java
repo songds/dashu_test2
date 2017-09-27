@@ -2,6 +2,7 @@ package com.dashuf.kafka.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -26,7 +27,7 @@ public class KafKaTestApi {
 	}
 	
 	@Event(listenTopic = "KafKaTestApiTestBegin", returnTopic = "KafKaTestApiTestEnd")
-	//@RequestMapping("/api/dataDictionaryDetailBegin.do")
+	@RequestMapping("/api/dataDictionaryDetailBegin.do")
 	public JSONObject dataDictionaryDetailBegin(String soleCode) {
 		JSONObject jsonObject=new JSONObject();
 		jsonObject.put("soleCode", soleCode);
