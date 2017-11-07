@@ -1,0 +1,4 @@
+### the frame config
+
+spring.application.name: WeChatStudy
+server.port: ${port:80}
