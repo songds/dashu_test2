@@ -1,0 +1,19 @@
+### the frame config
+
+spring.application.name: WechatStudy_PP
+server.port: ${port:80}
+
+spring.datasource: 
+ # dev
+ url: jdbc:mysql://localhost:3306/spring_auth_test?useUnicode=yes&characterEncoding=UTF8&useSSL=false
+ username: root
+ password: isadmin
+ driver-class-name: com.mysql.jdbc.Driver
+
+
+
+spring.jpa:
+  database: MYSQL
+  show-sql: false
+  hibernate.ddl-auto: validate
+  properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
