@@ -6,4 +6,5 @@ import com.wechat.pp.po.QqBoundInfoPo;
 
 public interface QqBoundInfoDao extends JpaRepository<QqBoundInfoPo, Integer>{
 
+	public QqBoundInfoPo getQQPoByOpenId(String openId);
 }

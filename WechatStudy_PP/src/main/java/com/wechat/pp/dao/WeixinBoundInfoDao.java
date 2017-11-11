@@ -6,4 +6,5 @@ import com.wechat.pp.po.WeixinBoundInfoPo;
 
 public interface WeixinBoundInfoDao extends JpaRepository<WeixinBoundInfoPo, Integer>{
 
+	public WeixinBoundInfoPo getWeixinPoByOpenId(String openId);
 }

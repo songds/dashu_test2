@@ -21,7 +21,7 @@ public class QqBoundInfoPo {
 	private int id;
 	
 	@Column (name="qq_id")
-	private String qq_id;
+	private String qqId;
 	
 	@Column (name="USER_NAME")
 	private String userName;

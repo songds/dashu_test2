@@ -21,6 +21,9 @@ public class TradingRecordInfoPo {
     @Column (name="ID",length=11) 
 	private int id;
 	
+	@Column (name="USER_NAME")
+	private String userName;
+	
 	@Column (name="TRADING_ID")
 	private String tradingId;
 	
