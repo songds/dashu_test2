@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.security.MD5Encoder;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -36,6 +37,8 @@ public class UserInfoService {
 	@Resource
 	private QqBoundInfoDao qqBoundInfoDao;
 	
+	@Resource
+	private SsmVerificationService ssmVerificationService;
 	
 	/**
 	 * 注册接口
@@ -369,6 +372,113 @@ public class UserInfoService {
 		return false;
 	}
 	
+	/**
+	 * 修改用户个人信息
+	 * {userName/用户名,imageUrl/图片路劲}
+	 * @param json
+	 * @return
+	 */
+	public JSONObject updateHeadPortrait(String json){
+		JSONObject result=new JSONObject();
+		try {
+			JSONObject jsonParameter=JSONObject.parseObject(json);
+			String userName=jsonParameter.getString("userName");
+			String imageUrl=jsonParameter.getString("imageUrl");
+			UserInfoPo userInfo=userInfoDao.isUserExistByUserName(userName);
+			if(userInfo!=null){
+				userInfo.setImageUrl(imageUrl);
+				userInfo.setUpdatedBy(userName);
+				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+				userInfoDao.update(userInfo);
+				result.put("code", "SUC000");
+				result.put("message", "用户头像修改成功");
+				return result;
+			}else{
+				result.put("code", "F00002");
+				result.put("message", "用户头像修改失败,用户不存在，请您联系客服！");
+				return result;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.info(e.getMessage());
+			result.put("code", "F00001");
+			result.put("message", "用户头像修改异常，请您联系客服！");
+			return result;
+		}
+	} 
 	
+	
+	/**
+	 * 修改用户个人信息
+	 * {userName/用户名,sex/性别,name/昵称,address/地址}
+	 * @param json
+	 * @return
+	 */
+	public JSONObject updateUserInfo(String json){
+		JSONObject result=new JSONObject();
+		try {
+			JSONObject jsonParameter=JSONObject.parseObject(json);
+			String userName=jsonParameter.getString("userName");
+			String sex=jsonParameter.getString("sex");
+			String name=jsonParameter.getString("name");
+			String address=jsonParameter.getString("address");
+			UserInfoPo userInfo=userInfoDao.isUserExistByUserName(userName);
+			if(userInfo!=null){
+				userInfo.setSex(sex);
+				userInfo.setName(name);
+				userInfo.setUpdatedBy(userName);
+				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+				userInfoDao.update(userInfo);
+				result.put("code", "SUC000");
+				result.put("message", "用户个人信息修改成功");
+				return result;
+			}else{
+				result.put("code", "F00002");
+				result.put("message", "用户个人信息修改失败,用户不存在，请您联系客服！");
+				return result;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.info(e.getMessage());
+			result.put("code", "F00001");
+			result.put("message", "用户个人信息修改异常，请您联系客服！");
+			return result;
+		}
+	} 
+	
+	/**
+	 * 用户解锁,需要短信验证
+	 * {userName/用户名}
+	 * @param json
+	 * @return
+	 */
+	public JSONObject userDeblocking(String json){
+		JSONObject result=new JSONObject();
+		try {
+			JSONObject jsonParameter=JSONObject.parseObject(json);
+			String userName=jsonParameter.getString("userName");
+			//缺判断用户解锁次数方法
+			UserInfoPo userInfo=userInfoDao.isUserExistByUserName(userName);
+			if(userInfo!=null){
+				userInfo.setUserStatus("1");
+				userInfo.setUpdatedBy(userName);
+				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+				userInfoDao.update(userInfo);
+				result.put("code", "SUC000");
+				result.put("message", "用户解锁成功");
+				return result;
+			}else{
+				result.put("code", "F00002");
+				result.put("message", "用户解锁失败,用户不存在，请您联系客服！");
+				return result;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.info(e.getMessage());
+			result.put("code", "F00001");
+			result.put("message", "用户解锁异常，请您联系客服！");
+			return result;
+		}
+	}
 	
 }

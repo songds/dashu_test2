@@ -45,6 +45,12 @@ public class UserInfoPo {
 	@Column (name="IMAGE_URL")
 	private String imageUrl;
 	
+	@Column(name="ADDRESS")
+	private String address;
+	
+	@Column(name="USER_STATUS")
+	private String userStatus;
+	
 	@Column (name="REGISTRATION_DATE")
 	private Date registrationDate;
 	
