@@ -15,5 +15,6 @@ public interface DeviceInfoDao extends JpaRepository<DeviceInfoPo, String>{
 	@Query("update DeviceInfoPo set token=?2 where userName=?1")
 	public int updateByUserNameAndToken(String userName,String token);
 	
+	@Query("from DeviceInfoPo where userName=?1 and token=?2")
 	public boolean isExistByUserNameAndToken(String userName,String token);
 }

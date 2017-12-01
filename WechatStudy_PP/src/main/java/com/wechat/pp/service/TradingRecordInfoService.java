@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -62,9 +65,10 @@ public class TradingRecordInfoService {
 		JSONObject result=new JSONObject();
 		try{
 			JSONObject jsonParameter=JSONObject.parseObject(json);
-			long startSize=jsonParameter.getLongValue("startSize");
-			long endSize=jsonParameter.getLongValue("endSize");
-			List<TradingRecordInfoPo> list=tradingRecordInfoDao.queryPage(startSize, endSize);
+			int startSize=jsonParameter.getIntValue("startSize");
+			int endSize=jsonParameter.getIntValue("endSize");
+			Pageable pageable=new PageRequest(startSize, endSize);
+			Page<TradingRecordInfoPo> list=tradingRecordInfoDao.findAll(pageable);
 			result.put("code", "SUS000");
 			result.put("message", "交易记录查询成功");
 			result.put("data", list);

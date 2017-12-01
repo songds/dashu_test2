@@ -100,7 +100,7 @@ public class UserInfoService {
 				userInfo.setMobile(mobilePhone);
 				userInfo.setPassword(MD5Encoder.encode(password.getBytes()));
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-				userInfoDao.update(userInfo);
+				userInfoDao.save(userInfo);
 				result.put("code", "SUS000");
 				result.put("message", "修改密码成功！");
 			}else{
@@ -389,7 +389,7 @@ public class UserInfoService {
 				userInfo.setImageUrl(imageUrl);
 				userInfo.setUpdatedBy(userName);
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-				userInfoDao.update(userInfo);
+				userInfoDao.save(userInfo);
 				result.put("code", "SUC000");
 				result.put("message", "用户头像修改成功");
 				return result;
@@ -428,7 +428,7 @@ public class UserInfoService {
 				userInfo.setName(name);
 				userInfo.setUpdatedBy(userName);
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-				userInfoDao.update(userInfo);
+				userInfoDao.save(userInfo);
 				result.put("code", "SUC000");
 				result.put("message", "用户个人信息修改成功");
 				return result;
@@ -463,7 +463,7 @@ public class UserInfoService {
 				userInfo.setUserStatus("1");
 				userInfo.setUpdatedBy(userName);
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-				userInfoDao.update(userInfo);
+				userInfoDao.save(userInfo);
 				result.put("code", "SUC000");
 				result.put("message", "用户解锁成功");
 				return result;
