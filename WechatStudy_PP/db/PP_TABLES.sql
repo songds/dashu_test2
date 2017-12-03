@@ -1,171 +1,171 @@
 drop table user_info;
 create table user_info(
-        id int COMMENT '±àºÅ',
-        name varchar(100) COMMENT 'ĞÕÃû',
-        nickname varchar(100) COMMENT 'êÇ³Æ',
-        sex varchar(100) COMMENT 'ĞÔ±ğ',
-        birth_date timestamp COMMENT '³öÉúÈÕÆÚ',
-        education varchar(100) COMMENT 'Ñ§Àú',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
-        password varchar(150) COMMENT 'ÃÜÂë',
-        user_status varchar(150) COMMENT 'ÓÃ»§×´Ì¬',
-        address varchar(1000) COMMENT 'µØÖ·',
-        mobile varchar(100) COMMENT 'ÊÖ»úºÅÂë',
-        image_url varchar(100) COMMENT 'Í¼Æ¬Â·¾¶',
-        registration_date timestamp COMMENT '×¢²áÈÕÆÚ',
-        balance_account Double COMMENT 'ÕË»§Óà¶î',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)comment='ÓÃ»§ĞÅÏ¢±í' ;
+        id int COMMENT 'ç¼–å·',
+        name varchar(100) COMMENT 'å§“å',
+        nickname varchar(100) COMMENT 'æ˜µç§°',
+        sex varchar(100) COMMENT 'æ€§åˆ«',
+        birth_date timestamp COMMENT 'å‡ºç”Ÿæ—¥æœŸ',
+        education varchar(100) COMMENT 'å­¦å†',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
+        password varchar(150) COMMENT 'å¯†ç ',
+        user_status varchar(150) COMMENT 'ç”¨æˆ·çŠ¶æ€',
+        address varchar(1000) COMMENT 'åœ°å€',
+        mobile varchar(100) COMMENT 'æ‰‹æœºå·ç ',
+        image_url varchar(100) COMMENT 'å›¾ç‰‡è·¯å¾„',
+        registration_date timestamp COMMENT 'æ³¨å†Œæ—¥æœŸ',
+        balance_account Double COMMENT 'è´¦æˆ·ä½™é¢',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)comment='ç”¨æˆ·ä¿¡æ¯è¡¨' ;
 
 
 drop table weixin_Bound_info;
 create table weixin_Bound_info(
-        id int COMMENT '±àºÅ',
-        weixin_id varchar(100) COMMENT 'Î¢ĞÅºÃ',
-        open_Id varchar(100) COMMENT 'Î¢ĞÅOPENID',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
-        weixin_name varchar(100) COMMENT 'Î¢ĞÅÃû³Æ',
-        weixin_image_url varchar(100) COMMENT 'Î¢ĞÅÍ·ÏñÂ·¾¶',
-        union_id varchar(100) COMMENT 'Î¢ĞÅUNIONID',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='Î¢ĞÅ°ó¶¨±í';
+        id int COMMENT 'ç¼–å·',
+        weixin_id varchar(100) COMMENT 'å¾®ä¿¡å¥½',
+        open_Id varchar(100) COMMENT 'å¾®ä¿¡OPENID',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
+        weixin_name varchar(100) COMMENT 'å¾®ä¿¡åç§°',
+        weixin_image_url varchar(100) COMMENT 'å¾®ä¿¡å¤´åƒè·¯å¾„',
+        union_id varchar(100) COMMENT 'å¾®ä¿¡UNIONID',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='å¾®ä¿¡ç»‘å®šè¡¨';
 
 drop table QQ_Bound_info;
 create table QQ_Bound_info(
-        id int COMMENT '±àºÅ',
-        qq_id varchar(100) COMMENT 'QQºÅ',
+        id int COMMENT 'ç¼–å·',
+        qq_id varchar(100) COMMENT 'QQå·',
         open_Id varchar(100) COMMENT 'QQOPENID',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
-        qq_name varchar(100) COMMENT 'QQÃû³Æ',
-        qq_image_url varchar(100) COMMENT 'QQÍ·ÏñÂ·¾¶',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
+        qq_name varchar(100) COMMENT 'QQåç§°',
+        qq_image_url varchar(100) COMMENT 'QQå¤´åƒè·¯å¾„',
         union_id varchar(100) COMMENT 'QQUNIONID',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='QQ°ó¶¨±í';
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='QQç»‘å®šè¡¨';
 
 drop table login_log_info;
 create table login_log_info(
-        id int COMMENT '±àºÅ',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
+        id int COMMENT 'ç¼–å·',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
         to_ken varchar(100) COMMENT 'toKen',
-        device_number varchar(100) COMMENT 'Éè±¸ºÅ',
-        IP_addr varchar(100) COMMENT 'IPµØÖ·',
-        login_status varchar(100) COMMENT 'µÇÂ½×´Ì¬',
-        login_date timestamp COMMENT 'µÇÂ½Ê±¼ä',
-        expiration_time timestamp COMMENT '¹ıÆÚÊ±¼ä'
-)COMMENT='µÇÂ½¼ÇÂ¼ĞÅÏ¢±í';
+        device_number varchar(100) COMMENT 'è®¾å¤‡å·',
+        IP_addr varchar(100) COMMENT 'IPåœ°å€',
+        login_status varchar(100) COMMENT 'ç™»é™†çŠ¶æ€',
+        login_date timestamp COMMENT 'ç™»é™†æ—¶é—´',
+        expiration_time timestamp COMMENT 'è¿‡æœŸæ—¶é—´'
+)COMMENT='ç™»é™†è®°å½•ä¿¡æ¯è¡¨';
 
 
 drop table member_info;
 create table member_info(
-        id int COMMENT '±àºÅ',
-        member_name varchar(100) COMMENT '»áÔ±Ãû³Æ',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='»áÔ±ĞÅÏ¢±í';
+        id int COMMENT 'ç¼–å·',
+        member_name varchar(100) COMMENT 'ä¼šå‘˜åç§°',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ä¼šå‘˜ä¿¡æ¯è¡¨';
 
 drop table trading_record_info;
 create table trading_record_info(
-        id int COMMENT '±àºÅ',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
-        trading_id varchar(150) COMMENT '½»Ò×±àºÅ',
-        trading_type varchar(150) COMMENT '½»Ò×ÀàĞÍ',
-        trading_status varchar(150) COMMENT '½»Ò××´Ì¬',
-        trading_time timestamp COMMENT '½»Ò×Ê±¼ä',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='½»Ò×¼ÇÂ¼ĞÅÏ¢±í';
+        id int COMMENT 'ç¼–å·',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
+        trading_id varchar(150) COMMENT 'äº¤æ˜“ç¼–å·',
+        trading_type varchar(150) COMMENT 'äº¤æ˜“ç±»å‹',
+        trading_status varchar(150) COMMENT 'äº¤æ˜“çŠ¶æ€',
+        trading_time timestamp COMMENT 'äº¤æ˜“æ—¶é—´',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='äº¤æ˜“è®°å½•ä¿¡æ¯è¡¨';
 
 
 drop table photo_sheet_info;
 create table photo_sheet_info(
-        id int COMMENT '±àºÅ',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
-        Photo_number int COMMENT 'ÅÄÕÕ´ÎÊı',
-        photo_status varchar(100) COMMENT 'ÅÄÕÕ×´Ì¬',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='ÅÄÕÕĞÅÏ¢¼ÇÂ¼±í';
+        id int COMMENT 'ç¼–å·',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
+        Photo_number int COMMENT 'æ‹ç…§æ¬¡æ•°',
+        photo_status varchar(100) COMMENT 'æ‹ç…§çŠ¶æ€',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='æ‹ç…§ä¿¡æ¯è®°å½•è¡¨';
 
 drop table enum_info;
 create table enum_info(
-        id int COMMENT '±àºÅ',
-        code_type varchar(100) COMMENT '´úÂëÀàĞÍ',
-        code_desc varchar(100) COMMENT '´úÂëÃèÊö',
-        code_id varchar(100) COMMENT '´úÂë±àºÅ',
-        code_name varchar(100) COMMENT '´úÂëÃû³Æ',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT = '´úÂëĞÅÏ¢±í';
+        id int COMMENT 'ç¼–å·',
+        code_type varchar(100) COMMENT 'ä»£ç ç±»å‹',
+        code_desc varchar(100) COMMENT 'ä»£ç æè¿°',
+        code_id varchar(100) COMMENT 'ä»£ç ç¼–å·',
+        code_name varchar(100) COMMENT 'ä»£ç åç§°',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT = 'ä»£ç ä¿¡æ¯è¡¨';
 
 drop table device_info;
 create table device_info(
         user_name varchar(100),
         to_ken varchar(100) COMMENT 'toKen',
-        device_number varchar(100) COMMENT 'Éè±¸ºÅ',
-        IP_addr varchar(100) COMMENT 'IPµØÖ·',
-         created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='Éè±¸ĞÅÏ¢±í';
+        device_number varchar(100) COMMENT 'è®¾å¤‡å·',
+        IP_addr varchar(100) COMMENT 'IPåœ°å€',
+         created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='è®¾å¤‡ä¿¡æ¯è¡¨';
 
 drop table sys_config_tables;
 CREATE TABLE sys_config_tables(
-        id int COMMENT '±àºÅ',
-        table_name varchar(150) COMMENT '±íÃû',
-        column_name varchar(150) COMMENT '±í×Ö¶Î',
-        column_desc varchar(150) COMMENT '±í×Ö¶ÎÃèÊö',
-        is_null varchar(10) COMMENT 'ÊÇ·ñÎª¿Õ',
-        column_length  int default -1 COMMENT '×Ö¶Î³¤¶È',
-        is_primary_key varchar(10) COMMENT 'ÊÇ·ñÖ÷¼ü',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='±í½á¹¹ĞÅÏ¢±í';
+        id int COMMENT 'ç¼–å·',
+        table_name varchar(150) COMMENT 'è¡¨å',
+        column_name varchar(150) COMMENT 'è¡¨å­—æ®µ',
+        column_desc varchar(150) COMMENT 'è¡¨å­—æ®µæè¿°',
+        is_null varchar(10) COMMENT 'æ˜¯å¦ä¸ºç©º',
+        column_length  int default -1 COMMENT 'å­—æ®µé•¿åº¦',
+        is_primary_key varchar(10) COMMENT 'æ˜¯å¦ä¸»é”®',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='è¡¨ç»“æ„ä¿¡æ¯è¡¨';
 
 
 drop table user_member_relation;
 create table user_member_relation(
-        id int COMMENT '±àºÅ',
-        user_name varchar(100) COMMENT 'ÓÃ»§Ãû',
-        member_id int COMMENT '»áÔ±±àºÅ',
-        member_type varchar(100) COMMENT '»áÔ±ÀàĞÍ',
-        created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='ÓÃ»§»áÔ±¹ØÏµ±í';
+        id int COMMENT 'ç¼–å·',
+        user_name varchar(100) COMMENT 'ç”¨æˆ·å',
+        member_id int COMMENT 'ä¼šå‘˜ç¼–å·',
+        member_type varchar(100) COMMENT 'ä¼šå‘˜ç±»å‹',
+        created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ç”¨æˆ·ä¼šå‘˜å…³ç³»è¡¨';
 
 
 drop table member_price_info;
 create table member_price_info(
-	id int COMMENT '±àºÅ',
-	member_id int COMMENT '»áÔ±±àºÅ',
-	card_type varchar(100) COMMENT '¿¨ÀàĞÍ',
-	card_type_desc varchar(100) COMMENT '¿¨ÀàĞÍÃèÊö',
-	card_price double COMMENT '¿¨¼Û¸ñ',
-	created_date timestamp COMMENT '´´½¨ÈÕÆÚ',
-  updated_date timestamp COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-  created_by varchar(100) COMMENT '´´½¨ÈË',
-  updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='»áÔ±¼Û¸ñĞÅÏ¢±í';
+	id int COMMENT 'ç¼–å·',
+	member_id int COMMENT 'ä¼šå‘˜ç¼–å·',
+	card_type varchar(100) COMMENT 'å¡ç±»å‹',
+	card_type_desc varchar(100) COMMENT 'å¡ç±»å‹æè¿°',
+	card_price double COMMENT 'å¡ä»·æ ¼',
+	created_date timestamp COMMENT 'åˆ›å»ºæ—¥æœŸ',
+  updated_date timestamp COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+  created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+  updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ä¼šå‘˜ä»·æ ¼ä¿¡æ¯è¡¨';
 
 
 

@@ -22,12 +22,21 @@ public class AliyunSmsUtil {
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
     static final String accessKeyId = "LTAITFuabo2oCYlQ";
     static final String accessKeySecret = "bHpgYXOh7ia8vbkb8lM7I8zDkZa3B9";
+    
+    //短信签名
+    static final String messageSignatures="Q题库";
+    //模板编号
+    static final String templateId="SMS_114395380";
+    
+    static final String defaultConnectTimeout="10000";
 
-    public static SendSmsResponse sendSms() throws ClientException {
+    static final String defaultReadTimeout="10000";
+    
+    public static SendSmsResponse sendSms(String phoneNumbers,String templateParam) throws ClientException {
 
         //可自助调整超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+        System.setProperty("sun.net.client.defaultConnectTimeout", defaultConnectTimeout);
+        System.setProperty("sun.net.client.defaultReadTimeout", defaultReadTimeout);
 
         //初始化acsClient,暂不支持region化
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
@@ -37,13 +46,13 @@ public class AliyunSmsUtil {
         //组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         //必填:待发送手机号
-        request.setPhoneNumbers("18373515600");
+        request.setPhoneNumbers(phoneNumbers);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("Q题库");
+        request.setSignName(messageSignatures);
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_114395380");
-        //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"123\"}");
+        request.setTemplateCode(templateId);
+        //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为"{\"name\":\"Tom\", \"code\":\"123\"}"
+        request.setTemplateParam(templateParam);
 
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
@@ -92,7 +101,7 @@ public class AliyunSmsUtil {
     public static void main(String[] args) throws ClientException, InterruptedException {
 
         //发短信
-        SendSmsResponse response = sendSms();
+        SendSmsResponse response = sendSms("1800000000","{\"name\":\"Tom\", \"code\":\"123\"}");
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());

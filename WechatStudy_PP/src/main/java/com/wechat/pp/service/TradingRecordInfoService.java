@@ -1,7 +1,6 @@
 package com.wechat.pp.service;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 

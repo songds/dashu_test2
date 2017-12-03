@@ -1,114 +1,115 @@
 drop table subject_info;
 create table subject_info(
-        subject_id int primary key AUTO_INCREMENT COMMENT '¿ÆÄ¿±àºÅ',
-        subject_name varchar(100) COMMENT '¿ÆÄ¿Ãû³Æ',
-        subject_type varchar(100) COMMENT '¿ÆÄ¿ÀàĞÍ',
-        is_leaf_subject varchar(100) COMMENT 'ÊÇ·ñÒ¶×Ó¿ÆÄ¿',
-        parent_subject_id int COMMENT '¸¸¿ÆÄ¿±àºÅ',
-        subject_name_letter varchar(100) COMMENT '¿ÆÄ¿Ãû³Æ¶ÔÓ¦×ÖÄ¸',
-        created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈË',
-        updated_by varchar(100) DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='¿ÆÄ¿ĞÅÏ¢±í';
+        subject_id int primary key AUTO_INCREMENT COMMENT 'ç§‘ç›®ç¼–å·',
+        subject_name varchar(100) COMMENT 'ç§‘ç›®åç§°',
+        subject_type varchar(100) COMMENT 'ç§‘ç›®ç±»å‹',
+        is_leaf_subject varchar(100) COMMENT 'æ˜¯å¦å¶å­ç§‘ç›®',
+        parent_subject_id int COMMENT 'çˆ¶ç§‘ç›®ç¼–å·',
+        subject_name_letter varchar(100) COMMENT 'ç§‘ç›®åç§°å¯¹åº”å­—æ¯',
+        created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100)  COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100)  COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ç§‘ç›®ä¿¡æ¯è¡¨';
 
 drop table subject_curriculum_rel;
 create table subject_curriculum_rel(
-        id int primary key AUTO_INCREMENT COMMENT '±àºÅ',
-        subject_id int COMMENT '¿ÆÄ¿±àºÅ',
-        curriculum_id int COMMENT '¿Î³Ì±àºÅ',
-        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='¿ÆÄ¿¿Î³Ì¹ØÏµ±í';
+        id int primary key AUTO_INCREMENT COMMENT 'ç¼–å·',
+        subject_id int COMMENT 'ç§‘ç›®ç¼–å·',
+        curriculum_id int COMMENT 'è¯¾ç¨‹ç¼–å·',
+        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ç§‘ç›®è¯¾ç¨‹å…³ç³»è¡¨';
 
 CREATE TABLE subject_section_rel (
-        id INT NOT NULL AUTO_INCREMENT COMMENT '±àºÅ',
-        section_id INT COMMENT 'ÕÂ½Ú±àºÅ',
-        subject_id INT COMMENT '¿ÆÄ¿±àºÅ',
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by VARCHAR(100) COMMENT '´´½¨ÈË',
-        updated_by VARCHAR(100) COMMENT 'ĞŞ¸ÄÈË',
+        id INT NOT NULL AUTO_INCREMENT COMMENT 'ç¼–å·',
+        section_id INT COMMENT 'ç« èŠ‚ç¼–å·',
+        subject_id INT COMMENT 'ç§‘ç›®ç¼–å·',
+        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by VARCHAR(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by VARCHAR(100) COMMENT 'ä¿®æ”¹äºº',
         PRIMARY KEY (id)
-) COMMENT='¿ÆÄ¿ÕÂ½Ú¹ØÏµ±í';
+) COMMENT='ç§‘ç›®ç« èŠ‚å…³ç³»è¡¨';
 
 drop table curriculum_info;
 create table curriculum_info(
-        curriculum_id int primary key AUTO_INCREMENT COMMENT '¿Î³Ì±àºÅ',
-        curriculum_name varchar(100) COMMENT '¿Î³ÌÃû³Æ',
-        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='¿Î³ÌĞÅÏ¢±í';
+        curriculum_id int primary key AUTO_INCREMENT COMMENT 'è¯¾ç¨‹ç¼–å·',
+        curriculum_name varchar(100) COMMENT 'è¯¾ç¨‹åç§°',
+        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='è¯¾ç¨‹ä¿¡æ¯è¡¨';
 
 drop table curriculum_section_rel;
 create table curriculum_section_rel(
-        id int primary key AUTO_INCREMENT COMMENT '±àºÅ',
-        section_id int COMMENT 'ÕÂ½Ú±àºÅ',
-        curriculum_id int COMMENT '¿Î³Ì±àºÅ',
-        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='¿Î³ÌÕÂ½Ú¹ØÏµ±í';
+        id int primary key AUTO_INCREMENT COMMENT 'ç¼–å·',
+        section_id int COMMENT 'ç« èŠ‚ç¼–å·',
+        curriculum_id int COMMENT 'è¯¾ç¨‹ç¼–å·',
+        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='è¯¾ç¨‹ç« èŠ‚å…³ç³»è¡¨';
 
 drop table section_info;
 create table section_info(
-        section_id int primary key AUTO_INCREMENT COMMENT 'ÕÂ½Ú±àºÅ',
-        section_name varchar(100) COMMENT 'ÕÂ½ÚÃû³Æ',
-        parent_section_id int COMMENT '¸¸ÕÂ½Ú±àºÅ',
-        is_leaf_section varchar(100) COMMENT 'ÊÇ·ñÒ¶×ÓÕÂ½Ú',
-        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='ÕÂ½ÚĞÅÏ¢±í';
+        section_id int primary key AUTO_INCREMENT COMMENT 'ç« èŠ‚ç¼–å·',
+        section_name varchar(100) COMMENT 'ç« èŠ‚åç§°',
+        parent_section_id int COMMENT 'çˆ¶ç« èŠ‚ç¼–å·',
+        is_leaf_section varchar(100) COMMENT 'æ˜¯å¦å¶å­ç« èŠ‚',
+        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ç« èŠ‚ä¿¡æ¯è¡¨';
 
 drop table section_topic_rel;
 create table section_topic_rel(
-        id int primary key AUTO_INCREMENT COMMENT '±àºÅ',
-        section_id int COMMENT 'ÕÂ½Ú±àºÅ',
-        topic_id int COMMENT 'ÌâÄ¿±àºÅ',
-        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='ÕÂ½ÚÌâÄ¿¹ØÏµ±í';
+        id int primary key AUTO_INCREMENT COMMENT 'ç¼–å·',
+        section_id int COMMENT 'ç« èŠ‚ç¼–å·',
+        topic_id int COMMENT 'é¢˜ç›®ç¼–å·',
+        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ç« èŠ‚é¢˜ç›®å…³ç³»è¡¨';
 
 drop table topic_info;
 create table  topic_info(
-        topic_id int primary key AUTO_INCREMENT COMMENT 'ÌâÄ¿±àºÅ',
-        topic_name varchar(100) COMMENT 'ÌâÄ¿Ãû³Æ',
-        topic_content varchar(1000) COMMENT 'ÌâÄ¿ÄÚÈİ',
-        topice_type varchar(100) COMMENT 'ÌâÄ¿ÀàĞÍ',
-        created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='ÕÂ½ÚĞÅÏ¢±í';
+        topic_id int primary key AUTO_INCREMENT COMMENT 'é¢˜ç›®ç¼–å·',
+        section_id INT NOT NULL  COMMENT 'ç« èŠ‚ç¼–å·',
+        topic_name varchar(100) COMMENT 'é¢˜ç›®åç§°',
+        topic_content varchar(1000) COMMENT 'é¢˜ç›®å†…å®¹',
+        topice_type varchar(100) COMMENT 'é¢˜ç›®ç±»å‹',
+        created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='ç« èŠ‚ä¿¡æ¯è¡¨';
 
 drop table topice_select_info;
 create table topice_select_info(
-        id int primary key AUTO_INCREMENT COMMENT '±àºÅ',
-        topic_id int COMMENT 'ÌâÄ¿±àºÅ',
-        select_id varchar(100) COMMENT 'ÌâÄ¿Ñ¡Ïî±àºÅ',
-        select_content varchar(1000) COMMENT 'ÌâÄ¿ÄÚÈİ',
-        is_correct_select varchar(100) COMMENT 'ÊÇ·ñÕıÈ·Ñ¡Ïî',
-        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '´´½¨ÈÕÆÚ',
-        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ĞŞ¸ÄÈÕÆÚ',
-        created_by varchar(100) COMMENT '´´½¨ÈË',
-        updated_by varchar(100) COMMENT 'ĞŞ¸ÄÈË'
-)COMMENT='ÌâÄ¿¶ÔÓ¦Ñ¡Ïî';
+        id int primary key AUTO_INCREMENT COMMENT 'ç¼–å·',
+        topic_id int COMMENT 'é¢˜ç›®ç¼–å·',
+        select_id varchar(100) COMMENT 'é¢˜ç›®é€‰é¡¹ç¼–å·',
+        select_content varchar(1000) COMMENT 'é¢˜ç›®å†…å®¹',
+        is_correct_select varchar(100) COMMENT 'æ˜¯å¦æ­£ç¡®é€‰é¡¹',
+        created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¥æœŸ',
+        updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¿®æ”¹æ—¥æœŸ',
+        created_by varchar(100) COMMENT 'åˆ›å»ºäºº',
+        updated_by varchar(100) COMMENT 'ä¿®æ”¹äºº'
+)COMMENT='é¢˜ç›®å¯¹åº”é€‰é¡¹';
 
 
 
 
 
 
---Ìí¼ÓÍâ¼ü
+--æ·»åŠ å¤–é”®
 alter table subject_curriculum_rel add constraint sub_curr_rel_subFK foreign key(subject_id)  references subject_info(subject_id) ;
 alter table subject_curriculum_rel add constraint sub_curr_rel_currFK foreign key(curriculum_id)  references curriculum_info(curriculum_id) ;
 
@@ -121,8 +122,8 @@ alter table curriculum_section_rel add constraint curr_sec_rel_currFK foreign ke
 alter table curriculum_section_rel add constraint curr_sec_rel_secFK foreign key(section_id)  references section_info(section_id) ;
 
 
-alter table section_topic_rel add constraint sec_top_rel_topFK foreign key(topic_id)  references topic_info(topic_id) ;
-alter table section_topic_rel add constraint sec_top_rel_secFK foreign key(section_id)  references section_info(section_id) ;
+--alter table section_topic_rel add constraint sec_top_rel_topFK foreign key(topic_id)  references topic_info(topic_id) ;
+--alter table section_topic_rel add constraint sec_top_rel_secFK foreign key(section_id)  references section_info(section_id) ;
 
 
 alter table topice_select_info add constraint top_sel_rel_topFK foreign key(topic_id)  references topic_info(topic_id) ;
