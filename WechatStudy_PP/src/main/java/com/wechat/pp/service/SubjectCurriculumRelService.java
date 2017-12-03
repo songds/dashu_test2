@@ -14,7 +14,7 @@ public class SubjectCurriculumRelService {
 
 	@Resource
 	private SubjectCurriculumRelDao subjectCurriculumRelDao;
-	
+	 
 	/**
 	 * 添加科目与课程关系
 	 * @param json
