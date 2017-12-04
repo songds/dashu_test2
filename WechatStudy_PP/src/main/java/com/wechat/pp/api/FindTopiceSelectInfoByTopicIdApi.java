@@ -18,11 +18,11 @@ public class FindTopiceSelectInfoByTopicIdApi {
 	@Resource
 	private TopiceSelectInfoService topiceSelectInfoService;
 	
-	@RequestMapping(value="/api/findByTopicId.do",method=RequestMethod.POST)
-	public JSONObject findByTopicId(@RequestBody String json){
-		log.info(" method is /api/findByTopicId.do to customer input parameter message :  {}",json);
+	@RequestMapping(value="/api/findTopiceSelectInfoByTopicId.do",method=RequestMethod.POST)
+	public JSONObject findTopiceSelectInfoByTopicId(@RequestBody String json){
+		log.info(" method is /api/findTopiceSelectInfoByTopicId.do to customer input parameter message :  {}",json);
 		JSONObject result=topiceSelectInfoService.findTopiceSelectInfoByTopicId(json);
-		log.info(" /api/findByTopicId.do  to result message :  {}",result);
+		log.info(" /api/findTopiceSelectInfoByTopicId.do  to result message :  {}",result);
 		return result;
 	};
 }

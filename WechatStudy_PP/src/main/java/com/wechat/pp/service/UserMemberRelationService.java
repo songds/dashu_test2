@@ -33,7 +33,7 @@ public class UserMemberRelationService {
 			String memberType=jsonParamter.getString("memberType");
 			UserMemberRelationPo userMemberRelation=userMemberRelationDao.isExistByUserNameAndMemberIdAndMemberType(userName, memberId, memberType);
 			if(userMemberRelation!=null){
-				result.put("code", "SUS001");
+				result.put("code", "SUC001");
 				result.put("message", "您已购买该会员！");
 			}else{
 				userMemberRelation=new UserMemberRelationPo();
@@ -41,7 +41,7 @@ public class UserMemberRelationService {
 				userMemberRelation.setMemberType(memberType);
 				userMemberRelation.setUserName(userName);
 				userMemberRelationDao.save(userMemberRelation);
-				result.put("code", "SUS000");
+				result.put("code", "SUC000");
 				result.put("message", "购买会员成功");
 				result.put("data", userMemberRelation);
 			}
