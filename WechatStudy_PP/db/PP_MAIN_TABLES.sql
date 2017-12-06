@@ -89,7 +89,7 @@ create table  topic_info(
         updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
         created_by varchar(100) COMMENT '创建人',
         updated_by varchar(100) COMMENT '修改人'
-)COMMENT='章节信息表';
+)COMMENT='题目信息表';
 
 drop table topice_select_info;
 create table topice_select_info(
@@ -105,7 +105,44 @@ create table topice_select_info(
 )COMMENT='题目对应选项';
 
 
+create table topic_status_info(
+	id int primary key AUTO_INCREMENT COMMENT '编号',
+	user_name varchar(100) NOT NULL COMMENT '用户名',
+	topic_id int NOT NULL COMMENT '题目编号',
+	topic_status int NOT NULL COMMENT '题目状态',
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+    updated_date timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
+    created_by varchar(100) COMMENT '创建人',
+    updated_by varchar(100) COMMENT '修改人'
+)COMMENT='用户题目状态信息表';
 
+create table topic_enshrine_info(
+	id int primary key AUTO_INCREMENT COMMENT '编号',
+	user_name varchar(100) NOT NULL COMMENT '用户名',
+	topic_id int primary key AUTO_INCREMENT COMMENT '题目编号',
+    section_id INT NOT NULL  COMMENT '章节编号',
+    topic_name varchar(100) COMMENT '题目名称',
+    topic_content varchar(1000) COMMENT '题目内容',
+    topice_type varchar(100) COMMENT '题目类型',
+    created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+    updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
+    created_by varchar(100) COMMENT '创建人',
+    updated_by varchar(100) COMMENT '修改人'
+)COMMENT='用户题目收藏信息表';
+
+create table topic_error_info(
+	id int primary key AUTO_INCREMENT COMMENT '编号',
+	user_name varchar(100) NOT NULL COMMENT '用户名',
+	topic_id int primary key AUTO_INCREMENT COMMENT '题目编号',
+    section_id INT NOT NULL  COMMENT '章节编号',
+    topic_name varchar(100) COMMENT '题目名称',
+    topic_content varchar(1000) COMMENT '题目内容',
+    topice_type varchar(100) COMMENT '题目类型',
+    created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+    updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
+    created_by varchar(100) COMMENT '创建人',
+    updated_by varchar(100) COMMENT '修改人'
+)COMMENT='用户题目错题记录表';
 
 
 
