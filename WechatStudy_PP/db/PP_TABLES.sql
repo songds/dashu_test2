@@ -170,3 +170,17 @@ create table member_price_info(
 
 
 
+CREATE TABLE SMS_INFO(
+        id int primary key AUTO_INCREMENT,
+        dspm_apply_no varchar(36) NOT NULL COMMENT '申请编号',
+        Mobile_NO varchar(36) NOT NULL COMMENT '手机号码',
+        type varchar(2) NOT NULL COMMENT '操作类型',
+        status varchar(10) NOT NULL COMMENT '验证状态',
+        verification_code varchar(10) NOT NULL COMMENT '验证码',
+        expiration_time DATETIME NOT NULL COMMENT '过期时间',
+        created_by VARCHAR(150) NOT NULL COMMENT '创建人',
+        created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+        updated_by VARCHAR(150) NOT NULL COMMENT '更新人',
+        updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
+        
+)COMMENT='短信发送记录表';
