@@ -43,7 +43,7 @@ public class TradingRecordInfoService {
 			tradingRecordInfo.setTradingType(tradingType);
 			tradingRecordInfo.setUserName(userName);
 			tradingRecordInfoDao.save(tradingRecordInfo);
-			result.put("code", "SUS000");
+			result.put("code", "SUC000");
 			result.put("message", "交易记录添加成功！");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -68,7 +68,7 @@ public class TradingRecordInfoService {
 			int endSize=jsonParameter.getIntValue("endSize");
 			Pageable pageable=new PageRequest(startSize, endSize);
 			Page<TradingRecordInfoPo> list=tradingRecordInfoDao.findAll(pageable);
-			result.put("code", "SUS000");
+			result.put("code", "SUC000");
 			result.put("message", "交易记录查询成功");
 			result.put("data", list);
 		} catch (Exception e) {

@@ -36,7 +36,7 @@ public class PhotoSheetInfoService {
 			photoSheetInfoPo.setCreatedDate(new Date(System.currentTimeMillis()));
 			photoSheetInfoPo.setUpdatedDate(new Date(System.currentTimeMillis()));
 			photoSheetInfoDao.save(photoSheetInfoPo);
-			result.put("code", "SUS000");
+			result.put("code", "SUC000");
 			result.put("message", "拍照记录成功！");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -56,7 +56,7 @@ public class PhotoSheetInfoService {
 		JSONObject result=new JSONObject();
 		try{
 			int photoNumber=photoSheetInfoDao.countPhotoByUserName(userName);
-			result.put("code", "SUS000");
+			result.put("code", "SUC000");
 			result.put("message", "拍照次数查询成功！");
 			result.put("photoNumber", photoNumber);
 		} catch (Exception e) {

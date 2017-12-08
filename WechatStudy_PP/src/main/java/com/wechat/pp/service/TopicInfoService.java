@@ -5,6 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -79,5 +82,34 @@ public class TopicInfoService {
 		return result;
 	}
 	
-	
+	/**
+	 * 根据题目标题模糊搜索所用题目接口分页查询
+	 * @param json
+	 * @return
+	 */
+	public JSONObject findLikeByTopicName(String json){
+		JSONObject result=new JSONObject();
+		JSONObject jsonParameter=JSONObject.parseObject(json);
+		if(StringUtils.isEmpty(jsonParameter.getString("topicName"))){
+			result.put("code", "F00001");
+			result.put("message", "查询题目失败,参数父科目编号不能为空值!");
+			return result;
+		}else if(StringUtils.isEmpty(jsonParameter.getString("page"))){
+			result.put("code", "F00001");
+			result.put("message", "查询题目失败,参数页数不能为空值!");
+			return result;
+		}else if(StringUtils.isEmpty(jsonParameter.getString("size"))){
+			result.put("code", "F00001");
+			result.put("message", "查询题目失败,参数每页条数不能为空值!");
+			return result;
+		}else{
+			String topicName=jsonParameter.getString("topicName");
+			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"));
+			Page<TopicInfoPo> topicInfos=topicInfoDao.findLikeByTopicName("'%"+topicName+"%'",pageable);
+			result.put("code", "SUC000");
+			result.put("message", "成功");
+			result.put("data", topicInfos);
+			return result;
+		}
+	}
 }

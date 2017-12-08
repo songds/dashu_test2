@@ -67,7 +67,7 @@ public class UserInfoService {
 				userInfo.setUpdatedBy(userName);
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
 				userInfoDao.save(userInfo);
-				result.put("code", "SUS000");
+				result.put("code", "SUC000");
 				result.put("message", "注册成功！");
 			}
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class UserInfoService {
 				userInfo.setPassword(MD5Encoder.encode(password.getBytes()));
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
 				userInfoDao.save(userInfo);
-				result.put("code", "SUS000");
+				result.put("code", "SUC000");
 				result.put("message", "修改密码成功！");
 			}else{
 				result.put("code", "F00002");
@@ -124,7 +124,7 @@ public class UserInfoService {
 		if(userExistBool){
 			UserInfoPo userInfo=userInfoDao.loginByUserNameAndPassword(userName, password);
 			if(userInfo!=null){
-				result.put("code", "SUS000");
+				result.put("code", "SUC000");
 				result.put("message", "登陆成功");
 				result.put("data", userInfo);
 			}else{
@@ -164,12 +164,12 @@ public class UserInfoService {
 						if(StringUtils.isEmpty(deviceInfo.getDeviceNumber())||deviceInfo.getDeviceNumber().equals(deviceNumber)){
 							String token=MD5Encoder.encode(("Q"+System.currentTimeMillis()).getBytes());
 							deviceInfoDao.updateByUserNameAndToken(userInfo.getUserName(), token);
-							result.put("code", "SUS000");
+							result.put("code", "SUC000");
 							result.put("message", "成功");
 							result.put("data", userInfo);
 							result.put("toke", token);
 						}else{
-							result.put("code", "SUS001");
+							result.put("code", "SUC001");
 							result.put("message", "登陆异常，设备号异常！");
 						}
 					}else{
@@ -180,7 +180,7 @@ public class UserInfoService {
 						 deviceInfo.setDeviceNumber(deviceNumber);
 						 deviceInfo.setIpAddr(jsonParameter.getString("ipAddr"));
 						deviceInfoDao.save(deviceInfo);
-						result.put("code", "SUS000");
+						result.put("code", "SUC000");
 						result.put("message", "成功");
 						result.put("data", userInfo);
 						result.put("toke", token);
@@ -222,7 +222,7 @@ public class UserInfoService {
 				DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(weixinBound.getUserName());
 				if(deviceInfo!=null){
 					deviceInfoDao.updateByUserNameAndToken(weixinBound.getUserName(), token);
-					result.put("code", "SUS000");
+					result.put("code", "SUC000");
 					result.put("message", "成功");
 					result.put("data", weixinBound);
 					result.put("toke", token);
@@ -231,7 +231,7 @@ public class UserInfoService {
 					deviceInfoPo.setUserName(weixinBound.getUserName());
 					deviceInfoPo.setToken(token);
 					deviceInfoDao.save(deviceInfoPo);
-					result.put("code", "SUS000");
+					result.put("code", "SUC000");
 					result.put("message", "成功");
 					result.put("data", weixinBound);
 					result.put("toke", token);
@@ -262,7 +262,7 @@ public class UserInfoService {
 				deviceInfoPo.setUserName(userName);
 				deviceInfoPo.setToken(token);
 				deviceInfoDao.save(deviceInfoPo);
-				result.put("code", "SUS000");
+				result.put("code", "SUC000");
 				result.put("message", "成功");
 				result.put("data", jsonParameter);
 				result.put("toke", token);
@@ -297,7 +297,7 @@ public class UserInfoService {
 				DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(qqBoundInfo.getUserName());
 				if(deviceInfo!=null){
 					deviceInfoDao.updateByUserNameAndToken(qqBoundInfo.getUserName(), token);
-					result.put("code", "SUS000");
+					result.put("code", "SUC000");
 					result.put("message", "成功");
 					result.put("data", qqBoundInfo);
 					result.put("toke", token);
@@ -306,7 +306,7 @@ public class UserInfoService {
 					deviceInfoPo.setUserName(qqBoundInfo.getUserName());
 					deviceInfoPo.setToken(token);
 					deviceInfoDao.save(deviceInfoPo);
-					result.put("code", "SUS000");
+					result.put("code", "SUC000");
 					result.put("message", "成功");
 					result.put("data", qqBoundInfo);
 					result.put("toke", token);
@@ -337,7 +337,7 @@ public class UserInfoService {
 				deviceInfoPo.setUserName(userName);
 				deviceInfoPo.setToken(token);
 				deviceInfoDao.save(deviceInfoPo);
-				result.put("code", "SUS000");
+				result.put("code", "SUC000");
 				result.put("message", "成功");
 				result.put("data", jsonParameter);
 				result.put("toke", token);

@@ -64,7 +64,7 @@ public class UserMemberRelationService {
 		JSONObject result=new JSONObject();
 		try {
 			List<UserMemberRelationPo> list=userMemberRelationDao.queryByUserName(userName);
-			result.put("code", "SUS000");
+			result.put("code", "SUC000");
 			result.put("message", "查询成功！");
 			result.put("data", list);
 		} catch (Exception e) {

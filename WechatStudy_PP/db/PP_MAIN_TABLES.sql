@@ -119,7 +119,7 @@ create table topic_status_info(
 create table topic_enshrine_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
-	topic_id int primary key AUTO_INCREMENT COMMENT '题目编号',
+	topic_id int  COMMENT '题目编号',
     section_id INT NOT NULL  COMMENT '章节编号',
     topic_name varchar(100) COMMENT '题目名称',
     topic_content varchar(1000) COMMENT '题目内容',
@@ -133,7 +133,7 @@ create table topic_enshrine_info(
 create table topic_error_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
-	topic_id int primary key AUTO_INCREMENT COMMENT '题目编号',
+	topic_id int COMMENT '题目编号',
     section_id INT NOT NULL  COMMENT '章节编号',
     topic_name varchar(100) COMMENT '题目名称',
     topic_content varchar(1000) COMMENT '题目内容',

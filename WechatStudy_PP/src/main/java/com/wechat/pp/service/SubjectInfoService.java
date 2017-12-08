@@ -85,5 +85,25 @@ public class SubjectInfoService {
 	}
 	
 	
-	
+	/**
+	 * 根据科目名称模糊搜索所有科目接口
+	 * @param json
+	 * @return
+	 */
+	public JSONObject findLikeBySubjectName(String json){
+		JSONObject result=new JSONObject();
+		JSONObject jsonParameter=JSONObject.parseObject(json);
+		if(StringUtils.isEmpty(jsonParameter.getString("subjectName"))){
+			result.put("code", "F00001");
+			result.put("message", "查询子科目失败,参数父科目名称不能为空值!");
+			return result;
+		}else{
+			String subjectName=jsonParameter.getString("subjectName");
+			List<SubjectInfoPo> SubjectInfos=subjectInfoDao.findLikeBySubjectName("'%"+subjectName+"%'");
+			result.put("code", "SUC000");
+			result.put("message", "成功");
+			result.put("data", SubjectInfos);
+			return result;
+		}
+	}
 }
