@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -57,17 +59,19 @@ public class TradingRecordInfoService {
 	/**
 	 * 用户交易记录分页查询
 	 * @param json 
-	 * {startSize/开始条数,endSize/结束条数}
+	 * {userName/用户名,page/页数,size/每页条数}
 	 * @return
 	 */
 	public JSONObject getTradingRecord(String json){
 		JSONObject result=new JSONObject();
 		try{
 			JSONObject jsonParameter=JSONObject.parseObject(json);
-			int startSize=jsonParameter.getIntValue("startSize");
-			int endSize=jsonParameter.getIntValue("endSize");
-			Pageable pageable=new PageRequest(startSize, endSize);
-			Page<TradingRecordInfoPo> list=tradingRecordInfoDao.findAll(pageable);
+			String userName=jsonParameter.getString("userName");
+			int page=jsonParameter.getIntValue("page");
+			int size=jsonParameter.getIntValue("size");
+			Sort sort=new Sort(Direction.DESC,"id");
+			Pageable pageable=new PageRequest(page, size,sort);
+			Page<TradingRecordInfoPo> list=tradingRecordInfoDao.findByUserName(userName,pageable);
 			result.put("code", "SUC000");
 			result.put("message", "交易记录查询成功");
 			result.put("data", list);

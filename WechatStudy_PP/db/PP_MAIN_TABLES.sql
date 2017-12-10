@@ -85,14 +85,16 @@ create table  topic_info(
         topic_name varchar(100) COMMENT '题目名称',
         topic_content varchar(1000) COMMENT '题目内容',
         topice_type varchar(100) COMMENT '题目类型',
+        anlitxt text COMMENT '题目案例文本',
+        AnliList text COMMENT '题目案例列表',
         created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
         updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
         created_by varchar(100) COMMENT '创建人',
         updated_by varchar(100) COMMENT '修改人'
 )COMMENT='题目信息表';
 
-drop table topice_select_info;
-create table topice_select_info(
+drop table topic_select_info;
+create table topic_select_info(
         id int primary key AUTO_INCREMENT COMMENT '编号',
         topic_id int COMMENT '题目编号',
         select_id varchar(100) COMMENT '题目选项编号',
@@ -105,6 +107,7 @@ create table topice_select_info(
 )COMMENT='题目对应选项';
 
 
+drop table topic_status_info;
 create table topic_status_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
@@ -116,6 +119,7 @@ create table topic_status_info(
     updated_by varchar(100) COMMENT '修改人'
 )COMMENT='用户题目状态信息表';
 
+drop table topic_enshrine_info;
 create table topic_enshrine_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
@@ -124,12 +128,15 @@ create table topic_enshrine_info(
     topic_name varchar(100) COMMENT '题目名称',
     topic_content varchar(1000) COMMENT '题目内容',
     topice_type varchar(100) COMMENT '题目类型',
+    anlitxt text COMMENT '题目案例文本',
+    AnliList text COMMENT '题目案例列表',
     created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
     updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
     created_by varchar(100) COMMENT '创建人',
     updated_by varchar(100) COMMENT '修改人'
 )COMMENT='用户题目收藏信息表';
 
+drop table topic_error_info;
 create table topic_error_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
@@ -138,13 +145,29 @@ create table topic_error_info(
     topic_name varchar(100) COMMENT '题目名称',
     topic_content varchar(1000) COMMENT '题目内容',
     topice_type varchar(100) COMMENT '题目类型',
+    anlitxt text COMMENT '题目案例文本',
+    AnliList text COMMENT '题目案例列表',
     created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
     updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
     created_by varchar(100) COMMENT '创建人',
     updated_by varchar(100) COMMENT '修改人'
 )COMMENT='用户题目错题记录表';
 
-
+drop table free_topic_info;
+create table  free_topic_info(
+		id int primary key AUTO_INCREMENT COMMENT '编号',
+        topic_id int COMMENT '题目编号',
+        subject_id INT NOT NULL  COMMENT '科目编号',
+        topic_name varchar(100) COMMENT '题目名称',
+        topic_content varchar(1000) COMMENT '题目内容',
+        topice_type varchar(100) COMMENT '题目类型',
+        anlitxt text COMMENT '题目案例文本',
+        AnliList text COMMENT '题目案例列表',
+        created_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+        updated_date timestamp  DEFAULT CURRENT_TIMESTAMP COMMENT '修改日期',
+        created_by varchar(100) COMMENT '创建人',
+        updated_by varchar(100) COMMENT '修改人'
+)COMMENT='免费题目信息表';
 
 --添加外键
 alter table subject_curriculum_rel add constraint sub_curr_rel_subFK foreign key(subject_id)  references subject_info(subject_id) ;
@@ -163,4 +186,4 @@ alter table curriculum_section_rel add constraint curr_sec_rel_secFK foreign key
 --alter table section_topic_rel add constraint sec_top_rel_secFK foreign key(section_id)  references section_info(section_id) ;
 
 
-alter table topice_select_info add constraint top_sel_rel_topFK foreign key(topic_id)  references topic_info(topic_id) ;
+alter table topic_select_info add constraint top_sel_rel_topFK foreign key(topic_id)  references topic_info(topic_id) ;

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.wechat.pp.po.TopiceSelectInfoPo;
 
-public interface TopiceSelectInfoDao extends JpaRepository<TopiceSelectInfoPo, Integer>{
+public interface TopicSelectInfoDao extends JpaRepository<TopiceSelectInfoPo, Integer>{
 
 	public List<TopiceSelectInfoPo> findByTopicId(int topicId);
 }

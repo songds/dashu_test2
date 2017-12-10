@@ -1,8 +1,5 @@
 package com.wechat.pp.po;
 
-
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,23 +11,53 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="TOPIC_INFO")
+@Table(name="TOPIC_ERROR_INFO")
 @EqualsAndHashCode(callSuper=false)
 @Data
-public class TopicInfoPo  extends BasePo{
+public class TopicErrorInfoPo extends BasePo{
 
+	
+	/**
+	 * 编号
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
-    @Column (name="TOPIC_ID") 
-	private int topicId;
+    @Column (name="id") 
+	private int id;
 	
-	@Column (name="TOPIC_NAME")
+	/**
+	 * 用户名
+	 */
+	@Column (name="USER_NAME") 
+	private String userName;
+	
+	/**
+	 * 题目编号
+	 */
+	@Column (name="TOPIC_ID") 
+	private int topicId;
+	/**
+	 * 章节编号
+	 */
+	@Column (name="SECTION_ID") 
+	private int sectionId;
+	
+	/**
+	 * 题目名称
+	 */
+	@Column (name="TOPIC_NAME") 
 	private String topicName;
 	
-	@Column (name="TOPIC_CONTENT")
+	/**
+	 * 题目内容
+	 */
+	@Column (name="TOPIC_CONTENT") 
 	private String topicContent;
 	
-	@Column (name="TOPICE_TYPE")
+	/**
+	 * 题目类型
+	 */
+	@Column (name="TOPICE_TYPE") 
 	private String topiceType;
 	
 	@Column (name="ANLITXT")
@@ -39,8 +66,4 @@ public class TopicInfoPo  extends BasePo{
 	@Column (name="ANLILIST")
 	private String anliList;
 	
-	@Column(name="SECTION_ID")
-	private int sectionId;
-	
-	private List<TopiceSelectInfoPo> topiceSelectInfos;
 }

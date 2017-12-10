@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.pp.service.TopiceSelectInfoService;
+import com.wechat.pp.service.TopicSelectInfoService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SaveTopiceSelectInfoApi {
 
 	@Resource
-	private TopiceSelectInfoService topiceSelectInfoService;
+	private TopicSelectInfoService topiceSelectInfoService;
 	
 	@RequestMapping(value="/api/saveTopiceSelectInfo.do",method=RequestMethod.POST)
 	public JSONObject saveTopiceSelectInfo(@RequestBody String json){

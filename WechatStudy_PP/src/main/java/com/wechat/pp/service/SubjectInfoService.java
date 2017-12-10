@@ -3,8 +3,13 @@ package com.wechat.pp.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -20,6 +25,7 @@ public class SubjectInfoService {
 	 * 科目添加接口
 	 * @param subjectInfo
 	 */
+	@Transactional
 	public JSONObject saveSubjectInfo(String json){
 		JSONObject result=new JSONObject();
 		SubjectInfoPo subjectInfo=JSONObject.parseObject(json,SubjectInfoPo.class);
@@ -86,7 +92,7 @@ public class SubjectInfoService {
 	
 	
 	/**
-	 * 根据科目名称模糊搜索所有科目接口
+	 * 根据科目名称模糊搜索分页查询
 	 * @param json
 	 * @return
 	 */
@@ -95,11 +101,21 @@ public class SubjectInfoService {
 		JSONObject jsonParameter=JSONObject.parseObject(json);
 		if(StringUtils.isEmpty(jsonParameter.getString("subjectName"))){
 			result.put("code", "F00001");
-			result.put("message", "查询子科目失败,参数父科目名称不能为空值!");
+			result.put("message", "查询科目失败,参数科目名称不能为空值!");
+			return result;
+		}else if(StringUtils.isEmpty(jsonParameter.getString("page"))){
+			result.put("code", "F00002");
+			result.put("message", "查询科目失败,参数页数不能为空值!");
+			return result;
+		}else if(StringUtils.isEmpty(jsonParameter.getString("size"))){
+			result.put("code", "F00002");
+			result.put("message", "查询科目失败,参数每页条数不能为空值!");
 			return result;
 		}else{
 			String subjectName=jsonParameter.getString("subjectName");
-			List<SubjectInfoPo> SubjectInfos=subjectInfoDao.findLikeBySubjectName("'%"+subjectName+"%'");
+			Sort sort=new Sort(Direction.ASC, "id");
+			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
+			List<SubjectInfoPo> SubjectInfos=subjectInfoDao.findLikeBySubjectName("'%"+subjectName+"%'",pageable);
 			result.put("code", "SUC000");
 			result.put("message", "成功");
 			result.put("data", SubjectInfos);

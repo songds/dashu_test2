@@ -1,6 +1,5 @@
 package com.wechat.pp.po;
 
-
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,15 +13,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="TOPIC_INFO")
+@Table(name="FREE_TOPIC_INFO")
 @EqualsAndHashCode(callSuper=false)
 @Data
-public class TopicInfoPo  extends BasePo{
+public class FreeTopicInfoPo extends BasePo{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)  
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	@Column (name="ID") 
+	private int id;
+	
     @Column (name="TOPIC_ID") 
 	private int topicId;
+	
 	
 	@Column (name="TOPIC_NAME")
 	private String topicName;
@@ -33,14 +36,15 @@ public class TopicInfoPo  extends BasePo{
 	@Column (name="TOPICE_TYPE")
 	private String topiceType;
 	
+
+	@Column(name="SUBJECT_ID")
+	private int subjectId;
+	
 	@Column (name="ANLITXT")
 	private String anlitxt;
 	
 	@Column (name="ANLILIST")
 	private String anliList;
-	
-	@Column(name="SECTION_ID")
-	private int sectionId;
 	
 	private List<TopiceSelectInfoPo> topiceSelectInfos;
 }

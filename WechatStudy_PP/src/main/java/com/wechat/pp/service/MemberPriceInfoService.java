@@ -38,7 +38,7 @@ public class MemberPriceInfoService {
 				result.put("data", data);
 				return result;
 			}else{
-				result.put("code", "SUC000");
+				result.put("code", "SUC001");
 				result.put("message", "查询成功,未查询到数据！");
 				result.put("data", new ArrayList<MemberPriceInfoPo>());
 				return result;
@@ -47,7 +47,7 @@ public class MemberPriceInfoService {
 			// TODO: handle exception
 			log.info(e.getMessage());
 			result.put("code", "F00001");
-			result.put("message", "用户解锁异常，请您联系客服！");
+			result.put("message", "查询异常，请您联系客服！");
 			return result;
 		}
 	}

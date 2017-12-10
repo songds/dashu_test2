@@ -11,26 +11,34 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="TOPIC_SELECT_INFO")
+@Table(name="TOPIC_STATUS_INFO")
 @EqualsAndHashCode(callSuper=false)
 @Data
-public class TopiceSelectInfoPo  extends BasePo{
+public class TopicStatusInfoPo extends BasePo{
 
+	/**
+	 * 编号
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
-    @Column (name="ID") 
+    @Column (name="id") 
 	private int id;
 	
+	/**
+	 * 用户名
+	 */
+	@Column (name="USER_NAME") 
+	private String userName;
+	
+	/**
+	 * 题目编号
+	 */
 	@Column (name="TOPIC_ID") 
 	private int topicId;
 	
-	@Column (name="SELECT_ID")
-	private String selectId;
-	
-	@Column (name="SELECT_CONTENT")
-	private String selectContent;
-	
-	@Column (name="IS_CORRECT_SELECT")
-	private String isCorrectSelect;
-	
+	/**
+	 * 题目状态
+	 */
+	@Column (name="TOPIC_STATUS") 
+	private int topicStatus;
 }

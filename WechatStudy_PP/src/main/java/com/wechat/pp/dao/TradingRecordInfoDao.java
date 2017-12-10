@@ -10,5 +10,5 @@ import com.wechat.pp.po.TradingRecordInfoPo;
 
 public interface TradingRecordInfoDao extends JpaRepository<TradingRecordInfoPo, Integer>{
 
-	public Page<TradingRecordInfoPo> findAll(Pageable pageable);
+	public Page<TradingRecordInfoPo> findByUserName(String userName,Pageable pageable);
 }

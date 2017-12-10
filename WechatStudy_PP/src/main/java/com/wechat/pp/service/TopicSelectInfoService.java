@@ -3,25 +3,26 @@ package com.wechat.pp.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.pp.dao.TopiceSelectInfoDao;
+import com.wechat.pp.dao.TopicSelectInfoDao;
 import com.wechat.pp.po.TopiceSelectInfoPo;
 
 @Service
-public class TopiceSelectInfoService {
+public class TopicSelectInfoService {
 
 	@Resource
-	private TopiceSelectInfoDao topiceSelectInfoDao;
+	private TopicSelectInfoDao topiceSelectInfoDao;
 	/**
 	 * 根据题目编号获取选项
 	 * @param topicId
 	 * @return
 	 */
-	public JSONObject  findTopiceSelectInfoByTopicId(String json){
+	public JSONObject  findTopicSelectInfoByTopicId(String json){
 		JSONObject result=new JSONObject();
 		JSONObject jsonParameter=JSONObject.parseObject(json);
 		if(StringUtils.isEmpty(jsonParameter.getString("topicId"))){
@@ -42,6 +43,7 @@ public class TopiceSelectInfoService {
 	 * 添加题目选项
 	 * @param topiceSelectInfo
 	 */
+	@Transactional
 	public JSONObject saveTopiceSelectInfo(String json){
 		JSONObject result=new JSONObject();
 		TopiceSelectInfoPo topiceSelectInfo=JSONObject.parseObject(json,TopiceSelectInfoPo.class);

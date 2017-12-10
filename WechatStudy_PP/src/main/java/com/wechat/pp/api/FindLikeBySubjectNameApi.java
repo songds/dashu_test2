@@ -13,7 +13,7 @@ import com.wechat.pp.service.SubjectInfoService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 根据科目名称模糊搜索所有科目接口
+ * 根据科目名称模糊搜索科目分页查询
  * @author ex-songdeshun
  *
  */

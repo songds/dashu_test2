@@ -2,6 +2,7 @@ package com.wechat.pp.service;
 
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class SubjectCurriculumRelService {
 	 * 添加科目与课程关系
 	 * @param json
 	 */
+	@Transactional
 	public JSONObject saveSubjectCurriculumRel(String json){
 		JSONObject result=new JSONObject();
 		SubjectCurriculumRelPo subjectCurriculumRel=JSONObject.parseObject(json,SubjectCurriculumRelPo.class);
@@ -27,7 +29,7 @@ public class SubjectCurriculumRelService {
 			result.put("message", "添加科目与课程关系失败,参数课程编号不能为空值!");
 			return result;
 		}else if(subjectCurriculumRel.getSubjectId()<=0){
-			result.put("code", "F00001");
+			result.put("code", "F00002");
 			result.put("message", "添加科目与课程关系失败,参数科目编号不能为空值!");
 			return result;
 		}else{

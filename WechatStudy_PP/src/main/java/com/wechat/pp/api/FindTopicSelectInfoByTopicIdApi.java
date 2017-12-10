@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.pp.service.TopiceSelectInfoService;
+import com.wechat.pp.service.TopicSelectInfoService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class FindTopiceSelectInfoByTopicIdApi {
+public class FindTopicSelectInfoByTopicIdApi {
 	@Resource
-	private TopiceSelectInfoService topiceSelectInfoService;
+	private TopicSelectInfoService topiceSelectInfoService;
 	
-	@RequestMapping(value="/api/findTopiceSelectInfoByTopicId.do",method=RequestMethod.POST)
+	@RequestMapping(value="/api/findTopicSelectInfoByTopicId.do",method=RequestMethod.POST)
 	public JSONObject findTopiceSelectInfoByTopicId(@RequestBody String json){
-		log.info(" method is /api/findTopiceSelectInfoByTopicId.do to customer input parameter message :  {}",json);
-		JSONObject result=topiceSelectInfoService.findTopiceSelectInfoByTopicId(json);
-		log.info(" /api/findTopiceSelectInfoByTopicId.do  to result message :  {}",result);
+		log.info(" method is /api/findTopicSelectInfoByTopicId.do to customer input parameter message :  {}",json);
+		JSONObject result=topiceSelectInfoService.findTopicSelectInfoByTopicId(json);
+		log.info(" /api/findTopicSelectInfoByTopicId.do  to result message :  {}",result);
 		return result;
 	};
 }

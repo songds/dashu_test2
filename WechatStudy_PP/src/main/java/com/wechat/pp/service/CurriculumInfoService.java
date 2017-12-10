@@ -3,6 +3,7 @@ package com.wechat.pp.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,7 @@ public class CurriculumInfoService {
 	 * 添加课程
 	 * @param curriculumInfo
 	 */
+	@Transactional
 	public JSONObject saveCurriculumInfo(String json){
 		CurriculumInfoPo curriculumInfo=JSONObject.parseObject(json,CurriculumInfoPo.class);
 		JSONObject result=new JSONObject();
