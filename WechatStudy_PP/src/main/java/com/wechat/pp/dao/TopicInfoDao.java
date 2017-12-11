@@ -1,6 +1,8 @@
 package com.wechat.pp.dao;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,11 +14,16 @@ public interface TopicInfoDao extends JpaRepository<TopicInfoPo, Integer>{
 
 	@Query(value="SELECT T1.* FROM topic_info T1"
 			+ " left join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2 "
-			+ " where T1.section_Id=?1 and T2.id is null ",nativeQuery=true)
-	public Page<TopicInfoPo> findBySectionId(int sectionId,String userName,Pageable pageable);
+			+ " where T1.section_Id=?1 and T2.id is null order by T1.topic_id limit ?3,?4 ",nativeQuery=true)
+	//public Page<TopicInfoPo> findBySectionId(int sectionId,String userName,Pageable pageable);
+	public List<TopicInfoPo> findBySectionId(int sectionId,String userName,int startSize,int pageSize);
 	
-	@Query("from TopicInfoPo where topicName like ?1")
-	public Page<TopicInfoPo> findLikeByTopicName(String topicName,Pageable pageable);
+	@Query(value="SELECT count(T1.topic_id) FROM topic_info T1"
+					+ " left join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2 "
+					+ " where T1.section_Id=?1 and T2.id is null ",nativeQuery=true)
+	public int countByUserNameNotTopic(int sectionId,String userName);
+	
+	public Page<TopicInfoPo> findByTopicNameLike(String topicName,Pageable pageable);
 	
 	@Query(value="SELECT count(T1.topic_id) FROM topic_info T1"
 			+ " inner join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2"

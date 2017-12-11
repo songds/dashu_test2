@@ -55,9 +55,13 @@ public class TopicInfoService {
 		}else{
 			int sectionId=jsonParameter.getIntValue("sectionId");
 			String userName=jsonParameter.getString("userName");
-			Sort sort=new Sort(Direction.ASC, "id");
-			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
-			Page<TopicInfoPo> topicInfos=topicInfoDao.findBySectionId(sectionId,userName,pageable);
+			int size=jsonParameter.getIntValue("size");
+			int page=jsonParameter.getIntValue("page");
+			int startSize=(page-1)*size;
+			//Sort sort=new Sort(Direction.ASC, "id");
+			//Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
+			//int count=topicInfoDao.countByUserNameNotTopic(sectionId, userName);
+			List<TopicInfoPo> topicInfos=topicInfoDao.findBySectionId(sectionId,userName,startSize,size);
 			List<TopicInfoPo> results=new ArrayList<TopicInfoPo>();
 			for (TopicInfoPo topicInfoPo : topicInfos) {
 				topicInfoPo.setTopiceSelectInfos(topicSelectInfoDao.findByTopicId(topicInfoPo.getTopicId()));
@@ -135,7 +139,7 @@ public class TopicInfoService {
 			String topicName=jsonParameter.getString("topicName");
 			Sort sort=new Sort(Direction.ASC, "id");
 			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
-			Page<TopicInfoPo> topicInfos=topicInfoDao.findLikeByTopicName("'%"+topicName+"%'",pageable);
+			Page<TopicInfoPo> topicInfos=topicInfoDao.findByTopicNameLike(topicName,pageable);
 			result.put("code", "SUC000");
 			result.put("message", "成功");
 			result.put("data", topicInfos);

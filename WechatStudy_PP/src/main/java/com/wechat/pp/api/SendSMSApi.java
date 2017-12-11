@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.pp.service.SsmVerificationService;
+import com.wechat.pp.service.SMSService;
 
 import lombok.extern.slf4j.Slf4j;
 /**
@@ -18,16 +18,16 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class SendSsmApi {
+public class SendSMSApi {
 
 	@Resource
-	private SsmVerificationService ssmVerificationService;
+	private SMSService smsService;
 	
-	@RequestMapping(value="/api/sendSsm.do",method=RequestMethod.POST)
-	public JSONObject sendSsm(@RequestBody String json){
-		log.info(" method is /api/sendSsm.do to customer input parameter message :  {}",json);
-		JSONObject result=ssmVerificationService.sendSsm(json);
-		log.info(" /api/sendSsm.do  to result message :  {}",result);
+	@RequestMapping(value="/api/sendSMS.do",method=RequestMethod.POST)
+	public JSONObject sendSMS(@RequestBody String json){
+		log.info(" method is /api/sendSMS.do to customer input parameter message :  {}",json);
+		JSONObject result=smsService.sendSMS(json);
+		log.info(" /api/sendSMS.do  to result message :  {}",result);
 		return result;
 	};
 }

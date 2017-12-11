@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,11 +41,12 @@ public class FreeTopicInfoPo extends BasePo{
 	@Column(name="SUBJECT_ID")
 	private int subjectId;
 	
-	@Column (name="ANLITXT")
+	@Column (name="ANLITXT",columnDefinition="text")
 	private String anlitxt;
 	
-	@Column (name="ANLILIST")
+	@Column (name="ANLILIST",columnDefinition="text")
 	private String anliList;
 	
+	@Transient
 	private List<TopiceSelectInfoPo> topiceSelectInfos;
 }

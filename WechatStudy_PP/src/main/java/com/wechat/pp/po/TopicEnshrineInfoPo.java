@@ -59,9 +59,9 @@ public class TopicEnshrineInfoPo extends BasePo{
 	@Column (name="TOPICE_TYPE") 
 	private String topiceType;
 	
-	@Column (name="ANLITXT")
+	@Column (name="ANLITXT",columnDefinition="text")
 	private String anlitxt;
 	
-	@Column (name="ANLILIST")
+	@Column (name="ANLILIST",columnDefinition="text")
 	private String anliList;
 }

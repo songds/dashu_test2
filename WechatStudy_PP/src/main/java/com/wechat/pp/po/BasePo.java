@@ -8,7 +8,7 @@ import javax.persistence.Column;
 public class BasePo {
 
 	@Column (name="CREATED_DATE")
-	private Date createDate;
+	private Date createdDate;
 	
 	@Column (name="UPDATED_DATE")
 	private Date updatedDate;
@@ -19,13 +19,6 @@ public class BasePo {
 	@Column (name="UPDATED_BY")
 	private String updatedBy;
 
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
 
 	public Date getUpdatedDate() {
 		return updatedDate;
@@ -50,6 +43,16 @@ public class BasePo {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	
+	
 	
 	
 }

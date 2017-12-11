@@ -19,7 +19,7 @@ public class GetByParentSubjectIdApi {
 	@Resource
 	private SubjectInfoService subjectInfoService;
 	
-	@RequestMapping(value="/api/saveSubjectInfo.do",method=RequestMethod.POST)
+	@RequestMapping(value="/api/getByParentSubjectId.do",method=RequestMethod.POST)
 	public JSONObject getByParentSubjectId(@RequestBody String json){
 		log.info(" method is /api/getByParentSubjectId.do to customer input parameter message :  {}",json);
 		JSONObject result=subjectInfoService.getByParentSubjectId(json);
