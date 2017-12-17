@@ -98,7 +98,7 @@ public class AliyunSmsUtil {
         return querySendDetailsResponse;
     }
 
-    public static void main(String[] args) throws ClientException, InterruptedException {
+  /*  public static void main(String[] args) throws ClientException, InterruptedException {
 
         //发短信
         SendSmsResponse response = sendSms("1800000000","{\"name\":\"Tom\", \"code\":\"123\"}");
@@ -133,5 +133,5 @@ public class AliyunSmsUtil {
             System.out.println("RequestId=" + querySendDetailsResponse.getRequestId());
         }
 
-    }
+    }*/
 }

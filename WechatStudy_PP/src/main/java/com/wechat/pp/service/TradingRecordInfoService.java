@@ -1,5 +1,6 @@
 package com.wechat.pp.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -36,12 +37,13 @@ public class TradingRecordInfoService {
 			String userName=jsonParameter.getString("userName");
 			String tradingStatus=jsonParameter.getString("tradingStatus");
 			Date tradingTime=jsonParameter.getDate("tradingTime");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 			String tradingType=jsonParameter.getString("tradingType");
 			String tradingId=jsonParameter.getString("tradingId");
 			TradingRecordInfoPo tradingRecordInfo=new TradingRecordInfoPo();
 			tradingRecordInfo.setTradingId(tradingId);
 			tradingRecordInfo.setTradingStatus(tradingStatus);
-			tradingRecordInfo.setTradingTime(tradingTime);
+			tradingRecordInfo.setTradingTime(sdf.format(tradingTime));
 			tradingRecordInfo.setTradingType(tradingType);
 			tradingRecordInfo.setUserName(userName);
 			tradingRecordInfoDao.save(tradingRecordInfo);

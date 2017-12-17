@@ -34,7 +34,13 @@ public class TradingRecordInfoPo {
 	private String tradingStatus;
 	
 	@Column (name="TRADING_TIME")
-	private Date tradingTime;
+	private String tradingTime;
+	
+	@Column(name="TRADING_AMT")
+	private int tradingAmt;
+	
+	@Column(name="TRADING_DESC")
+	private String tradingDesc;
 	
 	@Column (name="CREATED_DATE")
 	private Date createdDate;

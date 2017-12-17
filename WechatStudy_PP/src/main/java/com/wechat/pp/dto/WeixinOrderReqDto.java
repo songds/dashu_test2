@@ -14,6 +14,11 @@ import lombok.Data;
 @Data
 @XStreamAlias("xml")
 public class WeixinOrderReqDto {
+	
+	/**
+	 * 用户名
+	 */
+	private String userName;
 
 	/**
 	 * 应用ID
@@ -116,7 +121,7 @@ public class WeixinOrderReqDto {
 	@XStreamAlias("scene_info")
 	private String sceneInfo;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		WeixinOrderReqDto weixinOrderDto=new WeixinOrderReqDto();
 		XmlFriendlyReplacer xmlFriendlyReplacer=new XmlFriendlyReplacer("-_", "_");
 		StaxDriver staxDriver=new StaxDriver(xmlFriendlyReplacer);
@@ -124,5 +129,5 @@ public class WeixinOrderReqDto {
 		xStream.autodetectAnnotations(true);
 		String xml=xStream.toXML(weixinOrderDto);
 		System.out.println(xml);
-	}
+	}*/
 }

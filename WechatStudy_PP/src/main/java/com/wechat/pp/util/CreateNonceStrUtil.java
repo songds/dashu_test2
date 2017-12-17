@@ -6,33 +6,34 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.wechat.pp.dto.WeixinOrderReqDto;
 import com.wechat.pp.dto.WeixinPayDto;
 
 /**
- * 生成微信签名工具类
- * @author ex-songdeshun
+ * 生成微信随机数
+ * @author Administrator
  *
  */
-public class CreateSignUtil {
+public class CreateNonceStrUtil {
 
+	private static final String DATARANGE="abcdefghijklmnopqrstuvwxyz0123456789";
+	
+	private static final int LENGTH=6;
 	/**
-	 * 加工统一下单签名内容
+	 * 加工统一下随机数内容
 	 * @param weixinOrderReqDto
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static Map<String, Object> processSignContent(WeixinOrderReqDto weixinOrderReqDto) throws UnsupportedEncodingException{
+	public static Map<String, Object> processNonceStrContent(WeixinOrderReqDto weixinOrderReqDto) throws UnsupportedEncodingException{
 		Map<String, Object> parameter=new LinkedHashMap<String, Object>();
 		parameter.put("appid", weixinOrderReqDto.getAppId());
 		parameter.put("mch_id", weixinOrderReqDto.getMchId());
 		parameter.put("device_info", weixinOrderReqDto.getDeviceInfo());
-		parameter.put("nonce_str", weixinOrderReqDto.getNonceStr());
 		parameter.put("sign_type", weixinOrderReqDto.getSignType());
 		parameter.put("body", weixinOrderReqDto.getBody());
 		parameter.put("detail", weixinOrderReqDto.getDetail());
@@ -52,48 +53,56 @@ public class CreateSignUtil {
 	}
 	
 	/**
-	 * 加工支付签名内容
+	 * 加工支付随机数内容
 	 * @param weixinOrderReqDto
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static Map<String, Object> processSignContent(WeixinPayDto weixinPayDto) throws UnsupportedEncodingException{
+	public static Map<String, Object> processNonceStrContent(WeixinPayDto weixinPayDto) throws UnsupportedEncodingException{
 		Map<String, Object> parameter=new LinkedHashMap<String, Object>();
 		parameter.put("appid", weixinPayDto.getAppid());
 		parameter.put("partnerid", weixinPayDto.getPartnerid());
 		parameter.put("prepayid", weixinPayDto.getPrepayid());
 		parameter.put("package", weixinPayDto.getPackages());
-		parameter.put("noncestr", weixinPayDto.getNoncestr());
 		parameter.put("timestamp", weixinPayDto.getTimestamp());
 		return parameter;
 	}
-	
-	public static String createSign(Map<String, Object> parameter,String key) throws UnsupportedEncodingException {
+	/**
+	 * 
+	 * @param parameter  封装参数
+	 * @param key 微信秘钥
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String createNonceStr(Map<String, Object> parameter,String key) throws UnsupportedEncodingException {
 		Set<Map.Entry<String, Object>> se= parameter.entrySet();
 		Iterator<Map.Entry<String, Object>> it=se.iterator();
 		StringBuffer sb=new StringBuffer();
 		while (it.hasNext()) {
 			 Map.Entry<String, Object> entry = it.next();  
-	        String k =  entry.getKey().toString();  
-	        String v =  entry.getValue()!=null?entry.getValue().toString():null;
+	        String k = entry.getKey().toString();  
+	        String v =  entry.getValue()!=null?entry.getValue().toString():null;  
 	        //为空不参与签名、参数名区分大小写  
 	        if (null != v && !"".equals(v) && !"sign".equals(k)  
 	                && !"key".equals(k)) {  
 	            sb.append(k + "=" + v + "&");  
 	        }  
 		}
+		
 		sb.append("key="+key);
-		System.out.println(DigestUtils.md5DigestAsHex(sb.toString().getBytes("UTF-8")));
-		String sign=DigestUtils.md5DigestAsHex(sb.toString().getBytes("UTF-8")).toUpperCase();
-		return sign;
+		String nonceStr=RandomVerfCode.createVerfCode(DATARANGE, LENGTH);
+		if(!StringUtils.isEmpty(nonceStr)){
+			JSONObject nonceStrJson=JSONObject.parseObject(nonceStr);
+			if(!StringUtils.isEmpty(nonceStrJson.getString("code"))&&nonceStrJson.getString("code").equals("SUC000")){
+				String nonceStrCode=StringUtils.isEmpty(nonceStrJson.getString("verfCode"))?"qsystem":nonceStrJson.getString("verfCode");
+				sb.append("&nonceStrCode="+nonceStrCode);
+			}else{
+				sb.append("&nonceStrCode=qsystem");
+			}
+		}else{
+			sb.append("&nonceStrCode=qsystem");
+		}
+		String noncestr=DigestUtils.md5DigestAsHex(sb.toString().getBytes("UTF-8")).toUpperCase();
+		return noncestr;
 	};
-	/*public static void main(String[] args) throws UnsupportedEncodingException {
-		String xml="<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg><appid><![CDATA[wx2421b1c4370ec43b]]></appid><mch_id><![CDATA[10000100]]></mch_id><nonce_str><![CDATA[IITRi8Iabbblz1Jc]]></nonce_str><sign><![CDATA[7921E432F65EB8ED0CE9755F0E86D72F]]></sign><result_code><![CDATA[SUCCESS]]></result_code><prepay_id><![CDATA[wx201411101639507cbf6ffd8b0779950874]]></prepay_id><trade_type><![CDATA[APP]]></trade_type></xml>";
-		XStream xStream=new XStream(new StaxDriver());
-		xStream.autodetectAnnotations(true);
-		xStream.alias("xml", WeixinOrderReqDto.class);
-		WeixinOrderReqDto weixinOrderReqDto=(WeixinOrderReqDto) xStream.fromXML(xml);
-		System.out.println(JSONObject.toJSONString(weixinOrderReqDto));
-		System.out.println(createSign(CreateSignUtil.processSignContent(weixinOrderReqDto),"sssss"));
-	}*/
 }

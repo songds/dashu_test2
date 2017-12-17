@@ -18,3 +18,14 @@ spring.jpa:
   hibernate.ddl-auto: validate
   properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
   open-in-view: true
+
+sms.verf.dataRange: 0123456789
+sms.verf.length: 4
+sms.verf.validMinute: 10
+
+app.appid: 123
+weixin.app.key: 123
+weixin.notifyUrl: 
+weinxin.unifiedOrderUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
+weinxin.orderQueryUrl: https://api.mch.weixin.qq.com/pay/orderquery
+weinxin.closeOrderUrl: https://api.mch.weixin.qq.com/pay/closeorder

@@ -14,6 +14,7 @@ create table user_info(
         image_url varchar(100) COMMENT '图片路径',
         registration_date timestamp COMMENT '注册日期',
         balance_account Double COMMENT '账户余额',
+        created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
 	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
@@ -76,11 +77,13 @@ create table member_info(
 drop table trading_record_info;
 create table trading_record_info(
         id int COMMENT '编号',
-        user_name varchar(100) COMMENT '用户名',
-        trading_id varchar(150) COMMENT '交易编号',
-        trading_type varchar(150) COMMENT '交易类型',
-        trading_status varchar(150) COMMENT '交易状态',
-        trading_time timestamp COMMENT '交易时间',
+        user_name varchar(100) NOT NULL COMMENT '用户名',
+        trading_id varchar(32) NOT NULL COMMENT '交易编号',
+        trading_type varchar(150) NOT NULL COMMENT '交易类型',
+        trading_status varchar(150) NOT NULL COMMENT '交易状态',
+        trading_time varchar(20) NOT NULL COMMENT '交易完成时间',
+        trading_amt int NOT NULL COMMENT '交易金额',
+        trading_desc varchar(300) NOT NULL COMMENT '交易描述',
         created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
