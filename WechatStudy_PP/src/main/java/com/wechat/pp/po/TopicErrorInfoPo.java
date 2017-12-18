@@ -66,4 +66,9 @@ public class TopicErrorInfoPo extends BasePo{
 	@Column (name="ANLILIST",columnDefinition="text")
 	private String anliList;
 	
+	@Column (name="ANSWER_EXP",columnDefinition="text")
+	private String answerExp;
+	
+	@Column (name="IS_CORRECT_SELECT")
+	private String isCorrectSelect;
 }

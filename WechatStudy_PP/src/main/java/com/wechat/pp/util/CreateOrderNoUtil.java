@@ -17,8 +17,8 @@ public class CreateOrderNoUtil {
 		String nostr="Q"+time+randomStr;
 		return nostr;
 	}
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.println(System.currentTimeMillis()/1000);
-	}
+	}*/
 	
 }

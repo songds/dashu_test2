@@ -1,4 +1,16 @@
+drop table subject_curriculum_rel;
+drop table subject_section_rel;
+drop table curriculum_section_rel;
+drop table section_topic_rel;
+drop table free_topic_info;
+drop table topic_error_info;
+drop table topic_enshrine_info;
+drop table topic_status_info;
+drop table topic_select_info;
+drop table topic_info;
 drop table subject_info;
+drop table curriculum_info;
+drop table section_info;
 create table subject_info(
         subject_id int primary key AUTO_INCREMENT COMMENT '科目编号',
         subject_name varchar(100) COMMENT '科目名称',
@@ -12,7 +24,7 @@ create table subject_info(
 	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='科目信息表';
 
-drop table curriculum_info;
+
 create table curriculum_info(
         curriculum_id int primary key AUTO_INCREMENT COMMENT '课程编号',
         curriculum_name varchar(100) COMMENT '课程名称',
@@ -23,7 +35,7 @@ create table curriculum_info(
 )COMMENT='课程信息表';
 
 
-drop table section_info;
+
 create table section_info(
         section_id int primary key AUTO_INCREMENT COMMENT '章节编号',
         section_name varchar(100) COMMENT '章节名称',
@@ -36,7 +48,7 @@ create table section_info(
 )COMMENT='章节信息表';
 
 
-drop table topic_info;
+
 create table  topic_info(
         topic_id int primary key AUTO_INCREMENT COMMENT '题目编号',
         section_id INT NOT NULL  COMMENT '章节编号',
@@ -45,13 +57,15 @@ create table  topic_info(
         topice_type varchar(100) COMMENT '题目类型',
         anlitxt text COMMENT '题目案例文本',
         AnliList text COMMENT '题目案例列表',
+        answer_exp text COMMENT '题目答案解析',
+        is_correct_select varchar(100) COMMENT '是否正确选项',
         created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
 	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='题目信息表';
 
-drop table topic_select_info;
+
 create table topic_select_info(
         id int primary key AUTO_INCREMENT COMMENT '编号',
         topic_id int COMMENT '题目编号',
@@ -65,7 +79,7 @@ create table topic_select_info(
 )COMMENT='题目对应选项';
 
 
-drop table topic_status_info;
+
 create table topic_status_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
@@ -77,7 +91,7 @@ create table topic_status_info(
     updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='用户题目状态信息表';
 
-drop table topic_enshrine_info;
+
 create table topic_enshrine_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
@@ -88,13 +102,15 @@ create table topic_enshrine_info(
     topice_type varchar(100) COMMENT '题目类型',
     anlitxt text COMMENT '题目案例文本',
     AnliList text COMMENT '题目案例列表',
+    answer_exp text COMMENT '题目答案解析',
+    is_correct_select varchar(100) COMMENT '是否正确选项',
     created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
     created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
     updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
     updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='用户题目收藏信息表';
 
-drop table topic_error_info;
+
 create table topic_error_info(
 	id int primary key AUTO_INCREMENT COMMENT '编号',
 	user_name varchar(100) NOT NULL COMMENT '用户名',
@@ -105,32 +121,36 @@ create table topic_error_info(
     topice_type varchar(100) COMMENT '题目类型',
     anlitxt text COMMENT '题目案例文本',
     AnliList text COMMENT '题目案例列表',
+    answer_exp text COMMENT '题目答案解析',
+    is_correct_select varchar(100) COMMENT '是否正确选项',
     created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
     created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
     updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
     updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='用户题目错题记录表';
 
-drop table free_topic_info;
+
 create table  free_topic_info(
-		id int primary key AUTO_INCREMENT COMMENT '编号',
-        topic_id int COMMENT '题目编号',
-        subject_id INT NOT NULL  COMMENT '科目编号',
-        topic_name varchar(100) COMMENT '题目名称',
-        topic_content varchar(1000) COMMENT '题目内容',
-        topice_type varchar(100) COMMENT '题目类型',
-        anlitxt text COMMENT '题目案例文本',
-        AnliList text COMMENT '题目案例列表',
-    created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
-    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
-    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
+	id int primary key AUTO_INCREMENT COMMENT '编号',
+	topic_id int COMMENT '题目编号',
+	subject_id INT NOT NULL  COMMENT '科目编号',
+	topic_name varchar(100) COMMENT '题目名称',
+	topic_content varchar(1000) COMMENT '题目内容',
+	topice_type varchar(100) COMMENT '题目类型',
+	anlitxt text COMMENT '题目案例文本',
+	AnliList text COMMENT '题目案例列表',
+	answer_exp text COMMENT '题目答案解析',
+	is_correct_select varchar(100) COMMENT '是否正确选项',
+	created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
+	created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+	updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
+	updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='免费题目信息表';
 
 
 
 
-drop table subject_curriculum_rel;
+
 create table subject_curriculum_rel(
         id int primary key AUTO_INCREMENT COMMENT '编号',
         subject_id int COMMENT '科目编号',
@@ -140,7 +160,7 @@ create table subject_curriculum_rel(
     updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
     updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='科目课程关系表';
-drop table subject_section_rel;
+
 CREATE TABLE subject_section_rel (
         id INT NOT NULL AUTO_INCREMENT COMMENT '编号',
         section_id INT COMMENT '章节编号',
@@ -152,7 +172,6 @@ CREATE TABLE subject_section_rel (
         PRIMARY KEY (id)
 ) COMMENT='科目章节关系表';
 
-drop table curriculum_section_rel;
 create table curriculum_section_rel(
         id int primary key AUTO_INCREMENT COMMENT '编号',
         section_id int COMMENT '章节编号',
@@ -162,7 +181,7 @@ create table curriculum_section_rel(
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
 	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='课程章节关系表';
-drop table section_topic_rel;
+
 create table section_topic_rel(
         id int primary key AUTO_INCREMENT COMMENT '编号',
         section_id int COMMENT '章节编号',

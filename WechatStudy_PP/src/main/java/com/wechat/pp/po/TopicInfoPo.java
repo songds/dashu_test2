@@ -40,6 +40,12 @@ public class TopicInfoPo  extends BasePo{
 	@Column (name="ANLILIST",columnDefinition="text")
 	private String anliList;
 	
+	@Column (name="ANSWER_EXP",columnDefinition="text")
+	private String answerExp;
+	
+	@Column (name="IS_CORRECT_SELECT")
+	private String isCorrectSelect;
+	
 	@Column(name="SECTION_ID")
 	private int sectionId;
 	
