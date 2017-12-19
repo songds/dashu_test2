@@ -99,9 +99,12 @@ public class WeixinPayInfoPo extends BasePo{
 	@Column(name="TOTAL_FEE")
 	private int totalFee;
 	
-	@Column(name="trade_status")
+	@Column(name="TRADE_STATUS")
 	private String tradeStatus;
 	
-	@Column(name="body")
+	@Column(name="BODY")
 	private String body;
+	
+	@Column(name="ATTACH")
+	private String attach;
 }

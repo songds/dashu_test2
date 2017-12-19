@@ -85,9 +85,13 @@ public class WeixinPayService {
 	
 	@Resource
 	private TradingRecordInfoDao tradingRecordInfoDao;
+	
+	@Resource
+	private UserMemberRelationService userMemberRelationService;
 	/**
 	 * 微信统一下单接口
 	 * @param json
+	 * 附加数据/attach:userName/用户名#memberId/会员编号#memberType/会员类型#cardType/会员卡类型
 	 * @return
 	 */
 	public JSONObject payUnifiedOrder(String json){
@@ -120,6 +124,10 @@ public class WeixinPayService {
 				}else if(StringUtils.isEmpty(weixinOrderReqDto.getUserName())){
 					result.put("code", "F00009");
 					result.put("message", "微信下单失败,参数用户名不能为空!");
+					return result;
+				}else if(StringUtils.isEmpty(weixinOrderReqDto.getAttach())){
+					result.put("code", "F00010");
+					result.put("message", "微信下单失败,参数附加数据不能为空!");
 					return result;
 				}
 				String orderNo=CreateOrderNoUtil.createOrderNo();
@@ -188,6 +196,7 @@ public class WeixinPayService {
 							weixinPayInfo.setUpdatedBy(userName);
 							weixinPayInfo.setCreatedDate(currentDate);
 							weixinPayInfo.setUpdatedDate(currentDate);
+							weixinPayInfo.setAttach(weixinOrderReqDto.getAttach());
 							int weixinOrderId=weixinPayInfoDao.save(weixinPayInfo).getId();
 							StringBuffer sb=new StringBuffer();
 							sb.append("<xml>");
@@ -285,6 +294,18 @@ public class WeixinPayService {
 								tradingRecordInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
 								tradingRecordInfoDao.save(tradingRecordInfo);
 								log.info(" insert into tradingRecordInfo is table to message {} ", JSONObject.toJSONString(tradingRecordInfo));
+								String attach=weixinResult.get("attach");
+								if(!StringUtils.isEmpty(attach)){
+									String[] attachs=attach.split("#");
+									JSONObject memberJson=new JSONObject();
+									memberJson.put("userName", attachs[0]);
+									memberJson.put("memberId", attachs[1]);
+									memberJson.put("memberType", attachs[2]);
+									memberJson.put("cardType", attachs[3]);
+									log.info(" load   userMemberRelationService--->buyMember is parameter to message {} ",JSONObject.toJSONString(memberJson));
+									JSONObject memberResult=userMemberRelationService.buyMember(JSONObject.toJSONString(memberJson));
+									log.info(" load   userMemberRelationService--->buyMember is result to message {}",JSONObject.toJSONString(memberResult));
+								}
 								sb.append("<xml>");
 								sb.append("<return_code><![CDATA[SUCCESS]]></return_code>");
 								sb.append("<return_msg><![CDATA[OK]]></return_msg>");

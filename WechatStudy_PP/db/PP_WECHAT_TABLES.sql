@@ -21,7 +21,7 @@ create table weixin_order_ret(
 
 )comment='微信订单返回信息表';
 
-
+drop table weixin_pay_info;
 create table weixin_pay_info(
 	id INT PRIMARY KEY AUTO_INCREMENT COMMENT '编号',
 	appid VARCHAR(32) NOT NULL COMMENT '应用APPID',
@@ -38,6 +38,7 @@ create table weixin_pay_info(
 	trade_status VARCHAR(16) COMMENT '交易状态',
 	pay_type VARCHAR(16) NOT NULL COMMENT '支付类型',
 	out_trade_no varchar(32) NOT NULL COMMENT '商户订单号',
+	attach varchar(128) NOT NULL COMMENT '附件数据',
 	expiration_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预支付交易会话过期时间',
 	created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
     created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',

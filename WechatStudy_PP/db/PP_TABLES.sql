@@ -146,10 +146,12 @@ CREATE TABLE sys_config_tables(
 
 drop table user_member_relation;
 create table user_member_relation(
-        id int COMMENT '编号',
-        user_name varchar(100) COMMENT '用户名',
-        member_id int COMMENT '会员编号',
-        member_type varchar(100) COMMENT '会员类型',
+        id int primary key AUTO_INCREMENT COMMENT '编号',
+        user_name varchar(100) NOT NULL COMMENT '用户名',
+        member_id int NOT NULL COMMENT '会员编号',
+        member_type varchar(100) NOT NULL COMMENT '会员类型',
+        valid_start_time DATETIME NOT NULL COMMENT '有效开始时间',
+        valid_end_time DATETIME NOT NULL COMMENT '有效结束时间',
         created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',

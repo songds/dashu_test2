@@ -1,5 +1,7 @@
 package com.wechat.pp.po;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,4 +29,11 @@ public class UserMemberRelationPo extends BasePo{
 	private int memberId;
 	@Column(name="MEMBER_TYPE")
 	private String memberType;
+	
+	@Column(name="VALID_START_TIME")
+	private Date validStartTime;
+	
+	@Column(name="VALID_END_TIME")
+	private Date validEndTime;
+	
 }
