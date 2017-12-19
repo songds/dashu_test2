@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class UserMemberRelationService {
 	 * cardType {月卡/M,季卡/Q,年卡/Y}
 	 * @return
 	 */
+	@Transactional
 	public JSONObject buyMember(String json){
 		JSONObject result=new JSONObject();
 		try {
