@@ -3,6 +3,9 @@
 spring.application.name: WechatStudy_PP
 server.port: ${port:80}
 
+logging:
+  path: ${LOG_PATH:logs}
+
 spring.datasource: 
  # dev
  url: jdbc:mysql://localhost:3306/xjc?useUnicode=yes&characterEncoding=UTF8&useSSL=false
