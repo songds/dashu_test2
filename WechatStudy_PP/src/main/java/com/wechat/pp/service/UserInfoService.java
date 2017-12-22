@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.pp.dao.DeviceInfoDao;
@@ -37,42 +38,48 @@ public class UserInfoService {
 	private QqBoundInfoDao qqBoundInfoDao;
 	
 	@Resource
-	private SsmVerificationService ssmVerificationService;
+	private SMSService smsService;
 	
 	/**
 	 * 注册接口
 	 * @param json json格式字符串
-	 * {mobilePhone/手机号码,password/密码,authCode/验证码}
+	 * {mobileNo/手机号码,password/密码,verificationCode/验证码}
 	 */
 	public JSONObject register(String json){
 		JSONObject result=new JSONObject();
 		try {
 			JSONObject jsonParameter=JSONObject.parseObject(json);
-			String mobilePhone=jsonParameter.getString("mobilePhone");
+			String mobileNo=jsonParameter.getString("mobileNo");
 			String password=jsonParameter.getString("password");
-			String authCode=jsonParameter.getString("authCode");
+			JSONObject smsVerResult=smsService.SMSVerificationCode(json);
+			log.info(" interface register-->SMSVerificationCode to result message {}",smsVerResult);
 			//String ipAddr=jsonParameter.getString("ipAddr");
-			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobilePhone);
-			if(userInfo!=null){
-				result.put("code", "F00002");
-				result.put("message", "注册失败，该手机号已使用，请重新输入！");
+			if(!smsVerResult.getString("code").equals("SUC000")){
+				return smsVerResult;
 			}else{
-				userInfo=new UserInfoPo();
-				String userName="Q"+System.currentTimeMillis();
-				userInfo.setMobile(mobilePhone);
-				userInfo.setPassword(MD5Encoder.encode(password.getBytes()));
-				userInfo.setCreatedBy(userName);
-				userInfo.setUserName(userName);
-				userInfo.setRegistrationDate(new Date(System.currentTimeMillis()));
-				userInfo.setUpdatedBy(userName);
-				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-				userInfoDao.save(userInfo);
-				result.put("code", "SUC000");
-				result.put("message", "注册成功！");
+				UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobileNo);
+				if(userInfo!=null){
+					result.put("code", "F00002");
+					result.put("message", "注册失败，该手机号已使用，请重新输入！");
+				}else{
+					userInfo=new UserInfoPo();
+					String userName="Q"+System.currentTimeMillis();
+					userInfo.setMobile(mobileNo);
+					userInfo.setPassword(DigestUtils.md5DigestAsHex(password.getBytes("UTF-8")));
+					userInfo.setCreatedBy(userName);
+					userInfo.setUserName(userName);
+					userInfo.setRegistrationDate(new Date(System.currentTimeMillis()));
+					userInfo.setUpdatedBy(userName);
+					userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+					userInfoDao.save(userInfo);
+					result.put("code", "SUC000");
+					result.put("message", "注册成功！");
+				}
 			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 			result.put("code", "F00001");
 			result.put("message", "注册异常，请您联系客服！");
 		}
@@ -83,21 +90,19 @@ public class UserInfoService {
 	/**
 	 * 修改密码
 	 * @param json json格式字符串
-	 * {mobilePhone/手机号码,password/密码,authCode/验证码}
+	 * {mobileNo/手机号码,password/密码}
 	 */
 	public JSONObject updatePassword(String json){
 		JSONObject result=new JSONObject();
 		try {
 			JSONObject jsonParameter=JSONObject.parseObject(json);
-			String mobilePhone=jsonParameter.getString("mobilePhone");
+			String mobileNo=jsonParameter.getString("mobileNo");
 			String password=jsonParameter.getString("password");
-			String authCode=jsonParameter.getString("authCode");
-			//String ipAddr=jsonParameter.getString("ipAddr");
-			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobilePhone);
+			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobileNo);
 			if(userInfo!=null){
 				userInfo=new UserInfoPo();
-				userInfo.setMobile(mobilePhone);
-				userInfo.setPassword(MD5Encoder.encode(password.getBytes()));
+				userInfo.setMobile(mobileNo);
+				userInfo.setPassword(DigestUtils.md5DigestAsHex(password.getBytes("UTF-8")));
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
 				userInfoDao.save(userInfo);
 				result.put("code", "SUC000");
@@ -142,7 +147,7 @@ public class UserInfoService {
 	/**
 	 * 手机号码登陆接口
 	 * 	@param json
-	 *  {mobilePhone/手机号码
+	 *  {mobileNo/手机号码
 	 *  password/密码
 	 * 	deviceNumber/设备号
 	 * 	ipAddr/IP地址
@@ -152,11 +157,11 @@ public class UserInfoService {
 		JSONObject result=new JSONObject();
 		try {
 			JSONObject jsonParameter=JSONObject.parseObject(json);
-			String mobilePhone=jsonParameter.getString("mobilePhone");
+			String mobileNo=jsonParameter.getString("mobileNo");
 			String password=jsonParameter.getString("password");
 			String deviceNumber=jsonParameter.getString("deviceNumber");
 			//String ipAddr=jsonParameter.getString("ipAddr");
-			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobilePhone);
+			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobileNo);
 			if(userInfo!=null){
 				if(userInfo.getPassword().equals(password)){
 					DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(userInfo.getUserName());

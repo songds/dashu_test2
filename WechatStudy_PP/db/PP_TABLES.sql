@@ -1,6 +1,6 @@
 drop table user_info;
 create table user_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT COMMENT '编号',
         name varchar(100) COMMENT '姓名',
         nickname varchar(100) COMMENT '昵称',
         sex varchar(100) COMMENT '性别',
@@ -23,7 +23,7 @@ create table user_info(
 
 drop table weixin_Bound_info;
 create table weixin_Bound_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT COMMENT '编号',
         weixin_id varchar(100) COMMENT '微信好',
         open_Id varchar(100) COMMENT '微信OPENID',
         user_name varchar(100) COMMENT '用户名',
@@ -38,7 +38,7 @@ create table weixin_Bound_info(
 
 drop table QQ_Bound_info;
 create table QQ_Bound_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         qq_id varchar(100) COMMENT 'QQ号',
         open_Id varchar(100) COMMENT 'QQOPENID',
         user_name varchar(100) COMMENT '用户名',
@@ -53,7 +53,7 @@ create table QQ_Bound_info(
 
 drop table login_log_info;
 create table login_log_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         user_name varchar(100) COMMENT '用户名',
         to_ken varchar(100) COMMENT 'toKen',
         device_number varchar(100) COMMENT '设备号',
@@ -66,7 +66,7 @@ create table login_log_info(
 
 drop table member_info;
 create table member_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         member_name varchar(100) COMMENT '会员名称',
         created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
@@ -76,7 +76,7 @@ create table member_info(
 
 drop table trading_record_info;
 create table trading_record_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         user_name varchar(100) NOT NULL COMMENT '用户名',
         trading_id varchar(32) NOT NULL COMMENT '交易编号',
         trading_type varchar(150) NOT NULL COMMENT '交易类型',
@@ -93,7 +93,7 @@ create table trading_record_info(
 
 drop table photo_sheet_info;
 create table photo_sheet_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         user_name varchar(100) COMMENT '用户名',
         Photo_number int COMMENT '拍照次数',
         photo_status varchar(100) COMMENT '拍照状态',
@@ -105,7 +105,7 @@ create table photo_sheet_info(
 
 drop table enum_info;
 create table enum_info(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         code_type varchar(100) COMMENT '代码类型',
         code_desc varchar(100) COMMENT '代码描述',
         code_id varchar(100) COMMENT '代码编号',
@@ -130,7 +130,7 @@ create table device_info(
 
 drop table sys_config_tables;
 CREATE TABLE sys_config_tables(
-        id int COMMENT '编号',
+        id int primary key AUTO_INCREMENT  COMMENT '编号',
         table_name varchar(150) COMMENT '表名',
         column_name varchar(150) COMMENT '表字段',
         column_desc varchar(150) COMMENT '表字段描述',
@@ -161,7 +161,7 @@ create table user_member_relation(
 
 drop table member_price_info;
 create table member_price_info(
-	id int COMMENT '编号',
+	id int primary key AUTO_INCREMENT  COMMENT '编号',
 	member_id int COMMENT '会员编号',
 	card_type varchar(100) COMMENT '卡类型',
 	card_type_desc varchar(100) COMMENT '卡类型描述',
@@ -174,7 +174,7 @@ create table member_price_info(
 
 
 
-
+drop table SMS_INFO;
 CREATE TABLE SMS_INFO(
         id int primary key AUTO_INCREMENT,
         Mobile_NO varchar(36) NOT NULL COMMENT '手机号码',

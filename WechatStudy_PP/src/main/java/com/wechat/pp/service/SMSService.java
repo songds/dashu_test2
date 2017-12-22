@@ -135,11 +135,11 @@ public class SMSService {
 				JSONObject jsonParameter=JSONObject.parseObject(json);
 				if(StringUtils.isEmpty(jsonParameter.getString("mobileNo"))){
 					result.put("code","F00004");
-					result.put("message","发送验证码失败,参数手机号码不能为空值!");
+					result.put("message","短信验证失败,参数手机号码不能为空值!");
 					return result;
 				}else if(StringUtils.isEmpty(jsonParameter.getString("verificationCode"))){
 					result.put("code","F00006");
-					result.put("message","发送验证码失败,参数验证码不能为空值!");
+					result.put("message","短信验证失败,参数验证码不能为空值!");
 					return result;
 				}
 				String mobileNo=jsonParameter.getString("mobileNo");
