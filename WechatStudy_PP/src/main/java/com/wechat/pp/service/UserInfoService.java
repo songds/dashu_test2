@@ -1,6 +1,8 @@
 package com.wechat.pp.service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -68,6 +70,7 @@ public class UserInfoService {
 					userInfo.setPassword(DigestUtils.md5DigestAsHex(password.getBytes("UTF-8")));
 					userInfo.setCreatedBy(userName);
 					userInfo.setUserName(userName);
+					userInfo.setUserStatus("1");
 					userInfo.setRegistrationDate(new Date(System.currentTimeMillis()));
 					userInfo.setUpdatedBy(userName);
 					userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
@@ -163,7 +166,7 @@ public class UserInfoService {
 			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobileNo);
 			if(userInfo!=null){
 				if(userInfo.getPassword().equals(password)){
-					DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(userInfo.getUserName());
+					DeviceInfoPo deviceInfo=deviceInfoDao.getByUserNameAndDeviceStatus(userInfo.getUserName(),"0");
 					if(deviceInfo!=null){
 						if(StringUtils.isEmpty(deviceInfo.getDeviceNumber())||deviceInfo.getDeviceNumber().equals(deviceNumber)){
 							String token=MD5Encoder.encode(("Q"+System.currentTimeMillis()).getBytes());
@@ -175,11 +178,13 @@ public class UserInfoService {
 						}else{
 							result.put("code", "SUC001");
 							result.put("message", "登陆异常，设备号异常！");
+							result.put("data", userInfo);
 						}
 					}else{
 						String token=MD5Encoder.encode(("Q"+System.currentTimeMillis()).getBytes());
 						 deviceInfo=new DeviceInfoPo();
 						 deviceInfo.setUserName(userInfo.getUserName());
+						 deviceInfo.setDeviceStatus("0");
 						 deviceInfo.setToken(token);
 						 deviceInfo.setDeviceNumber(deviceNumber);
 						 deviceInfo.setIpAddr(jsonParameter.getString("ipAddr"));
@@ -451,7 +456,7 @@ public class UserInfoService {
 	
 	/**
 	 * 用户解锁,需要短信验证
-	 * {userName/用户名}
+	 * {userName/用户名,deviceNumber/设备号,ipAddr/IP地址}
 	 * @param json
 	 * @return
 	 */
@@ -460,16 +465,46 @@ public class UserInfoService {
 		try {
 			JSONObject jsonParameter=JSONObject.parseObject(json);
 			String userName=jsonParameter.getString("userName");
-			//缺判断用户解锁次数方法
+			String deviceNumber=jsonParameter.getString("deviceNumber");
+			String ipAddr=jsonParameter.getString("ipAddr");
 			UserInfoPo userInfo=userInfoDao.isUserExistByUserName(userName);
 			if(userInfo!=null){
-				userInfo.setUserStatus("1");
-				userInfo.setUpdatedBy(userName);
-				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-				userInfoDao.save(userInfo);
-				result.put("code", "SUC000");
-				result.put("message", "用户解锁成功");
-				return result;
+				Calendar calendar=Calendar.getInstance();
+		        int maxDay=calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		        calendar.set(Calendar.DAY_OF_MONTH, maxDay);
+		        calendar.set(Calendar.HOUR_OF_DAY, 23);
+		        calendar.set(Calendar.MINUTE, 59);
+		        calendar.set(Calendar.SECOND, 59);
+		        Date maxDt=calendar.getTime();
+		        calendar.set(Calendar.DAY_OF_MONTH, 1);
+		        calendar.set(Calendar.HOUR_OF_DAY, 00);
+		        calendar.set(Calendar.MINUTE, 00);
+		        calendar.set(Calendar.SECOND, 00);
+		        Date minDt=calendar.getTime();
+		        List<DeviceInfoPo> deviceInfos= deviceInfoDao.findByUserNameAndMinDtAndMaxDt(userName, minDt, maxDt);
+		        //判断用户解锁次数方法
+				if(deviceInfos.size()>3){
+					result.put("code", "SUC001");
+					result.put("message", "用户解锁失败,您的账户解锁次数超限,请您下个月在进行解锁或者联系客服!");
+					return result;
+				}else{
+					DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(userName);
+					deviceInfo.setDeviceStatus("1");
+					deviceInfo.setUpdatedBy(userName);
+					deviceInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+					deviceInfoDao.save(deviceInfo);
+					deviceInfo=new DeviceInfoPo();
+					deviceInfo.setDeviceStatus("0");
+					String token=MD5Encoder.encode(("Q"+System.currentTimeMillis()).getBytes());
+					deviceInfo.setDeviceNumber(deviceNumber);
+					deviceInfo.setIpAddr(ipAddr);
+					deviceInfo.setToken(token);
+					deviceInfoDao.save(deviceInfo);
+					result.put("code", "SUC000");
+					result.put("message", "用户解锁成功");
+					result.put("token", token);
+					return result;
+				}
 			}else{
 				result.put("code", "F00002");
 				result.put("message", "用户解锁失败,用户不存在，请您联系客服！");

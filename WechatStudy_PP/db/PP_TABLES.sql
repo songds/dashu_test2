@@ -118,9 +118,11 @@ create table enum_info(
 
 drop table device_info;
 create table device_info(
-        user_name varchar(100),
+		id int primary key AUTO_INCREMENT  COMMENT '编号',
+        user_name varchar(100)  COMMENT '用户名',
         to_ken varchar(100) COMMENT 'toKen',
         device_number varchar(100) COMMENT '设备号',
+        device_status varchar(2) COMMENT '设备状态',
         IP_addr varchar(100) COMMENT 'IP地址',
         created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
