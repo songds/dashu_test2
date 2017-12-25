@@ -25,7 +25,12 @@ public class BasePo {
 	}
 
 	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
+		if(updatedDate!=null){
+			this.updatedDate = updatedDate;
+		}else{
+			this.updatedDate = new Date(System.currentTimeMillis());
+		}
+		
 	}
 
 	public String getCreatedBy() {
@@ -49,7 +54,11 @@ public class BasePo {
 	}
 
 	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+		if(createdDate!=null){
+			this.createdDate = createdDate;
+		}else{
+			this.createdDate = new Date(System.currentTimeMillis());
+		}
 	}
 	
 	

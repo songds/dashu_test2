@@ -100,10 +100,9 @@ public class UserInfoService {
 			String password=jsonParameter.getString("password");
 			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobileNo);
 			if(userInfo!=null){
-				userInfo=new UserInfoPo();
-				userInfo.setMobile(mobileNo);
 				userInfo.setPassword(DigestUtils.md5DigestAsHex(password.getBytes("UTF-8")));
 				userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+				userInfo.setUpdatedBy(userInfo.getUserName());
 				userInfoDao.save(userInfo);
 				result.put("code", "SUC000");
 				result.put("message", "修改密码成功！");
