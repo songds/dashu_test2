@@ -6,6 +6,10 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -113,9 +117,21 @@ public class SubjectInfoService {
 			return result;
 		}else{
 			String subjectName=jsonParameter.getString("subjectName");
-			Sort sort=new Sort(Direction.ASC, "id");
+			int page=jsonParameter.getIntValue("page");
+			int size=jsonParameter.getIntValue("size");
+			int startSize=(page-1)*size;
+			/*Sort sort=new Sort(Direction.ASC, "id");
 			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
-			List<SubjectInfoPo> SubjectInfos=subjectInfoDao.findLikeBySubjectName("'%"+subjectName+"%'",pageable);
+			ExampleMatcher matcher=ExampleMatcher.matching()
+					
+					.withMatcher("subjectName", GenericPropertyMatchers.contains())
+					.withIgnorePaths("subjectId")
+					.withIgnorePaths("parentSubjectId")
+					.withIgnoreNullValues();
+			SubjectInfoPo subjectInfoPo=new SubjectInfoPo();
+			subjectInfoPo.setSubjectName(subjectName);
+			Example<SubjectInfoPo> example=Example.of(subjectInfoPo, matcher);*/
+			List<SubjectInfoPo> SubjectInfos=subjectInfoDao.findAllBySubjectName(subjectName,startSize,size);
 			result.put("code", "SUC000");
 			result.put("message", "成功");
 			result.put("data", SubjectInfos);
