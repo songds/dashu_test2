@@ -137,12 +137,12 @@ public class TopicInfoService {
 			return result;
 		}else{
 			String topicName=jsonParameter.getString("topicName");
-			Sort sort=new Sort(Direction.ASC, "id");
-			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
-			Page<TopicInfoPo> topicInfos=topicInfoDao.findByTopicNameLike(topicName,pageable);
+			Sort sort=new Sort(Direction.ASC, "topicId");
+			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page")-1, jsonParameter.getIntValue("size"),sort);
+			Page<TopicInfoPo> topicInfos=topicInfoDao.findByTopicNameContaining(topicName,pageable);
 			result.put("code", "SUC000");
 			result.put("message", "成功");
-			result.put("data", topicInfos);
+			result.put("data", topicInfos.getContent());
 			return result;
 		}
 	}

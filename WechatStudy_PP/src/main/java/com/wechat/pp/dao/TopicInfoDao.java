@@ -23,7 +23,8 @@ public interface TopicInfoDao extends JpaRepository<TopicInfoPo, Integer>{
 					+ " where T1.section_Id=?1 and T2.id is null ",nativeQuery=true)
 	public int countByUserNameNotTopic(int sectionId,String userName);
 	
-	public Page<TopicInfoPo> findByTopicNameLike(String topicName,Pageable pageable);
+	public Page<TopicInfoPo> findByTopicNameContaining(String topicName,Pageable pageable);
+	
 	
 	@Query(value="SELECT count(T1.topic_id) FROM topic_info T1"
 			+ " inner join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2"

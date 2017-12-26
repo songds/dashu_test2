@@ -3,14 +3,27 @@ package com.wechat.pp.po;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
+@MappedSuperclass
 public class BasePo {
 
 	@Column (name="CREATED_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createdDate;
 	
 	@Column (name="UPDATED_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@UpdateTimestamp
 	private Date updatedDate;
 	
 	@Column (name="CREATED_BY")
