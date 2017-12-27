@@ -188,6 +188,8 @@ public class UserInfoService {
 						 deviceInfo.setToken(token);
 						 deviceInfo.setDeviceNumber(deviceNumber);
 						 deviceInfo.setIpAddr(jsonParameter.getString("ipAddr"));
+						 deviceInfo.setCreatedBy(userInfo.getUserName());
+						 deviceInfo.setCreatedBy(userInfo.getUserName());
 						deviceInfoDao.save(deviceInfo);
 						result.put("code", "SUC000");
 						result.put("message", "成功");
@@ -239,6 +241,9 @@ public class UserInfoService {
 					DeviceInfoPo deviceInfoPo=new DeviceInfoPo();
 					deviceInfoPo.setUserName(weixinBound.getUserName());
 					deviceInfoPo.setToken(token);
+					deviceInfoPo.setDeviceStatus("0");
+					deviceInfoPo.setCreatedBy(weixinBound.getUserName());
+					deviceInfoPo.setCreatedBy(weixinBound.getUserName());
 					deviceInfoDao.save(deviceInfoPo);
 					result.put("code", "SUC000");
 					result.put("message", "成功");
@@ -270,6 +275,9 @@ public class UserInfoService {
 				DeviceInfoPo deviceInfoPo=new DeviceInfoPo();
 				deviceInfoPo.setUserName(userName);
 				deviceInfoPo.setToken(token);
+				deviceInfoPo.setDeviceStatus("0");
+				deviceInfoPo.setCreatedBy(userName);
+				deviceInfoPo.setCreatedBy(userName);
 				deviceInfoDao.save(deviceInfoPo);
 				result.put("code", "SUC000");
 				result.put("message", "成功");
@@ -314,6 +322,9 @@ public class UserInfoService {
 					DeviceInfoPo deviceInfoPo=new DeviceInfoPo();
 					deviceInfoPo.setUserName(qqBoundInfo.getUserName());
 					deviceInfoPo.setToken(token);
+					deviceInfoPo.setDeviceStatus("0");
+					deviceInfoPo.setCreatedBy(qqBoundInfo.getUserName());
+					deviceInfoPo.setCreatedBy(qqBoundInfo.getUserName());
 					deviceInfoDao.save(deviceInfoPo);
 					result.put("code", "SUC000");
 					result.put("message", "成功");
@@ -345,6 +356,9 @@ public class UserInfoService {
 				DeviceInfoPo deviceInfoPo=new DeviceInfoPo();
 				deviceInfoPo.setUserName(userName);
 				deviceInfoPo.setToken(token);
+				deviceInfoPo.setDeviceStatus("0");
+				deviceInfoPo.setCreatedBy(userName);
+				deviceInfoPo.setCreatedBy(userName);
 				deviceInfoDao.save(deviceInfoPo);
 				result.put("code", "SUC000");
 				result.put("message", "成功");
