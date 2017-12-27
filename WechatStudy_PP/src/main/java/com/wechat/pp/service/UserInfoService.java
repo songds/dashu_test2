@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.security.MD5Encoder;
@@ -155,6 +156,7 @@ public class UserInfoService {
 	 * 	ipAddr/IP地址
 	 * }
 	 */
+	@Transactional
 	public JSONObject mobilePhonelogin(String json){
 		JSONObject result=new JSONObject();
 		try {
@@ -164,13 +166,17 @@ public class UserInfoService {
 			String deviceNumber=jsonParameter.getString("deviceNumber");
 			//String ipAddr=jsonParameter.getString("ipAddr");
 			UserInfoPo userInfo=userInfoDao.isUserExistByMobile(mobileNo);
+			String tokenValue="Q"+System.currentTimeMillis();
 			if(userInfo!=null){
 				if(userInfo.getPassword().equals(password)){
 					DeviceInfoPo deviceInfo=deviceInfoDao.getByUserNameAndDeviceStatus(userInfo.getUserName(),"0");
 					if(deviceInfo!=null){
 						if(StringUtils.isEmpty(deviceInfo.getDeviceNumber())||deviceInfo.getDeviceNumber().equals(deviceNumber)){
-							String token=MD5Encoder.encode(("Q"+System.currentTimeMillis()).getBytes());
-							deviceInfoDao.updateByUserNameAndToken(userInfo.getUserName(), token);
+							String token=DigestUtils.md5DigestAsHex(tokenValue.getBytes("UTF-8"));
+							deviceInfo.setToken(token);
+							deviceInfo.setUpdatedBy(userInfo.getUserName());
+							deviceInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+							deviceInfoDao.save(deviceInfo);
 							result.put("code", "SUC000");
 							result.put("message", "成功");
 							result.put("data", userInfo);
@@ -181,7 +187,7 @@ public class UserInfoService {
 							result.put("data", userInfo);
 						}
 					}else{
-						String token=MD5Encoder.encode(("Q"+System.currentTimeMillis()).getBytes());
+						 String token=DigestUtils.md5DigestAsHex(tokenValue.getBytes("UTF-8"));
 						 deviceInfo=new DeviceInfoPo();
 						 deviceInfo.setUserName(userInfo.getUserName());
 						 deviceInfo.setDeviceStatus("0");
@@ -220,6 +226,7 @@ public class UserInfoService {
 	 * @param json json格式的字段串
 	 * {openId,unionId,token,weixinImageUrl,weixinName,weixinId}
 	 */
+	@Transactional
 	public JSONObject weixinLogin(String json){
 		JSONObject result=new JSONObject();
 		try {
@@ -232,7 +239,10 @@ public class UserInfoService {
 			if(weixinBound!=null){
 				DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(weixinBound.getUserName());
 				if(deviceInfo!=null){
-					deviceInfoDao.updateByUserNameAndToken(weixinBound.getUserName(), token);
+					deviceInfo.setToken(token);
+					deviceInfo.setUpdatedBy(weixinBound.getUserName());
+					deviceInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+					deviceInfoDao.save(deviceInfo);
 					result.put("code", "SUC000");
 					result.put("message", "成功");
 					result.put("data", weixinBound);
@@ -300,6 +310,7 @@ public class UserInfoService {
 	 * @param json json格式的字段串
 	 * {openId,unionId,token,qqId,qqName,qqImageUrl}
 	 */
+	@Transactional
 	public JSONObject qqLogin(String json){
 		 
 		JSONObject result=new JSONObject();
@@ -313,7 +324,10 @@ public class UserInfoService {
 			if(qqBoundInfo!=null){
 				DeviceInfoPo deviceInfo=deviceInfoDao.getByUserName(qqBoundInfo.getUserName());
 				if(deviceInfo!=null){
-					deviceInfoDao.updateByUserNameAndToken(qqBoundInfo.getUserName(), token);
+					deviceInfo.setToken(token);
+					deviceInfo.setUpdatedBy(qqBoundInfo.getUserName());
+					deviceInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+					deviceInfoDao.save(deviceInfo);
 					result.put("code", "SUC000");
 					result.put("message", "成功");
 					result.put("data", qqBoundInfo);
