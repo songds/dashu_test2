@@ -189,7 +189,7 @@ public class UserInfoService {
 						 deviceInfo.setDeviceNumber(deviceNumber);
 						 deviceInfo.setIpAddr(jsonParameter.getString("ipAddr"));
 						 deviceInfo.setCreatedBy(userInfo.getUserName());
-						 deviceInfo.setCreatedBy(userInfo.getUserName());
+						 deviceInfo.setUpdatedBy(userInfo.getUserName());
 						deviceInfoDao.save(deviceInfo);
 						result.put("code", "SUC000");
 						result.put("message", "成功");
@@ -243,7 +243,7 @@ public class UserInfoService {
 					deviceInfoPo.setToken(token);
 					deviceInfoPo.setDeviceStatus("0");
 					deviceInfoPo.setCreatedBy(weixinBound.getUserName());
-					deviceInfoPo.setCreatedBy(weixinBound.getUserName());
+					deviceInfoPo.setUpdatedBy(weixinBound.getUserName());
 					deviceInfoDao.save(deviceInfoPo);
 					result.put("code", "SUC000");
 					result.put("message", "成功");
@@ -277,7 +277,7 @@ public class UserInfoService {
 				deviceInfoPo.setToken(token);
 				deviceInfoPo.setDeviceStatus("0");
 				deviceInfoPo.setCreatedBy(userName);
-				deviceInfoPo.setCreatedBy(userName);
+				deviceInfoPo.setUpdatedBy(userName);
 				deviceInfoDao.save(deviceInfoPo);
 				result.put("code", "SUC000");
 				result.put("message", "成功");
