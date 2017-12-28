@@ -520,6 +520,7 @@ public class UserInfoService {
 					deviceInfo.setDeviceStatus("1");
 					deviceInfo.setUpdatedBy(userName);
 					deviceInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+					deviceInfo.setCreatedBy(userName);
 					deviceInfoDao.save(deviceInfo);
 					deviceInfo=new DeviceInfoPo();
 					deviceInfo.setDeviceStatus("0");
@@ -527,6 +528,8 @@ public class UserInfoService {
 					deviceInfo.setDeviceNumber(deviceNumber);
 					deviceInfo.setIpAddr(ipAddr);
 					deviceInfo.setToken(token);
+					deviceInfo.setCreatedBy(userName);
+					deviceInfo.setUpdatedBy(userName);
 					deviceInfoDao.save(deviceInfo);
 					result.put("code", "SUC000");
 					result.put("message", "用户解锁成功");
