@@ -55,17 +55,26 @@ public class TopicInfoService {
 		}else{
 			int sectionId=jsonParameter.getIntValue("sectionId");
 			String userName=jsonParameter.getString("userName");
+			String topicType=jsonParameter.getString("topicType");
 			int size=jsonParameter.getIntValue("size");
 			int page=jsonParameter.getIntValue("page");
 			int startSize=(page-1)*size;
 			//Sort sort=new Sort(Direction.ASC, "id");
 			//Pageable pageable=new PageRequest(jsonParameter.getIntValue("page"), jsonParameter.getIntValue("size"),sort);
 			//int count=topicInfoDao.countByUserNameNotTopic(sectionId, userName);
-			List<TopicInfoPo> topicInfos=topicInfoDao.findBySectionId(sectionId,userName,startSize,size);
 			List<TopicInfoPo> results=new ArrayList<TopicInfoPo>();
-			for (TopicInfoPo topicInfoPo : topicInfos) {
-				topicInfoPo.setTopiceSelectInfos(topicSelectInfoDao.findByTopicId(topicInfoPo.getTopicId()));
-				results.add(topicInfoPo);
+			if(topicType!=null&&!topicType.equals("ALL")){
+				List<TopicInfoPo> topicInfos=topicInfoDao.findBySectionId(sectionId,userName,topicType,startSize,size);
+				for (TopicInfoPo topicInfoPo : topicInfos) {
+					topicInfoPo.setTopiceSelectInfos(topicSelectInfoDao.findByTopicId(topicInfoPo.getTopicId()));
+					results.add(topicInfoPo);
+				}
+			}else{
+				List<TopicInfoPo> topicInfos=topicInfoDao.findBySectionId(sectionId,userName,startSize,size);
+				for (TopicInfoPo topicInfoPo : topicInfos) {
+					topicInfoPo.setTopiceSelectInfos(topicSelectInfoDao.findByTopicId(topicInfoPo.getTopicId()));
+					results.add(topicInfoPo);
+				}
 			}
 			result.put("code", "SUC000");
 			result.put("message", "成功");

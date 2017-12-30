@@ -18,6 +18,12 @@ public interface TopicInfoDao extends JpaRepository<TopicInfoPo, Integer>{
 	//public Page<TopicInfoPo> findBySectionId(int sectionId,String userName,Pageable pageable);
 	public List<TopicInfoPo> findBySectionId(int sectionId,String userName,int startSize,int pageSize);
 	
+	@Query(value="SELECT T1.* FROM topic_info T1"
+			+ " left join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2 "
+			+ " where T1.section_Id=?1 and T1.topice_type=?3 and T2.id is null order by T1.topic_id limit ?4,?5 ",nativeQuery=true)
+	//public Page<TopicInfoPo> findBySectionId(int sectionId,String userName,Pageable pageable);
+	public List<TopicInfoPo> findBySectionId(int sectionId,String userName,String topicType,int startSize,int pageSize);
+	
 	@Query(value="SELECT count(T1.topic_id) FROM topic_info T1"
 					+ " left join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2 "
 					+ " where T1.section_Id=?1 and T2.id is null ",nativeQuery=true)

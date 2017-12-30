@@ -30,5 +30,6 @@ public class SectionInfoPo extends BasePo{
 	@Column (name="IS_LEAF_SECTION") 
 	private String isLeafSection;
 	
-	
+	@Column(name="TOPIC_COUNT")
+	private int topicCount;
 }

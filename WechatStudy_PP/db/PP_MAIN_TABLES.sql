@@ -41,6 +41,7 @@ create table section_info(
         section_name varchar(100) COMMENT '章节名称',
         parent_section_id int COMMENT '父章节编号',
         is_leaf_section varchar(100) COMMENT '是否叶子章节',
+        topic_count int DEFAULT 0 COMMENT '题目数量',
         created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
 	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
