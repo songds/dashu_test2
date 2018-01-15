@@ -31,6 +31,7 @@ public interface TopicInfoDao extends JpaRepository<TopicInfoPo, Integer>{
 	
 	public Page<TopicInfoPo> findByTopicNameContaining(String topicName,Pageable pageable);
 	
+	public Page<TopicInfoPo> findByTopicContentContaining(String topicContent,Pageable pageable);
 	
 	@Query(value="SELECT count(T1.topic_id) FROM topic_info T1"
 			+ " inner join topic_status_info T2 on T1.topic_id = T2.topic_id and T2.user_name=?2"

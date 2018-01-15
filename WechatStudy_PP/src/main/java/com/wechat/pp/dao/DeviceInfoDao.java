@@ -12,6 +12,7 @@ import com.wechat.pp.po.DeviceInfoPo;
 
 public interface DeviceInfoDao extends JpaRepository<DeviceInfoPo, String>{
 
+	@Query("from DeviceInfoPo where userName=?1 and deviceStatus='0' ")
 	public DeviceInfoPo getByUserName(String userName);
 	
 	public DeviceInfoPo getByUserNameAndDeviceStatus(String userName,String deviceStatus);

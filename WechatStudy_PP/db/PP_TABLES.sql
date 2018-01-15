@@ -55,7 +55,7 @@ drop table login_log_info;
 create table login_log_info(
         id int primary key AUTO_INCREMENT  COMMENT '编号',
         user_name varchar(100) COMMENT '用户名',
-        to_ken varchar(100) COMMENT 'toKen',
+        to_ken varchar(200) COMMENT 'toKen',
         device_number varchar(100) COMMENT '设备号',
         IP_addr varchar(100) COMMENT 'IP地址',
         login_status varchar(100) COMMENT '登陆状态',
@@ -120,7 +120,7 @@ drop table device_info;
 create table device_info(
 		id int primary key AUTO_INCREMENT  COMMENT '编号',
         user_name varchar(100)  COMMENT '用户名',
-        to_ken varchar(100) COMMENT 'toKen',
+        to_ken varchar(200) COMMENT 'toKen',
         device_number varchar(100) COMMENT '设备号',
         device_status varchar(2) COMMENT '设备状态',
         IP_addr varchar(100) COMMENT 'IP地址',

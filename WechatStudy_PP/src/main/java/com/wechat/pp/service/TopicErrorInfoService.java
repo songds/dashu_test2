@@ -63,14 +63,22 @@ public class TopicErrorInfoService {
 			result.put("message", "保存用户做题状态失败,参数题目类型不能为空值!");
 			return result;
 		}
-		TopicErrorInfoPo topicErrorInfo=new TopicErrorInfoPo();
+		int topicId=jsonParameter.getIntValue("topicId");
+		int sectionId=jsonParameter.getIntValue("sectionId");
+		String userName=jsonParameter.getString("userName");
+		TopicErrorInfoPo topicErrorInfo=topicErrorInfoDao.getByUserNameAndTopicIdAndSectionId(userName, topicId, sectionId);
+		if(topicErrorInfo==null){
+			topicErrorInfo=new TopicErrorInfoPo();
+		}
 		topicErrorInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 		topicErrorInfo.setSectionId(jsonParameter.getIntValue("sectionId"));
 		topicErrorInfo.setTopicName(jsonParameter.getString("topicName"));
-		topicErrorInfo.setTopiceType(jsonParameter.getString("topiceType"));
+		topicErrorInfo.setTopiceType(jsonParameter.getString("topicType"));
 		topicErrorInfo.setTopicContent(jsonParameter.getString("topicContent"));
 		topicErrorInfo.setAnliList(jsonParameter.getString("anliList"));
 		topicErrorInfo.setAnlitxt(jsonParameter.getString("anlitxt"));;
+		topicErrorInfo.setAnswerExp(jsonParameter.getString("answerExp"));
+		topicErrorInfo.setIsCorrectSelect(jsonParameter.getString("isCorrectSelect"));
 		topicErrorInfo.setUserName(jsonParameter.getString("userName"));
 		topicErrorInfo.setCreatedBy(jsonParameter.getString("userName"));
 		topicErrorInfo.setUpdatedBy(jsonParameter.getString("userName"));

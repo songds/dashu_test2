@@ -543,7 +543,7 @@ public class UserInfoService {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 			result.put("code", "F00001");
 			result.put("message", "用户解锁异常，请您联系客服！");
 			return result;

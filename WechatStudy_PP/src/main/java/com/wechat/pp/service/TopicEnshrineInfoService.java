@@ -57,12 +57,20 @@ public class TopicEnshrineInfoService {
 			result.put("message", "用户收藏失败,参数题目内容不能为空值!");
 			return result;
 		}
-		TopicEnshrineInfoPo topicEnshrineInfo=new TopicEnshrineInfoPo();
+		int topicId=jsonParameter.getIntValue("topicId");
+		int sectionId=jsonParameter.getIntValue("sectionId");
+		String userName=jsonParameter.getString("userName");
+		TopicEnshrineInfoPo topicEnshrineInfo=topicEnshrineInfoDao.getByUserNameAndTopicIdAndSectionId(userName, topicId, sectionId);
+		if(topicEnshrineInfo==null){
+			topicEnshrineInfo=new TopicEnshrineInfoPo();
+		}
 		topicEnshrineInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 		topicEnshrineInfo.setSectionId(jsonParameter.getIntValue("sectionId"));
 		topicEnshrineInfo.setTopicName(jsonParameter.getString("topicName"));
 		topicEnshrineInfo.setTopiceType(jsonParameter.getString("topiceType"));
 		topicEnshrineInfo.setTopicContent(jsonParameter.getString("topicContent"));
+		topicEnshrineInfo.setAnswerExp(jsonParameter.getString("answerExp"));
+		topicEnshrineInfo.setIsCorrectSelect(jsonParameter.getString("isCorrectSelect"));
 		topicEnshrineInfo.setAnliList(jsonParameter.getString("anliList"));
 		topicEnshrineInfo.setAnlitxt(jsonParameter.getString("anlitxt"));
 		topicEnshrineInfo.setUserName(jsonParameter.getString("userName"));
@@ -144,9 +152,9 @@ public class TopicEnshrineInfoService {
 			result.put("code", "F00001");
 			result.put("message", "我的收藏分页查询题目失败,参数用户名称不能为空值!");
 			return result;
-		}else if(StringUtils.isEmpty(jsonParameter.getString("topicId"))){
+		}else if(StringUtils.isEmpty(jsonParameter.getString("sectionId"))){
 			result.put("code", "F00002");
-			result.put("message", "我的收藏分页查询题目失败,参数题目编号不能为空值!");
+			result.put("message", "我的收藏分页查询题目失败,参数章节编号不能为空值!");
 			return result;
 		}else if(StringUtils.isEmpty(jsonParameter.getString("page"))){
 			result.put("code", "F00003");

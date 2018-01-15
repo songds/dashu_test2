@@ -16,6 +16,8 @@ public interface TopicErrorInfoDao extends JpaRepository<TopicErrorInfoPo, Integ
 	@Query("delete from TopicErrorInfoPo where userName=?1 and topiceId=?2")
 	public void deleteByUserNameAndTopicId(String userName,int topicId);
 	
+	public TopicErrorInfoPo getByUserNameAndTopicIdAndSectionId(String userName,int topicId,int sectionId);
+	
 	public List<TopicErrorInfoPo> getByUserNameAndTopicId(String userName,int topicId);
 	
 	public Page<TopicErrorInfoPo> findByUserNameAndSectionId(String userName,int sectionId,Pageable pageable);

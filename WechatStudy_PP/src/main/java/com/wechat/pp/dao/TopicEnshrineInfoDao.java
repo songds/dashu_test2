@@ -16,6 +16,8 @@ public interface TopicEnshrineInfoDao extends JpaRepository<TopicEnshrineInfoPo,
 	@Query("delete from TopicEnshrineInfoPo where userName=?1 and topiceId=?2")
 	public void deleteByUserNameAndTopicId(String userName,int topicId);
 	
+	public TopicEnshrineInfoPo getByUserNameAndTopicIdAndSectionId(String userName,int topicId,int sectionId);
+	
 	public List<TopicEnshrineInfoPo> getByUserNameAndTopicId(String userName,int topicId);
 	
 	public Page<TopicEnshrineInfoPo> findByUserNameAndSectionId(String userName,int sectionId,Pageable pageable);

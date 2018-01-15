@@ -134,7 +134,7 @@ public class TopicInfoService {
 		JSONObject jsonParameter=JSONObject.parseObject(json);
 		if(StringUtils.isEmpty(jsonParameter.getString("topicName"))){
 			result.put("code", "F00001");
-			result.put("message", "查询题目失败,参数父科目编号不能为空值!");
+			result.put("message", "查询题目失败,参数题目名称不能为空值!");
 			return result;
 		}else if(StringUtils.isEmpty(jsonParameter.getString("page"))){
 			result.put("code", "F00002");
@@ -155,6 +155,40 @@ public class TopicInfoService {
 			return result;
 		}
 	}
+	
+	
+	/**
+	 * 根据题目内容模糊搜索所用题目接口分页查询
+	 * @param json
+	 * @return
+	 */
+	public JSONObject findLikeByTopicContent(String json){
+		JSONObject result=new JSONObject();
+		JSONObject jsonParameter=JSONObject.parseObject(json);
+		if(StringUtils.isEmpty(jsonParameter.getString("topicContent"))){
+			result.put("code", "F00001");
+			result.put("message", "查询题目失败,参数题目内容不能为空值!");
+			return result;
+		}else if(StringUtils.isEmpty(jsonParameter.getString("page"))){
+			result.put("code", "F00002");
+			result.put("message", "查询题目失败,参数页数不能为空值!");
+			return result;
+		}else if(StringUtils.isEmpty(jsonParameter.getString("size"))){
+			result.put("code", "F00003");
+			result.put("message", "查询题目失败,参数每页条数不能为空值!");
+			return result;
+		}else{
+			String topicContent=jsonParameter.getString("topicContent");
+			Sort sort=new Sort(Direction.ASC, "topicId");
+			Pageable pageable=new PageRequest(jsonParameter.getIntValue("page")-1, jsonParameter.getIntValue("size"),sort);
+			Page<TopicInfoPo> topicInfos=topicInfoDao.findByTopicContentContaining(topicContent,pageable);
+			result.put("code", "SUC000");
+			result.put("message", "成功");
+			result.put("data", topicInfos.getContent());
+			return result;
+		}
+	}
+	
 	/**
 	 * 根据题目获取题目选项以及答案
 	 * @param json

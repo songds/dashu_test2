@@ -85,8 +85,10 @@ public class TopicStatusInfoService {
 			topicErrorInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 			topicErrorInfo.setSectionId(jsonParameter.getIntValue("sectionId"));
 			topicErrorInfo.setTopicName(jsonParameter.getString("topicName"));
-			topicErrorInfo.setTopiceType(jsonParameter.getString("topiceType"));
+			topicErrorInfo.setTopiceType(jsonParameter.getString("topicType"));
 			topicErrorInfo.setTopicContent(jsonParameter.getString("topicContent"));
+			topicErrorInfo.setAnswerExp(jsonParameter.getString("answerExp"));
+			topicErrorInfo.setIsCorrectSelect(jsonParameter.getString("isCorrectSelect"));
 			topicErrorInfo.setAnlitxt(jsonParameter.getString("anlitxt"));
 			topicErrorInfo.setAnliList(jsonParameter.getString("anliList"));
 			topicErrorInfo.setUserName(jsonParameter.getString("userName"));
