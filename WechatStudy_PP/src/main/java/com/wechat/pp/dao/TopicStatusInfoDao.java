@@ -14,5 +14,6 @@ public interface TopicStatusInfoDao extends JpaRepository<TopicStatusInfoPo, Int
 	@Query("delete from TopicStatusInfoPo where userName=?1 and topiceId=?2")
 	public void deleteByUserNameAndTopicId(String userName,int topicId);
 	
-	public List<TopicStatusInfoPo> getByUserNameAndTopicId(String userName,int topicId);
+	public TopicStatusInfoPo getByUserNameAndTopicId(String userName,int topicId);
+	
 }

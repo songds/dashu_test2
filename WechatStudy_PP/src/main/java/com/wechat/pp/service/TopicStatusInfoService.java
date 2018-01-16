@@ -15,7 +15,10 @@ import com.wechat.pp.dao.TopicStatusInfoDao;
 import com.wechat.pp.po.TopicErrorInfoPo;
 import com.wechat.pp.po.TopicStatusInfoPo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TopicStatusInfoService {
 
 	@Resource
@@ -23,6 +26,9 @@ public class TopicStatusInfoService {
 	
 	@Resource
 	private TopicErrorInfoDao topicErrorInfoDao;
+	
+	@Resource
+	private TopicErrorInfoService topicErrorInfoService;
 	
 	/**
 	 * 保存做题状态
@@ -48,17 +54,24 @@ public class TopicStatusInfoService {
 			result.put("error", jsonParameter);
 			return result;
 		}
-		
-		if(jsonParameter.getString("topicStatus").equals("1")){
-			TopicStatusInfoPo topicStatusInfo=JSONObject.parseObject(json, TopicStatusInfoPo.class);
-			topicStatusInfo.setCreatedBy(topicStatusInfo.getUserName());
-			topicStatusInfo.setUpdatedBy(topicStatusInfo.getUserName());
+		String userName=jsonParameter.getString("userName");
+		int topicId=jsonParameter.getIntValue("topicId");
+		String topicStatus=jsonParameter.getString("topicStatus");
+		TopicStatusInfoPo topicStatusInfo=topicStatusInfoDao.getByUserNameAndTopicId(userName, topicId);
+		if(topicStatusInfo==null){
+			topicStatusInfo=JSONObject.parseObject(json, TopicStatusInfoPo.class);
+		}else{
+			topicStatusInfo.setTopicStatus(Integer.parseInt(topicStatus));
+		}
+		topicStatusInfo.setCreatedBy(userName);
+		topicStatusInfo.setUpdatedBy(userName);
+		if(topicStatus.equals("1")){
 			int id=topicStatusInfoDao.save(topicStatusInfo).getId();
 			result.put("code", "SUC000");
 			result.put("message", "成功");
 			result.put("data", id);
 			return result;
-		}else if(jsonParameter.getString("topicStatus").equals("0")){
+		}else if(topicStatus.equals("0")){
 			if(StringUtils.isEmpty(jsonParameter.getString("sectionId"))){
 				result.put("code", "F00005");
 				result.put("message", "保存用户做题状态失败,参数题目编号不能为空值!");
@@ -75,13 +88,13 @@ public class TopicStatusInfoService {
 				result.put("error", jsonParameter);
 				return result;
 			}
-			TopicStatusInfoPo topicStatusInfo=new TopicStatusInfoPo();
+			/*TopicStatusInfoPo topicStatusInfo=new TopicStatusInfoPo();
 			topicStatusInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 			topicStatusInfo.setTopicStatus(0);
 			topicStatusInfo.setUserName(jsonParameter.getString("userName"));
 			topicStatusInfo.setCreatedBy(jsonParameter.getString("userName"));
-			topicStatusInfo.setUpdatedBy(jsonParameter.getString("userName"));
-			TopicErrorInfoPo topicErrorInfo=new TopicErrorInfoPo();
+			topicStatusInfo.setUpdatedBy(jsonParameter.getString("userName"));*/
+			/*TopicErrorInfoPo topicErrorInfo=new TopicErrorInfoPo();
 			topicErrorInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 			topicErrorInfo.setSectionId(jsonParameter.getIntValue("sectionId"));
 			topicErrorInfo.setTopicName(jsonParameter.getString("topicName"));
@@ -93,9 +106,10 @@ public class TopicStatusInfoService {
 			topicErrorInfo.setAnliList(jsonParameter.getString("anliList"));
 			topicErrorInfo.setUserName(jsonParameter.getString("userName"));
 			topicErrorInfo.setCreatedBy(jsonParameter.getString("userName"));
-			topicErrorInfo.setUpdatedBy(jsonParameter.getString("userName"));
+			topicErrorInfo.setUpdatedBy(jsonParameter.getString("userName"));*/
+			JSONObject errResult=topicErrorInfoService.saveTopicError(json);
+			log.info(" method saveTopicStatus to topicErrorInfoService-->saveTopicError result is message : {} ",errResult);
 			int id=topicStatusInfoDao.save(topicStatusInfo).getId();
-			topicErrorInfoDao.save(topicErrorInfo);
 			result.put("code", "SUC000");
 			result.put("message", "成功");
 			result.put("data", id);

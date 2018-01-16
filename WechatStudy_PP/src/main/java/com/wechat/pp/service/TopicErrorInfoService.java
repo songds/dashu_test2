@@ -108,9 +108,9 @@ public class TopicErrorInfoService {
 			int id=jsonParameter.getIntValue("id");
 			//List<TopicErrorInfoPo> topicErrorInfos=topicErrorInfoDao.getByUserNameAndTopicId(userName, topicId);
 			TopicErrorInfoPo topicErrorInfo=topicErrorInfoDao.getOne(id);
-			List<TopicStatusInfoPo> topicStatusInfos =topicStatusInfoDao.getByUserNameAndTopicId(userName, topicErrorInfo.getTopicId());
+			TopicStatusInfoPo topicStatusInfo =topicStatusInfoDao.getByUserNameAndTopicId(userName, topicErrorInfo.getTopicId());
 			topicErrorInfoDao.delete(topicErrorInfo);
-			topicStatusInfoDao.delete(topicStatusInfos);
+			topicStatusInfoDao.delete(topicStatusInfo);
 			result.put("code", "SUC000");
 			result.put("message", "删除错题成功!");
 			return result;
@@ -179,11 +179,13 @@ public class TopicErrorInfoService {
 			int page=jsonParameter.getIntValue("page");
 			int size=jsonParameter.getIntValue("size");
 			Sort sort=new Sort(Direction.ASC, "id");
-			Pageable pageable=new PageRequest(page, size,sort);
+			Pageable pageable=new PageRequest(page-1, size,sort);
 			Page<TopicErrorInfoPo> topicErrorInfos=topicErrorInfoDao.findByUserNameAndSectionId(userName, sectionId, pageable);
 			result.put("code", "SUC000");
 			result.put("message", "我的错题分页查询题目成功!");
-			result.put("data", topicErrorInfos);
+			result.put("data", topicErrorInfos.getContent());
+			result.put("total", topicErrorInfos.getTotalElements());
+			result.put("page", topicErrorInfos.getTotalPages());
 			return result;
 		}
 	}

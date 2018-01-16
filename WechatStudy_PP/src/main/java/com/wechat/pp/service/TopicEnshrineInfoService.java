@@ -170,11 +170,13 @@ public class TopicEnshrineInfoService {
 			int page=jsonParameter.getIntValue("page");
 			int size=jsonParameter.getIntValue("size");
 			Sort sort=new Sort(Direction.ASC, "id");
-			Pageable pageable=new PageRequest(page, size,sort);
+			Pageable pageable=new PageRequest(page-1, size,sort);
 			Page<TopicEnshrineInfoPo> topicEnshrineInfos=topicEnshrineInfoDao.findByUserNameAndSectionId(userName, sectionId, pageable);
 			result.put("code", "SUC000");
 			result.put("message", "我的收藏分页查询题目成功!");
-			result.put("data", topicEnshrineInfos);
+			result.put("data", topicEnshrineInfos.getContent());
+			result.put("total", topicEnshrineInfos.getTotalElements());
+			result.put("page", topicEnshrineInfos.getTotalPages());
 			return result;
 		}
 	}
