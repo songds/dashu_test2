@@ -67,7 +67,7 @@ public class TopicEnshrineInfoService {
 		topicEnshrineInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 		topicEnshrineInfo.setSectionId(jsonParameter.getIntValue("sectionId"));
 		topicEnshrineInfo.setTopicName(jsonParameter.getString("topicName"));
-		topicEnshrineInfo.setTopiceType(jsonParameter.getString("topiceType"));
+		topicEnshrineInfo.setTopicType(jsonParameter.getString("topicType"));
 		topicEnshrineInfo.setTopicContent(jsonParameter.getString("topicContent"));
 		topicEnshrineInfo.setAnswerExp(jsonParameter.getString("answerExp"));
 		topicEnshrineInfo.setIsCorrectSelect(jsonParameter.getString("isCorrectSelect"));
@@ -117,7 +117,7 @@ public class TopicEnshrineInfoService {
 	@Transactional
 	public JSONObject batchDeleteTopicEnshrine(String json){
 		JSONObject info=new JSONObject();
-		if(StringUtils.isEmpty(json)){
+		if(!StringUtils.isEmpty(json)){
 			List listParameter=JSONObject.parseObject(json, List.class);
 			if(listParameter!=null&&listParameter.size()>0){
 				List<JSONObject> topicErrorList=new ArrayList<JSONObject>();

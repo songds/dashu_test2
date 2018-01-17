@@ -73,7 +73,7 @@ public class TopicErrorInfoService {
 		topicErrorInfo.setTopicId(jsonParameter.getIntValue("topicId"));
 		topicErrorInfo.setSectionId(jsonParameter.getIntValue("sectionId"));
 		topicErrorInfo.setTopicName(jsonParameter.getString("topicName"));
-		topicErrorInfo.setTopiceType(jsonParameter.getString("topicType"));
+		topicErrorInfo.setTopicType(jsonParameter.getString("topicType"));
 		topicErrorInfo.setTopicContent(jsonParameter.getString("topicContent"));
 		topicErrorInfo.setAnliList(jsonParameter.getString("anliList"));
 		topicErrorInfo.setAnlitxt(jsonParameter.getString("anlitxt"));;
@@ -126,7 +126,7 @@ public class TopicErrorInfoService {
 	@Transactional
 	public JSONObject batchDeleteTopicError(String json){
 		JSONObject info=new JSONObject();
-		if(StringUtils.isEmpty(json)){
+		if(!StringUtils.isEmpty(json)){
 			List listParameter=JSONObject.parseObject(json, List.class);
 			if(listParameter!=null&&listParameter.size()>0){
 				List<JSONObject> topicErrorList=new ArrayList<JSONObject>();

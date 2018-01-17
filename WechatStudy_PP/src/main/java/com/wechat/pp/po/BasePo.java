@@ -6,12 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
 @MappedSuperclass
+@Component
 public class BasePo {
 
 	@Column (name="CREATED_DATE")
@@ -31,7 +35,10 @@ public class BasePo {
 	
 	@Column (name="UPDATED_BY")
 	private String updatedBy;
-
+	
+	@Transient
+	@Value("${spring.application.name}")
+	private String systemName;
 
 	public Date getUpdatedDate() {
 		return updatedDate;
@@ -51,7 +58,11 @@ public class BasePo {
 	}
 
 	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+		if(createdBy==null||createdBy.isEmpty()){
+			this.createdBy=systemName;
+		}else{
+			this.createdBy = createdBy;
+		}
 	}
 
 	public String getUpdatedBy() {
@@ -59,7 +70,11 @@ public class BasePo {
 	}
 
 	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
+		if(updatedBy==null||updatedBy.isEmpty()){
+			this.updatedBy=systemName;
+		}else{
+			this.updatedBy = updatedBy;
+		}
 	}
 
 	public Date getCreatedDate() {
