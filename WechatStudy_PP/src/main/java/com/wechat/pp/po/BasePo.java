@@ -8,6 +8,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,15 @@ public class BasePo {
 	@Value("${spring.application.name}")
 	private String systemName;
 
+	public BasePo(){
+		if(StringUtils.isEmpty(systemName)){
+			setCreatedBy("Q_SYSTEM");
+			setUpdatedBy("Q_SYSTEM");
+		}else{
+			setCreatedBy(systemName);
+			setUpdatedBy(systemName);
+		}
+	}
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}
@@ -58,11 +68,7 @@ public class BasePo {
 	}
 
 	public void setCreatedBy(String createdBy) {
-		if(createdBy==null||createdBy.isEmpty()){
-			this.createdBy=systemName;
-		}else{
-			this.createdBy = createdBy;
-		}
+		this.createdBy = createdBy;
 	}
 
 	public String getUpdatedBy() {
@@ -70,11 +76,7 @@ public class BasePo {
 	}
 
 	public void setUpdatedBy(String updatedBy) {
-		if(updatedBy==null||updatedBy.isEmpty()){
-			this.updatedBy=systemName;
-		}else{
-			this.updatedBy = updatedBy;
-		}
+		this.updatedBy = updatedBy;
 	}
 
 	public Date getCreatedDate() {

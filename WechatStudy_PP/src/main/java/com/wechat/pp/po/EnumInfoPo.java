@@ -1,6 +1,5 @@
 package com.wechat.pp.po;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="ENUM_INFO")
 @Data
-public class EnumInfoPo {
+@EqualsAndHashCode(callSuper=false)
+public class EnumInfoPo extends BasePo{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
@@ -33,16 +34,5 @@ public class EnumInfoPo {
 	@Column (name="CODE_NAME")
 	private String codeName;
 	
-	@Column (name="CREATED_DATE")
-	private Date createdDate;
-	
-	@Column (name="UPDATED_DATE")
-	private Date updatedDate;
-	
-	@Column (name="CREATED_BY")
-	private String createdBy;
-	
-	@Column (name="UPDATED_BY")
-	private String updatedBy;
 	
 }

@@ -25,7 +25,7 @@ public class CheckTokenUniformityApi {
 	
 	@RequestMapping(value="/api/checkTokenUniformity.do",method=RequestMethod.POST)
 	public JSONObject checkTokenUniformity(@RequestBody String json){
-		log.info(" method is /api/updateHeadPortrait.do to customer input parameter message :  {}",json);
+		log.info(" method is /api/checkTokenUniformity.do to customer input parameter message :  {}",json);
 		JSONObject result=deviceInfoService.checkTokenUniformity(json);
 		log.info(" /api/checkTokenUniformity.do  to result message :  {}",result);
 		return result;

@@ -1,6 +1,5 @@
 package com.wechat.pp.po;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="WEIXIN_BOUND_INFO")
 @Data
-public class WeixinBoundInfoPo {
+@EqualsAndHashCode(callSuper=false)
+public class WeixinBoundInfoPo extends BasePo{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
@@ -39,15 +40,4 @@ public class WeixinBoundInfoPo {
 	@Column (name="UNION_ID")
 	private String unionId;
 	
-	@Column (name="CREATED_DATE")
-	private Date createdDate;
-	
-	@Column (name="UPDATED_DATE")
-	private Date updatedDate;
-	
-	@Column (name="CREATED_BY")
-	private String createdBy;
-	
-	@Column (name="UPDATED_BY")
-	private String updatedBy;
 }

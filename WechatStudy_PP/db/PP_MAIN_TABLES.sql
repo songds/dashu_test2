@@ -192,6 +192,16 @@ create table section_topic_rel(
 	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
 	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='章节题目关系表';
+
+create table user_look_topic(
+		id int primary key AUTO_INCREMENT COMMENT '编号',
+        user_name varchar(100) NOT NULL COMMENT '用户名',
+        topic_id int COMMENT '题目编号',
+	    created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
+	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
+	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
+)COMMENT='用户看题记录表';
 --添加外键
 alter table subject_curriculum_rel add constraint sub_curr_rel_subFK foreign key(subject_id)  references subject_info(subject_id) ;
 alter table subject_curriculum_rel add constraint sub_curr_rel_currFK foreign key(curriculum_id)  references curriculum_info(curriculum_id) ;

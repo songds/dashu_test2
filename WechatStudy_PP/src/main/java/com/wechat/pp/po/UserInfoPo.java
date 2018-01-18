@@ -10,11 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="USER_INFO")
 @Data
-public class UserInfoPo {
+@EqualsAndHashCode(callSuper=false)
+public class UserInfoPo extends BasePo{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
@@ -55,16 +57,6 @@ public class UserInfoPo {
 	private Date registrationDate;
 	
 	@Column (name="BALANCE_ACCOUNT")
-	private double balanceAccount;
-	
-	@Column (name="UPDATED_DATE")
-	private Date updatedDate;
-	
-	@Column (name="CREATED_BY")
-	private String createdBy;
-	
-	@Column (name="UPDATED_BY")
-	private String updatedBy;
-	
+	private double balanceAccount;	
 	
 }

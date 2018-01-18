@@ -21,4 +21,6 @@ public interface TopicErrorInfoDao extends JpaRepository<TopicErrorInfoPo, Integ
 	public List<TopicErrorInfoPo> getByUserNameAndTopicId(String userName,int topicId);
 	
 	public Page<TopicErrorInfoPo> findByUserNameAndSectionId(String userName,int sectionId,Pageable pageable);
+	
+	public TopicErrorInfoPo getById(int id);
 }

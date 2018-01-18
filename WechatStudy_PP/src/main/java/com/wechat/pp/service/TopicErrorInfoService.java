@@ -80,8 +80,6 @@ public class TopicErrorInfoService {
 		topicErrorInfo.setAnswerExp(jsonParameter.getString("answerExp"));
 		topicErrorInfo.setIsCorrectSelect(jsonParameter.getString("isCorrectSelect"));
 		topicErrorInfo.setUserName(jsonParameter.getString("userName"));
-		topicErrorInfo.setCreatedBy(jsonParameter.getString("userName"));
-		topicErrorInfo.setUpdatedBy(jsonParameter.getString("userName"));
 		int id=topicErrorInfoDao.save(topicErrorInfo).getId();
 		result.put("code", "SUC000");
 		result.put("message", "成功");
@@ -104,13 +102,17 @@ public class TopicErrorInfoService {
 			result.put("error", jsonParameter);
 			return result;
 		}else{
-			String userName=jsonParameter.getString("userName");
+			//String userName=jsonParameter.getString("userName");
 			int id=jsonParameter.getIntValue("id");
 			//List<TopicErrorInfoPo> topicErrorInfos=topicErrorInfoDao.getByUserNameAndTopicId(userName, topicId);
-			TopicErrorInfoPo topicErrorInfo=topicErrorInfoDao.getOne(id);
-			TopicStatusInfoPo topicStatusInfo =topicStatusInfoDao.getByUserNameAndTopicId(userName, topicErrorInfo.getTopicId());
-			topicErrorInfoDao.delete(topicErrorInfo);
-			topicStatusInfoDao.delete(topicStatusInfo);
+			TopicErrorInfoPo topicErrorInfo=topicErrorInfoDao.getById(id);
+			if(topicErrorInfo!=null){
+				TopicStatusInfoPo topicStatusInfo =topicStatusInfoDao.getByUserNameAndTopicId(topicErrorInfo.getUserName(), topicErrorInfo.getTopicId());
+				topicErrorInfoDao.delete(topicErrorInfo);
+				if(topicStatusInfo!=null){
+					topicStatusInfoDao.delete(topicStatusInfo);	
+				}
+			}
 			result.put("code", "SUC000");
 			result.put("message", "删除错题成功!");
 			return result;

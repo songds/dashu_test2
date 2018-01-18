@@ -15,7 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.filter.CompositeFilter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wechat.pp.dao.UserLookTopicDao;
 import com.wechat.pp.dao.UserMemberRelationDao;
+import com.wechat.pp.po.UserLookTopicPo;
 import com.wechat.pp.po.UserMemberRelationPo;
 import com.wechat.pp.util.MAPIHttpServletRequestWrapper;
 @WebFilter(filterName="UserByMemberFilter",urlPatterns={"/api/getByTopicId.do","/api/findTopicInfoBySectionId.do"})
@@ -23,6 +25,8 @@ public class UserByMemberFilter extends CompositeFilter{
 
 	@Resource
 	private UserMemberRelationDao userMemberRelationDao;
+	@Resource
+	private UserLookTopicDao userLookTopicDao;
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -66,11 +70,37 @@ public class UserByMemberFilter extends CompositeFilter{
 			if(userMemberRelation!=null){
 				super.doFilter(httpServletRequestWrapper, response, chain);
 			}else{
-				ServletOutputStream out=response.getOutputStream();
-				byte[] b="{\"code\":\"SUC001\",\"message\":\"查询题目处理成功,该用户未购买该科目!\"}".getBytes("utf-8");
-				out.write(b);
-				out.flush();
-				return;
+				if(httpServletRequestWrapper.getRequestURI().equals("/api/getByTopicId.do")){
+					if(StringUtils.isEmpty(paramter.getString("topicId"))){
+						//response.getWriter().print(x);
+						ServletOutputStream out=response.getOutputStream();
+						byte[] b="{\"code\":\"F00004\",\"message\":\"查询题目失败,参数题目编号不能空\"}".getBytes("utf-8");
+						out.write(b);
+						out.flush();
+						return;
+					}
+					int LookTopicCount=userLookTopicDao.countByUserName(userName);
+					if(LookTopicCount>=10){
+						ServletOutputStream out=response.getOutputStream();
+						byte[] b="{\"code\":\"SUC001\",\"message\":\"查询题目处理成功,只能免费查询10个题目,请购买该科目会员!\"}".getBytes("utf-8");
+						out.write(b);
+						out.flush();
+						return;
+					}else{
+						int topicId=paramter.getIntValue("topicId");
+						UserLookTopicPo userLookTopic=new UserLookTopicPo();
+						userLookTopic.setTopicId(topicId);
+						userLookTopic.setUserName(userName);
+						userLookTopicDao.save(userLookTopic);
+						super.doFilter(httpServletRequestWrapper, response, chain);
+					}
+				}else{
+					ServletOutputStream out=response.getOutputStream();
+					byte[] b="{\"code\":\"SUC001\",\"message\":\"查询题目处理成功,该用户未购买该科目!\"}".getBytes("utf-8");
+					out.write(b);
+					out.flush();
+					return;
+				}
 			}
 			
 		}

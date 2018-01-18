@@ -74,8 +74,6 @@ public class TopicEnshrineInfoService {
 		topicEnshrineInfo.setAnliList(jsonParameter.getString("anliList"));
 		topicEnshrineInfo.setAnlitxt(jsonParameter.getString("anlitxt"));
 		topicEnshrineInfo.setUserName(jsonParameter.getString("userName"));
-		topicEnshrineInfo.setCreatedBy(jsonParameter.getString("userName"));
-		topicEnshrineInfo.setUpdatedBy(jsonParameter.getString("userName"));
 		int id=topicEnshrineInfoDao.save(topicEnshrineInfo).getId();
 		result.put("code", "SUC000");
 		result.put("message", "成功");

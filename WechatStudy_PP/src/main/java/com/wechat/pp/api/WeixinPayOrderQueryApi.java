@@ -13,7 +13,7 @@ import com.wechat.pp.service.WeixinPayService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 微信回调接口
+ * 微信订单查询接口
  * @author ex-songdeshun
  *
  */

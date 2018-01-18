@@ -69,12 +69,9 @@ public class UserInfoService {
 					String userName="Q"+System.currentTimeMillis();
 					userInfo.setMobile(mobileNo);
 					userInfo.setPassword(DigestUtils.md5DigestAsHex(password.getBytes("UTF-8")));
-					userInfo.setCreatedBy(userName);
 					userInfo.setUserName(userName);
 					userInfo.setUserStatus("1");
 					userInfo.setRegistrationDate(new Date(System.currentTimeMillis()));
-					userInfo.setUpdatedBy(userName);
-					userInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
 					userInfoDao.save(userInfo);
 					result.put("code", "SUC000");
 					result.put("message", "注册成功！");

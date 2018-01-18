@@ -121,10 +121,6 @@ public class WeixinPayService {
 					result.put("code", "F00008");
 					result.put("message", "微信下单失败,参数支付类型不能为空!");
 					return result;
-				}else if(StringUtils.isEmpty(weixinOrderReqDto.getUserName())){
-					result.put("code", "F00009");
-					result.put("message", "微信下单失败,参数用户名不能为空!");
-					return result;
 				}else if(StringUtils.isEmpty(weixinOrderReqDto.getAttach())){
 					result.put("code", "F00010");
 					result.put("message", "微信下单失败,参数附加数据不能为空!");
@@ -164,7 +160,7 @@ public class WeixinPayService {
 							weixinPayInfo.setMchId(weixinData.getString("mch_id"));
 							weixinPayInfo.setPrepayId(weixinData.getString("prepay_id"));
 							weixinPayInfo.setPackages("Sign=WXPay");
-							String userName=weixinOrderReqDto.getUserName();
+							//String userName=weixinOrderReqDto.getUserName();
 							Date currentDate=new Date(System.currentTimeMillis());
 							String time=System.currentTimeMillis()/1000+"";
 							weixinPayInfo.setTimestamps(time);
@@ -181,7 +177,7 @@ public class WeixinPayService {
 							map.put("sign", paySign);
 							weixinPayInfo.setSign(paySign);
 							weixinPayInfo.setOutTradeNo(orderNo);
-							weixinPayInfo.setUserName(userName);
+							weixinPayInfo.setUserName(weixinOrderReqDto.getAttach().split("#")[0]);
 							weixinPayInfo.setTradeType(weixinData.getString("trade_type"));
 							weixinPayInfo.setPayType("1");
 							Calendar calendar=Calendar.getInstance();
@@ -192,10 +188,6 @@ public class WeixinPayService {
 							weixinPayInfo.setExpirationTime(expirationTime);
 							weixinPayInfo.setTotalFee(weixinOrderReqDto.getTotalFee());
 							weixinPayInfo.setBody(weixinOrderReqDto.getBody());
-							weixinPayInfo.setCreatedBy(userName);
-							weixinPayInfo.setUpdatedBy(userName);
-							weixinPayInfo.setCreatedDate(currentDate);
-							weixinPayInfo.setUpdatedDate(currentDate);
 							weixinPayInfo.setAttach(weixinOrderReqDto.getAttach());
 							int weixinOrderId=weixinPayInfoDao.save(weixinPayInfo).getId();
 							StringBuffer sb=new StringBuffer();
@@ -288,10 +280,6 @@ public class WeixinPayService {
 								tradingRecordInfo.setTradingId(weixinPayInfo.getOutTradeNo());
 								tradingRecordInfo.setTradingTime(weixinResult.get("time_end"));
 								tradingRecordInfo.setTradingStatus("SUCCESS");
-								tradingRecordInfo.setCreatedBy(weixinPayInfo.getUserName());
-								tradingRecordInfo.setUpdatedBy(weixinPayInfo.getUserName());
-								tradingRecordInfo.setCreatedDate(new Date(System.currentTimeMillis()));
-								tradingRecordInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
 								tradingRecordInfoDao.save(tradingRecordInfo);
 								log.info(" insert into tradingRecordInfo is table to message {} ", JSONObject.toJSONString(tradingRecordInfo));
 								String attach=weixinResult.get("attach");

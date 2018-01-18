@@ -1,6 +1,5 @@
 package com.wechat.pp.po;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="TRADING_RECORD_INFO")
 @Data
-public class TradingRecordInfoPo {
+@EqualsAndHashCode(callSuper=false)
+public class TradingRecordInfoPo extends BasePo{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
@@ -42,16 +43,5 @@ public class TradingRecordInfoPo {
 	@Column(name="TRADING_DESC")
 	private String tradingDesc;
 	
-	@Column (name="CREATED_DATE")
-	private Date createdDate;
-	
-	@Column (name="UPDATED_DATE")
-	private Date updatedDate;
-	
-	@Column (name="CREATED_BY")
-	private String createdBy;
-	
-	@Column (name="UPDATED_BY")
-	private String updatedBy;
 	
 }

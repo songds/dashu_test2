@@ -31,10 +31,6 @@ public class PhotoSheetInfoService {
 			photoSheetInfoPo.setPhotoNumber(1);
 			photoSheetInfoPo.setPhotoStatus("0");
 			photoSheetInfoPo.setUserName(userName);
-			photoSheetInfoPo.setCreatedBy(userName);
-			photoSheetInfoPo.setUpdatedBy(userName);
-			photoSheetInfoPo.setCreatedDate(new Date(System.currentTimeMillis()));
-			photoSheetInfoPo.setUpdatedDate(new Date(System.currentTimeMillis()));
 			photoSheetInfoDao.save(photoSheetInfoPo);
 			result.put("code", "SUC000");
 			result.put("message", "拍照记录成功！");

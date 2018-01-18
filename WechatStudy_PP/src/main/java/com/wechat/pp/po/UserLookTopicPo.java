@@ -1,6 +1,5 @@
 package com.wechat.pp.po;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,36 +12,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="LOGIN_LOG_INFO")
+@Table(name="USER_LOOK_TOPIC")
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class LoginLogInfoPo extends BasePo{
-
+public class UserLookTopicPo extends BasePo{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
     @Column (name="ID",length=11) 
 	private int id;
 	
-	@Column (name="USER_NAME") 
+	@Column (name="USER_NAME")
 	private String userName;
 	
-	@Column (name="TO_KEN") 
-	private String toKen;
-	
-	@Column (name="DEVICE_NUMBER")
-	private String deviceNumber;
-
-	@Column (name="IP_ADDR")
-	private String ipAddr;
-	
-	@Column (name="LOGIN_STATUS")
-	private String loginStatus;
-	
-	@Column (name="LOGIN_DATE")
-	private Date loginDate;
-	
-	@Column (name="EXPIRATION_TIME")
-	private Date expirationTime;
-	
-	
+	@Column (name="TOPIC_ID") 
+	private int topicId;
 }

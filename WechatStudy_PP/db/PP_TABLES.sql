@@ -60,7 +60,11 @@ create table login_log_info(
         IP_addr varchar(100) COMMENT 'IP地址',
         login_status varchar(100) COMMENT '登陆状态',
         login_date timestamp COMMENT '登陆时间',
-        expiration_time timestamp COMMENT '过期时间'
+        expiration_time timestamp COMMENT '过期时间',
+        created_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '创建人',
+	    created_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+	    updated_by VARCHAR(150) NOT NULL DEFAULT 'SYSTEM' COMMENT '更新人',
+	    updated_date DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新日期'
 )COMMENT='登陆记录信息表';
 
 

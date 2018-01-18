@@ -18,7 +18,7 @@ public class WeixinOrderReqDto {
 	/**
 	 * 用户名
 	 */
-	private String userName;
+	//private String userName;
 
 	/**
 	 * 应用ID

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.pp.dao.DeviceInfoDao;
+import com.wechat.pp.po.DeviceInfoPo;
 
 @Service
 public class DeviceInfoService {
@@ -24,8 +25,8 @@ public class DeviceInfoService {
 		JSONObject jsonParameter=JSONObject.parseObject(json);
 		String userName=jsonParameter.getString("userName");
 		String token=jsonParameter.getString("token");
-		boolean flag=deviceInfoDao.isExistByUserNameAndToken(userName, token);
-		if(flag){
+		DeviceInfoPo deviceInfo=deviceInfoDao.isExistByUserNameAndToken(userName, token);
+		if(deviceInfo!=null){
 			result.put("code", "SUC000");
 			result.put("message", "成功");
 		}else{
