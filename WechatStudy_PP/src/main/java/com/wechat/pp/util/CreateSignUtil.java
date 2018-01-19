@@ -1,8 +1,12 @@
 package com.wechat.pp.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,11 +18,14 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.wechat.pp.dto.WeixinOrderReqDto;
 import com.wechat.pp.dto.WeixinPayDto;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 生成微信签名工具类
  * @author ex-songdeshun
  *
  */
+@Slf4j
 public class CreateSignUtil {
 
 	/**
@@ -69,7 +76,7 @@ public class CreateSignUtil {
 	}
 	
 	public static String createSign(Map<String, Object> parameter,String key) throws UnsupportedEncodingException {
-		Set<Map.Entry<String, Object>> se= parameter.entrySet();
+		/*Set<Map.Entry<String, Object>> se= parameter.entrySet();
 		Iterator<Map.Entry<String, Object>> it=se.iterator();
 		StringBuffer sb=new StringBuffer();
 		while (it.hasNext()) {
@@ -81,9 +88,23 @@ public class CreateSignUtil {
 	                && !"key".equals(k)) {  
 	            sb.append(k + "=" + v + "&");  
 	        }  
+		}*/
+		Collection<String> keySet=parameter.keySet();
+		List<String> parameterKeys=new ArrayList<String>(keySet);
+		Collections.sort(parameterKeys);
+		StringBuffer sb=new StringBuffer();
+		for (String k : parameterKeys) {
+		        String v =  parameter.get(k)!=null? parameter.get(k).toString():null;
+		        //为空不参与签名、参数名区分大小写  
+		        if (null != v && !"".equals(v) && !"sign".equals(k)  
+		                && !"key".equals(k)) {  
+		            sb.append(k + "=" + v + "&");  
+		        }  
 		}
+			
 		sb.append("key="+key);
-		System.out.println(DigestUtils.md5DigestAsHex(sb.toString().getBytes("UTF-8")));
+		log.info(" weixin sign is parameter message : {}",sb.toString());
+		//System.out.println(DigestUtils.md5DigestAsHex(DigestUtils.md5Digest(sb.toString().getBytes("UTF-8"))));
 		String sign=DigestUtils.md5DigestAsHex(sb.toString().getBytes("UTF-8")).toUpperCase();
 		return sign;
 	};

@@ -1,6 +1,7 @@
 package com.wechat.pp.filter;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
@@ -20,7 +21,10 @@ import com.wechat.pp.dao.UserMemberRelationDao;
 import com.wechat.pp.po.UserLookTopicPo;
 import com.wechat.pp.po.UserMemberRelationPo;
 import com.wechat.pp.util.MAPIHttpServletRequestWrapper;
+
+import lombok.extern.slf4j.Slf4j;
 @WebFilter(filterName="UserByMemberFilter",urlPatterns={"/api/getByTopicId.do","/api/findTopicInfoBySectionId.do"})
+@Slf4j
 public class UserByMemberFilter extends CompositeFilter{
 
 	@Resource
@@ -33,6 +37,7 @@ public class UserByMemberFilter extends CompositeFilter{
 		// TODO Auto-generated method stub
 		MAPIHttpServletRequestWrapper httpServletRequestWrapper=new MAPIHttpServletRequestWrapper((HttpServletRequest)request);
 		String json=new String(httpServletRequestWrapper.getBody(),"UTF-8");
+		log.info(" method is UserByMemberFilter to customer input parameter message :  {}",json);
 		if(StringUtils.isEmpty(json)){
 			ServletOutputStream out=response.getOutputStream();
 			byte[] b="{\"code\":\"F00001\",\"message\":\"查询题目失败,参数会员编号不能空!\"}".getBytes("utf-8");
@@ -66,7 +71,8 @@ public class UserByMemberFilter extends CompositeFilter{
 			String userName=paramter.getString("userName");
 			int memberId=paramter.getIntValue("memberId");
 			String memberType=paramter.getString("memberType");
-			UserMemberRelationPo userMemberRelation=userMemberRelationDao.isExistByUserNameAndMemberIdAndMemberType(userName, memberId, memberType);
+			Date currentTime=new  Date(System.currentTimeMillis());
+			UserMemberRelationPo userMemberRelation=userMemberRelationDao.isExistByUserNameAndMemberIdAndMemberTypeAndValidEndTime(userName, memberId, memberType,currentTime);
 			if(userMemberRelation!=null){
 				super.doFilter(httpServletRequestWrapper, response, chain);
 			}else{

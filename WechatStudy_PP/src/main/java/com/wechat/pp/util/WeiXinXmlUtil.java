@@ -33,7 +33,7 @@ public class WeiXinXmlUtil {
 		StaxDriver staxDriver=new StaxDriver(xmlFriendlyReplacer);
 		XStream xStream=new XStream(staxDriver);
 		xStream.autodetectAnnotations(true);
-		String xml=xStream.toXML(weixinOrderReqDto);
+		String xml=xStream.toXML(weixinOrderReqDto).replace("<?xml version=\"1.0\" ?>", "");
 		log.info("createXml to  result message {} ",xml);
 		return xml;
 	}

@@ -98,7 +98,7 @@ public class TopicEnshrineInfoService {
 		}else{
 			//String userName=jsonParameter.getString("userName");
 			int id=jsonParameter.getIntValue("id");
-			TopicEnshrineInfoPo topicEnshrineInfo=topicEnshrineInfoDao.getOne(id);
+			TopicEnshrineInfoPo topicEnshrineInfo=topicEnshrineInfoDao.getById(id);
 			topicEnshrineInfoDao.delete(topicEnshrineInfo);
 			result.put("code", "SUC000");
 			result.put("message", "删除收藏题目成功!");

@@ -21,4 +21,6 @@ public interface TopicEnshrineInfoDao extends JpaRepository<TopicEnshrineInfoPo,
 	public List<TopicEnshrineInfoPo> getByUserNameAndTopicId(String userName,int topicId);
 	
 	public Page<TopicEnshrineInfoPo> findByUserNameAndSectionId(String userName,int sectionId,Pageable pageable);
+	
+	public TopicEnshrineInfoPo getById(int id);
 }

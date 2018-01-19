@@ -203,7 +203,7 @@ public class TopicInfoService {
 			return result;
 		}else{
 			int topicId=jsonParameter.getIntValue("topicId");
-			TopicInfoPo topicInfo=topicInfoDao.getOne(topicId);
+			TopicInfoPo topicInfo=topicInfoDao.getByTopicId(topicId);
 			if(topicInfo!=null){
 				topicInfo.setTopiceSelectInfos(topicSelectInfoDao.findByTopicId(topicInfo.getTopicId()));
 			}

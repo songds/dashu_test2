@@ -38,5 +38,7 @@ public interface TopicInfoDao extends JpaRepository<TopicInfoPo, Integer>{
 			+ " where T1.section_Id=?1 ",nativeQuery=true)
 	public int countBySectionIdAndUserName(int sectionId,String userName);
 	
+	public TopicInfoPo getByTopicId(int topicId);
+	
 	
 }

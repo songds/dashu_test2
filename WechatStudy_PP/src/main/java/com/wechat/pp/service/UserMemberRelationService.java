@@ -98,9 +98,11 @@ public class UserMemberRelationService {
 	 * @param userName 用户名
 	 * @return
 	 */
-	public JSONObject queryUserToMeber(String userName){
+	public JSONObject queryUserToMeber(String json){
 		JSONObject result=new JSONObject();
 		try {
+			JSONObject parameter=JSONObject.parseObject(json);
+			String userName=parameter.getString("userName");
 			List<UserMemberRelationPo> list=userMemberRelationDao.queryByUserName(userName);
 			result.put("code", "SUC000");
 			result.put("message", "查询成功！");
