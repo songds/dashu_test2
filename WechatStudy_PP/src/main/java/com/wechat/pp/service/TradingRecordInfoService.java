@@ -72,11 +72,13 @@ public class TradingRecordInfoService {
 			int page=jsonParameter.getIntValue("page");
 			int size=jsonParameter.getIntValue("size");
 			Sort sort=new Sort(Direction.DESC,"id");
-			Pageable pageable=new PageRequest(page, size,sort);
+			Pageable pageable=new PageRequest(page-1, size,sort);
 			Page<TradingRecordInfoPo> list=tradingRecordInfoDao.findByUserName(userName,pageable);
 			result.put("code", "SUC000");
 			result.put("message", "交易记录查询成功");
-			result.put("data", list);
+			result.put("data", list.getContent());
+			result.put("total", list.getTotalElements());
+			result.put("page", list.getTotalPages());
 		} catch (Exception e) {
 			// TODO: handle exception
 			log.info(e.getMessage());

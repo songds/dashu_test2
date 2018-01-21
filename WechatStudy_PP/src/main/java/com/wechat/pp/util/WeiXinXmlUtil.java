@@ -1,6 +1,10 @@
 package com.wechat.pp.util;
 
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +12,9 @@ import java.util.Map;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.util.DigestUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
@@ -59,9 +65,9 @@ public class WeiXinXmlUtil {
      * @throws Exception
      */
     //@SuppressWarnings("unchecked")
-	public static Map<String, String> parseXML(InputStreamReader inputStream) throws Exception {
+	public static Map<String, Object> parseXML(InputStreamReader inputStream) throws Exception {
         // 将解析结果存储在HashMap中
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, Object> map = new HashMap<String, Object>();
 
         // 从request中取得输入流
       //  InputStream inputStream = request.getInputStream();
@@ -79,7 +85,7 @@ public class WeiXinXmlUtil {
         return map;
     }
 	
-	private static void recursiveParseXML(Element root,Map<String, String> map){
+	private static void recursiveParseXML(Element root,Map<String, Object> map){
         // 得到根元素的所有子节点
         @SuppressWarnings("unchecked")
 		List<Element> elementList = root.elements();
@@ -93,4 +99,34 @@ public class WeiXinXmlUtil {
             }
         }
     }
+	
+	/*public static void main(String[] args) {
+		String json="{\"transaction_id\":\"4200000091201801218376387405\",\"nonce_str\":\"04DA607EF34DCEA2CBDE1E82B92BB25E\",\"bank_type\":\"CFT\",\"openid\":\"ok9zMw1cDkdi1LRMviICY4S7qvoI\",\"sign\":\"9ED90396C4C35BE31DABEA4EB875E8DC\",\"fee_type\":\"CNY\",\"mch_id\":\"1494485102\",\"cash_fee\":\"2800\",\"out_trade_no\":\"Q20180121210751434569371\",\"appid\":\"wxb7c0ec433e433f2d\",\"total_fee\":\"2800\",\"trade_type\":\"APP\",\"result_code\":\"SUCCESS\",\"attach\":\"Q1514339040479#625#K#M\",\"time_end\":\"20180121210802\",\"is_subscribe\":\"N\",\"return_code\":\"SUCCESS\"}";
+		Map<String,Object> parameter=JSONObject.parseObject(json,Map.class);
+		System.out.println(parameter);
+		try {
+			//String sign=CreateSignUtil.createSign(parameter, "88ABC274CC95E1D1740D9900BFD5422A");
+			Collection<String> keySet=parameter.keySet();
+			List<String> parameterKeys=new ArrayList<String>(keySet);
+			Collections.sort(parameterKeys);
+			StringBuffer sb=new StringBuffer();
+			for (String k : parameterKeys) {
+			        String v =  parameter.get(k)!=null? parameter.get(k).toString():null;
+			        //为空不参与签名、参数名区分大小写  
+			        if (null != v && !"".equals(v) && !"sign".equals(k)  
+			                && !"key".equals(k)) {  
+			            sb.append(k + "=" + v + "&");  
+			        }  
+			}
+				
+			sb.append("key=88ABC274CC95E1D1740D9900BFD5422A");
+			log.info(" weixin sign is parameter message : {}",sb.toString());
+			//System.out.println(DigestUtils.md5DigestAsHex(DigestUtils.md5Digest(sb.toString().getBytes("UTF-8"))));
+			String signa=DigestUtils.md5DigestAsHex(sb.toString().getBytes("UTF-8")).toUpperCase();
+			System.out.println(signa);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}*/
 }

@@ -98,7 +98,7 @@ public class HttpClientUtil {
             // 从输入流读取返回内容  
             InputStream inputStream = conn.getInputStream();  
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8"); 
-            Map<String, String> map=WeiXinXmlUtil.parseXML(inputStreamReader);
+            Map<String, Object> map=WeiXinXmlUtil.parseXML(inputStreamReader);
            /* BufferedReader bufferedReader = new BufferedReader(inputStreamReader);  
             String str = null;  
             StringBuffer buffer = new StringBuffer();  

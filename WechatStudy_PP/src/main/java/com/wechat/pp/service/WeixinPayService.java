@@ -166,8 +166,8 @@ public class WeixinPayService {
 							weixinPayInfo.setTimestamps(time);
 							Map<String,Object> map=new LinkedHashMap<String,Object>();
 							map.put("appid", weixinData.getString("appid"));
-							map.put("mch_id", weixinData.getString("mch_id"));
-							map.put("prepay_id", weixinData.getString("prepay_id"));
+							map.put("partnerid", weixinData.getString("mch_id"));
+							map.put("prepayid", weixinData.getString("prepay_id"));
 							map.put("package", "Sign=WXPay");
 							String randRom=CreateNonceStrUtil.createNonceStr(map, key);
 							weixinPayInfo.setNonceStr(randRom);
@@ -258,17 +258,23 @@ public class WeixinPayService {
 		try {
 			InputStream inputStream=request.getInputStream();
 			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");  
-			Map<String, String> weixinResult=WeiXinXmlUtil.parseXML(inputStreamReader);
-			log.info(" weixin interface to result message {} "+JSONObject.toJSONString(weixinResult));
-			if(!StringUtils.isEmpty(weixinResult.get("return_code"))&&weixinResult.get("return_code").equals("SUCCESS")){
-				String outTradeNo=weixinResult.get("out_trade_no");
-				String sign=weixinResult.get("sign");
-				String totalFee=weixinResult.get("total_fee");
+			Map<String, Object> weixinResult=WeiXinXmlUtil.parseXML(inputStreamReader);
+			log.info(" weixin interface to result message {} ",JSONObject.toJSONString(weixinResult));
+			if(weixinResult.get("return_code")!=null&&weixinResult.get("return_code").toString().equals("SUCCESS")){
+				String outTradeNo=weixinResult.get("out_trade_no")!=null?weixinResult.get("out_trade_no").toString():"";
+				String sign=weixinResult.get("sign")!=null?weixinResult.get("sign").toString():"";
+				int totalFee=weixinResult.get("total_fee")!=null?Integer.parseInt(weixinResult.get("total_fee").toString()):0;
+				String createSign=CreateSignUtil.createSign(weixinResult, key);
+				log.info(" method payCallBackNotifyUrl create sign is result message : {} ",createSign);
 				WeixinPayInfoPo weixinPayInfo=weixinPayInfoDao.getByOutTradeNo(outTradeNo);
-				if(weixinPayInfo.getSign().equals(sign)){
-					if(totalFee.equals(weixinPayInfo.getTotalFee())){
+				if(createSign.equals(sign)){
+					log.info(" Signature verification successful ! ");
+					if(totalFee==weixinPayInfo.getTotalFee()){
+						log.info(" WeChat payment verification is successful. ! ");
 						if(StringUtils.isEmpty(weixinPayInfo.getTradeStatus())){
-							if(weixinResult.get("result_code").equals("SUCCESS")){
+							log.info(" WeChat payment status verifies success. ! ");
+							if(weixinResult.get("result_code")!=null&&weixinResult.get("result_code").toString().equals("SUCCESS")){
+								log.info(" WeChat pays off.! ");
 								weixinPayInfo.setTradeStatus("SUCCESS");
 								weixinPayInfoDao.save(weixinPayInfo);
 								log.info(" update weixinPayInfo is table to message {} ", JSONObject.toJSONString(weixinPayInfo));
@@ -278,11 +284,11 @@ public class WeixinPayService {
 								tradingRecordInfo.setTradingType("1");
 								tradingRecordInfo.setTradingDesc(weixinPayInfo.getBody());
 								tradingRecordInfo.setTradingId(weixinPayInfo.getOutTradeNo());
-								tradingRecordInfo.setTradingTime(weixinResult.get("time_end"));
+								tradingRecordInfo.setTradingTime(weixinResult.get("time_end")!=null?weixinResult.get("time_end").toString():"");
 								tradingRecordInfo.setTradingStatus("SUCCESS");
 								tradingRecordInfoDao.save(tradingRecordInfo);
 								log.info(" insert into tradingRecordInfo is table to message {} ", JSONObject.toJSONString(tradingRecordInfo));
-								String attach=weixinResult.get("attach");
+								String attach=weixinResult.get("attach")!=null?weixinResult.get("attach").toString():"";
 								if(!StringUtils.isEmpty(attach)){
 									String[] attachs=attach.split("#");
 									JSONObject memberJson=new JSONObject();
@@ -299,6 +305,7 @@ public class WeixinPayService {
 								sb.append("<return_msg><![CDATA[OK]]></return_msg>");
 								sb.append("</xml>");
 							}else{
+								log.info(" WeChat payment failed. ");
 								weixinPayInfo.setTradeStatus("FAIL");
 								weixinPayInfoDao.save(weixinPayInfo);
 								sb.append("<xml>");
@@ -307,18 +314,21 @@ public class WeixinPayService {
 								sb.append("</xml>");
 							}
 						}else{
+							log.info(" The order has been paid successfully and is not allowed to be repeated. ");
 							sb.append("<xml>");
 							sb.append("<return_code><![CDATA[SUCCESS]]></return_code>");
 							sb.append("<return_msg><![CDATA[OK]]></return_msg>");
 							sb.append("</xml>");
 						}
 					}else{
+						log.info(" WeChat payment verification is FAIL. ! ");
 						sb.append("<xml>");
 						sb.append("<return_code><![CDATA[FAIL]]></return_code>");
 						sb.append("<return_msg><![CDATA[微信付款失败,请联系客服!]]></return_msg>");
 						sb.append("</xml>");
 					}
 				}else{
+					log.info(" Signature verification successful ! ");
 					sb.append("<xml>");
 					sb.append("<return_code><![CDATA[FAIL]]></return_code>");
 					sb.append("<return_msg><![CDATA[微信付款失败,请联系客服!]]></return_msg>");
