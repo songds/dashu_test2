@@ -43,6 +43,7 @@ dependencies {
 	compile("com.aliyun:aliyun-java-sdk-core:3.4.0")
 	compile("com.aliyun:aliyun-java-sdk-dysmsapi:1.0.0")
     compile("org.springframework.boot:spring-boot-devtools")
+    compile fileTree(dir: 'lib', include: 'alipay-sdk*.jar')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
 }

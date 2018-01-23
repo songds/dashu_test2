@@ -268,13 +268,13 @@ public class WeixinPayService {
 				log.info(" method payCallBackNotifyUrl create sign is result message : {} ",createSign);
 				WeixinPayInfoPo weixinPayInfo=weixinPayInfoDao.getByOutTradeNo(outTradeNo);
 				if(createSign.equals(sign)){
-					log.info(" Signature verification successful ! ");
+					log.info(" interface payCallBackNotifyUrl is Signature verification successful ! ");
 					if(totalFee==weixinPayInfo.getTotalFee()){
-						log.info(" WeChat payment verification is successful. ! ");
+						log.info(" interface payCallBackNotifyUrl is WeChat payment verification is successful. ! ");
 						if(StringUtils.isEmpty(weixinPayInfo.getTradeStatus())){
-							log.info(" WeChat payment status verifies success. ! ");
+							log.info(" interface payCallBackNotifyUrl is WeChat payment status verifies success. ! ");
 							if(weixinResult.get("result_code")!=null&&weixinResult.get("result_code").toString().equals("SUCCESS")){
-								log.info(" WeChat pays off.! ");
+								log.info(" interface payCallBackNotifyUrl is WeChat pays off.! ");
 								weixinPayInfo.setTradeStatus("SUCCESS");
 								weixinPayInfoDao.save(weixinPayInfo);
 								log.info(" update weixinPayInfo is table to message {} ", JSONObject.toJSONString(weixinPayInfo));
@@ -305,7 +305,7 @@ public class WeixinPayService {
 								sb.append("<return_msg><![CDATA[OK]]></return_msg>");
 								sb.append("</xml>");
 							}else{
-								log.info(" WeChat payment failed. ");
+								log.info(" interface payCallBackNotifyUrl is WeChat payment failed. ");
 								weixinPayInfo.setTradeStatus("FAIL");
 								weixinPayInfoDao.save(weixinPayInfo);
 								sb.append("<xml>");
@@ -314,21 +314,21 @@ public class WeixinPayService {
 								sb.append("</xml>");
 							}
 						}else{
-							log.info(" The order has been paid successfully and is not allowed to be repeated. ");
+							log.info(" interface payCallBackNotifyUrl is The order has been paid successfully and is not allowed to be repeated. ");
 							sb.append("<xml>");
 							sb.append("<return_code><![CDATA[SUCCESS]]></return_code>");
 							sb.append("<return_msg><![CDATA[OK]]></return_msg>");
 							sb.append("</xml>");
 						}
 					}else{
-						log.info(" WeChat payment verification is FAIL. ! ");
+						log.info(" interface payCallBackNotifyUrl is WeChat payment verification is FAIL. ! ");
 						sb.append("<xml>");
 						sb.append("<return_code><![CDATA[FAIL]]></return_code>");
 						sb.append("<return_msg><![CDATA[微信付款失败,请联系客服!]]></return_msg>");
 						sb.append("</xml>");
 					}
 				}else{
-					log.info(" Signature verification successful ! ");
+					log.info(" interface payCallBackNotifyUrl is Signature verification FAIL ! ");
 					sb.append("<xml>");
 					sb.append("<return_code><![CDATA[FAIL]]></return_code>");
 					sb.append("<return_msg><![CDATA[微信付款失败,请联系客服!]]></return_msg>");
