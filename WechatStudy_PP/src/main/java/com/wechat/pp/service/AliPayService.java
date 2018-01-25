@@ -57,6 +57,9 @@ public class AliPayService {
 	@Value("${alibaba.timeoutExpress}")
 	private String timeoutExpress;
 	
+	@Value("${alibabaPay.public.key}")
+	private String aliPayPublicKey;
+	
 	@Resource
 	private AlibabaPayInfoDao alibabaPayInfoDao;
 	
@@ -169,55 +172,53 @@ public class AliPayService {
 			}
 			//切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
 			//boolean AlipaySignature.rsaCheckV1(Map<String, String> params, String publicKey, String charset, String sign_type)
-			boolean flag = AlipaySignature.rsaCheckV1(params, publicKey, charset,"RSA2");
+			log.info(" interface aliPayCallBack is callback parameter message {} ",params);
+			boolean flag = AlipaySignature.rsaCheckV1(params, aliPayPublicKey, charset,"RSA2");
 			if(flag){
-				String code=params.get("code");
 				String outTradeNo=params.get("out_trade_no");
 				AlibabaPayInfoPo alibabaPayInfo=alibabaPayInfoDao.getByOutTradeNo(outTradeNo);
+				log.info(" interface aliPayCallBack-->getByOutTradeNo is callback parameter message {} ",JSONObject.toJSONString(alibabaPayInfo));
 				float totalAmount=alibabaPayInfo.getTotalAmount();
 				if(totalAmount==Float.valueOf(params.get("total_amount"))){
+					log.info(" interface aliPayCallBack is alibaba Amt check successfully.  ");
 					if(StringUtils.isEmpty(alibabaPayInfo.getTradeStatus())){
-						if(code.equals("10000")){
-							String tradeStatus = params.get("trade_status");
-							if(tradeStatus.equals("TRADE_FINISHED")||tradeStatus.equals("TRADE_SUCCESS")){
-								alibabaPayInfo.setTradeStatus(tradeStatus);
-								alibabaPayInfoDao.save(alibabaPayInfo);
-								String attach=alibabaPayInfo.getAttach();
-								log.info(" update alibabaPayInfo is table to message {} ", JSONObject.toJSONString(alibabaPayInfo));
-								JSONObject attachJson=JSONObject.parseObject(attach);
-								TradingRecordInfoPo tradingRecordInfo=new TradingRecordInfoPo();
-								tradingRecordInfo.setUserName(attachJson.getString("userName"));
-								tradingRecordInfo.setTradingAmt((int)(Float.valueOf(alibabaPayInfo.getTotalAmount())*100));
-								tradingRecordInfo.setTradingType("2");
-								tradingRecordInfo.setTradingDesc(alibabaPayInfo.getSubject());
-								tradingRecordInfo.setTradingId(alibabaPayInfo.getOutTradeNo());
-								tradingRecordInfo.setTradingTime(params.get("gmt_payment")!=null?params.get("time_end").toString():"");
-								tradingRecordInfo.setTradingStatus("SUCCESS");
-								tradingRecordInfoDao.save(tradingRecordInfo);
-								log.info(" insert into tradingRecordInfo is table to message {} ", JSONObject.toJSONString(tradingRecordInfo));
-								//String attach=weixinResult.get("attach")!=null?weixinResult.get("attach").toString():"";
-								if(!StringUtils.isEmpty(attach)){
-									//String[] attachs=attach.split("#");
-									//JSONObject memberJson=new JSONObject();
-									//memberJson.put("userName", attachs[0]);
-									//memberJson.put("memberId", attachs[1]);
-									//memberJson.put("memberType", attachs[2]);
-									//memberJson.put("cardType", attachs[3]);
-									log.info(" load   userMemberRelationService--->buyMember is parameter to message {} ",attach);
-									JSONObject memberResult=userMemberRelationService.buyMember(JSONObject.toJSONString(attach));
-									log.info(" load   userMemberRelationService--->buyMember is result to message {}",JSONObject.toJSONString(memberResult));
-								}
-								return "success";
-							}else{
-								alibabaPayInfo.setTradeStatus(tradeStatus);
-								alibabaPayInfoDao.save(alibabaPayInfo);
-								log.info(" interface aliPayCallBack is WeChat payment failed. ");
-								return "success";
-							}
-						}else{
-							alibabaPayInfo.setTradeStatus("fail");
+						log.info(" interface aliPayCallBack is alibaba status check successfully.  ");
+						String tradeStatus = params.get("trade_status");
+						if(tradeStatus.equals("TRADE_FINISHED")||tradeStatus.equals("TRADE_SUCCESS")){
+							log.info(" interface aliPayCallBack is alibaba pay trade status successfully.  ");
+							alibabaPayInfo.setTradeStatus(tradeStatus);
 							alibabaPayInfoDao.save(alibabaPayInfo);
-							log.info(" interface aliPayCallBack is WeChat payment failed. ");
+							String attach=alibabaPayInfo.getAttach();
+							log.info(" update alibabaPayInfo is table to message {} ", JSONObject.toJSONString(alibabaPayInfo));
+							JSONObject attachJson=JSONObject.parseObject(attach);
+							TradingRecordInfoPo tradingRecordInfo=new TradingRecordInfoPo();
+							tradingRecordInfo.setUserName(attachJson.getString("userName"));
+							tradingRecordInfo.setTradingAmt((int)(Float.valueOf(alibabaPayInfo.getTotalAmount())*100));
+							tradingRecordInfo.setTradingType("2");
+							tradingRecordInfo.setTradingDesc(alibabaPayInfo.getSubject());
+							tradingRecordInfo.setTradingId(alibabaPayInfo.getOutTradeNo());
+							tradingRecordInfo.setTradingTime(params.get("gmt_payment")!=null?params.get("gmt_payment").toString():"");
+							tradingRecordInfo.setTradingStatus("SUCCESS");
+							log.info(" insert into tradingRecordInfo is table to message {} ", JSONObject.toJSONString(tradingRecordInfo));
+							tradingRecordInfoDao.save(tradingRecordInfo);
+							log.info(" insert into tradingRecordInfo is table to message successfully ");
+							//String attach=weixinResult.get("attach")!=null?weixinResult.get("attach").toString():"";
+							if(!StringUtils.isEmpty(attach)){
+								//String[] attachs=attach.split("#");
+								//JSONObject memberJson=new JSONObject();
+								//memberJson.put("userName", attachs[0]);
+								//memberJson.put("memberId", attachs[1]);
+								//memberJson.put("memberType", attachs[2]);
+								//memberJson.put("cardType", attachs[3]);
+								log.info(" load   userMemberRelationService--->buyMember is parameter to message {} ",attach);
+								JSONObject memberResult=userMemberRelationService.buyMember(attach);
+								log.info(" load   userMemberRelationService--->buyMember is result to message {}",JSONObject.toJSONString(memberResult));
+							}
+							return "success";
+						}else{
+							alibabaPayInfo.setTradeStatus("FAIL");
+							alibabaPayInfoDao.save(alibabaPayInfo);
+							log.info(" interface aliPayCallBack is alibaba pay trade status fail.  ");
 							return "success";
 						}
 					}else{
@@ -226,7 +227,7 @@ public class AliPayService {
 					}
 					
 				}else{
-					log.info(" interface aliPayCallBack is payment verification is FAIL. ! ");
+					log.info(" interface aliPayCallBack is Amt verification is FAIL. ! ");
 					return "fail";
 				}
 			}else{
@@ -236,6 +237,7 @@ public class AliPayService {
 		}catch (Exception e) {
 			// TODO: handle exception
 			log.error(e.getMessage());
+			log.error(" interface aliPayCallBack exception ! ");
 			return "fail";
 		}
 	}

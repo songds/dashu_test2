@@ -79,6 +79,7 @@ public class UserMemberRelationService {
 	 */
 	public Date createDate(Date currentTime,String cardType){
 		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(currentTime);
 		if(cardType.equals("Q")){
 			calendar.add(Calendar.MONTH, 3);
 			Date validEndTime=calendar.getTime();
