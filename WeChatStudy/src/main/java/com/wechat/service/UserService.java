@@ -180,12 +180,12 @@ public class UserService {
 			article.setUrl(url);
 			articles.add(article);
 			
-			Article article1=new Article();
+			/*Article article1=new Article();
 			article1.setDescription(description);
 			article1.setPicUrl(picUrl);
 			article1.setTitle(title);
 			article1.setUrl(url);
-			articles.add(article1);
+			articles.add(article1);*/
 			
 			NewsMessage newsMessage=new NewsMessage();
 			newsMessage.setArticleCount(articles.size());
