@@ -33,7 +33,7 @@ public class WeixinUtil {
     private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);
     
     // 获取access_token的接口地址（GET） 限200（次/天）
-    public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx77295d0afa45c3ff&secret=69c67ec0a2d596ca0984441ae5528a75";
+    public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     
     // 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
@@ -51,6 +51,7 @@ public class WeixinUtil {
         String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
         // 将菜单对象转换成json字符串
         String jsonMenu = JSONObject.toJSONString(menu);
+        log.info(" jsonMenu : {} ",jsonMenu);
         // 调用接口创建菜单
         JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
         if (null != jsonObject) {

@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class SignUtil {
     
     // 与接口配置信息中的Token要一致
-    private static String token = "CHZC7I8T6MAGLSXYRVFXHXENRT125478";
+   // private static String token = "CHZC7I8T6MAGLSXYRVFXHXENRT125478";
 
     /**
     * 方法名：checkSignature</br>
@@ -29,7 +29,7 @@ public class SignUtil {
      */
     public static boolean checkSignature(String signature, String timestamp,String nonce) {
         // 1.将token、timestamp、nonce三个参数进行字典序排序
-        String[] arr = new String[] { token, timestamp, nonce };
+        String[] arr = new String[] { WeixinConf.token, timestamp, nonce };
         Arrays.sort(arr);
         
         // 2. 将三个参数字符串拼接成一个字符串进行sha1加密

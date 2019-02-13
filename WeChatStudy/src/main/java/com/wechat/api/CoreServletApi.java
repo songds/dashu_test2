@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class CoreServletApi {
+	
+	@Autowired
+	private CoreService coreService;
 
 	/**
      * 确认请求来自微信服务器
@@ -60,7 +64,7 @@ public class CoreServletApi {
 	        response.setCharacterEncoding("UTF-8");
 
 	        // 调用核心业务类接收消息、处理消息
-	        String respXml = CoreService.processRequest(request);
+	        String respXml = coreService.processRequest(request);
 
 	        // 响应消息
 	        PrintWriter out = response.getWriter();

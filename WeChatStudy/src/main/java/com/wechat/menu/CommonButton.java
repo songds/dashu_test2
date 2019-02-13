@@ -1,4 +1,8 @@
 package com.wechat.menu;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
 **
 * 类名: CommonButton </br>
@@ -8,24 +12,12 @@ package com.wechat.menu;
 * 创建时间：  2015-12-1 </br>
 * 发布版本：V1.0  </br>
  */
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class CommonButton extends Button {
     
     private String type;
     private String key;
+    private String url;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

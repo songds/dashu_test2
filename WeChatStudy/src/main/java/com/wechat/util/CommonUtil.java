@@ -29,7 +29,7 @@ public class CommonUtil {
     private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
 
     // 凭证获取（GET）
-    public final static String token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx77295d0afa45c3ff&secret=69c67ec0a2d596ca0984441ae5528a75";
+    public final static String token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
     /**
      * 发送https请求

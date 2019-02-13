@@ -4,8 +4,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSONObject;
+import com.wechat.message.resp.NewsMessage;
 import com.wechat.message.resp.TextMessage;
 import com.wechat.util.MessageUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
 * 类名: CoreService </br>
@@ -14,13 +22,23 @@ import com.wechat.util.MessageUtil;
 * 创建时间：  2015-9-30 </br>
 * 发布版本：V1.0  </br>
  */
+@Slf4j
+@Service
 public class CoreService {
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private MenuService menuService;
+	
+	
     /**
      * 处理微信发来的请求
      * @param request
      * @return xml
      */
-    public static String processRequest(HttpServletRequest request) {
+    public  String processRequest(HttpServletRequest request) {
         // xml格式的消息数据
         String respXml = null;
         // 默认返回的文本消息内容
@@ -28,6 +46,7 @@ public class CoreService {
         try {
             // 调用parseXml方法解析请求消息
             Map<String, String> requestMap = MessageUtil.parseXml(request);
+            log.info(" requestMap : {} ",JSONObject.toJSONString(requestMap));
             // 发送方帐号
             String fromUserName = requestMap.get("FromUserName");
             // 开发者微信号
@@ -77,14 +96,20 @@ public class CoreService {
                 // 关注
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     respContent = "谢谢您的关注！";
+                    userService.wxAttention(requestMap);
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
                     // TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复
+                	userService.wxCancelAttention(requestMap);
                 }
                 // 扫描带参数二维码
-                else if (eventType.equals(MessageUtil.EVENT_TYPE_SCAN)) {
+                else if (eventType.equalsIgnoreCase(MessageUtil.EVENT_TYPE_SCAN)) {
                     // TODO 处理扫描带参数二维码事件
+                	String result=userService.scanQrcode(requestMap);
+                	if(!StringUtils.isBlank(result)){
+                		return result;
+                	}
                 }
                 // 上报地理位置
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) {
@@ -93,6 +118,7 @@ public class CoreService {
                 // 自定义菜单
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     // TODO 处理菜单点击事件
+                	respContent=menuService.menuCilck(requestMap);
                 }
             }
             // 设置文本消息的内容

@@ -25,7 +25,7 @@ public class TokenPo {
 	private String accessToken;
 	
 	@Column (name="EXPIRES_IN",length=11)  
-	private int expiresIn;
+	private long expiresIn;
 	
 	@Column (name="CREATE_TIME")  
 	private Date createTime;

@@ -17,3 +17,11 @@ spring.jpa:
   show-sql: false
   hibernate.ddl-auto: validate
   properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+  
+application.wechat.official.appSecret: 7645bb79edfbc9ce4f5a3617f3fa7a14
+application.wechat.official.appId: wxb6636b804967b719
+
+application.wechat.official.token: CHZC7I8T6MAGLSXYRVFXHXENRT125478
+
+#后台管理系统访问地址
+application.system.manager.url: https://aplha.cn
