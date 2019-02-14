@@ -37,7 +37,7 @@ public class UserApi {
 		return userService.createCode(json);
 	}
 	@RequestMapping(value="/api/user/wxAttention.do",method=RequestMethod.POST)
-	public JSONObject wxAttention(@RequestBody String json){
+	public String wxAttention(@RequestBody String json){
 		Map<String, String> params=JSONObject.parseObject(json, Map.class);
 		params.put("CreateTime", String.valueOf(System.currentTimeMillis()));
 		return userService.wxAttention(params);

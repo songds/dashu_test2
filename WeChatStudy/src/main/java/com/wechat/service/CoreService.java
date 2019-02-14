@@ -95,8 +95,13 @@ public class CoreService {
                 String eventType = requestMap.get("Event");
                 // 关注
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    respContent = "谢谢您的关注！";
-                    userService.wxAttention(requestMap);
+                    
+                    String result=userService.wxAttention(requestMap);
+                    if(StringUtils.isBlank(result)){
+                    	respContent = "感谢您的关注，这里有您喜欢的东西";
+                    }else{
+                    	return result;
+                    }
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {

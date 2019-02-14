@@ -103,16 +103,34 @@ public class UserService {
 		return result;
 	}
 	
-	public JSONObject wxAttention(Map<String, String> requestMap){
+	public String wxAttention(Map<String, String> requestMap){
 		String openId=requestMap.get("FromUserName");
 		String createTime=requestMap.get("CreateTime");
+		String eventKey=requestMap.get("EventKey");
+        // 开发者微信号
+        String toUserName = requestMap.get("ToUserName");
 		JSONObject userInfo=getUserInfo(openId);
 		userInfo.put("openId", openId);
 		userInfo.put("createTime", createTime);
 		log.info(" USER INFO : {} ",userInfo);
 		JSONObject result=gfManagerUtil.wxAttention(JSONObject.toJSONString(userInfo));
 		log.info(" result : {} ",JSONObject.toJSONString(result));
-		return result;
+		if(StringUtils.isBlank(eventKey)){
+			String message=scanQrcode(requestMap);
+			log.info(" respXml : {} ",message);
+			return message;
+		}else{
+			TextMessage textMessage=new TextMessage();
+			textMessage.setContent("感谢您的关注，这里有您喜欢的东西");
+			textMessage.setToUserName(openId);
+			textMessage.setFromUserName(toUserName);
+			textMessage.setCreateTime(System.currentTimeMillis());
+			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+			String respXml=MessageUtil.messageToXml(textMessage);
+	    	log.info(" respXml : {} ",respXml);
+	    	return respXml;
+		}
+		
 	}
 	
 	public JSONObject wxCancelAttention(Map<String, String> requestMap){
