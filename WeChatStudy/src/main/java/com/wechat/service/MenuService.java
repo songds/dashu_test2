@@ -34,14 +34,15 @@ public class MenuService {
 		CommonButton prdocutButton=new CommonButton();
 		prdocutButton.setName("商品中心");
 		prdocutButton.setKey("PRODUCT_CENTER");
-		prdocutButton.setType("click");
+		prdocutButton.setType("view");
+		prdocutButton.setUrl("https://aplha.cn/#/shopCar/下单中心");
 		Button [] userSubButtons=new Button[3];
 		
 		CommonButton posterButton=new CommonButton();
 		posterButton.setName("海报中心");
 		posterButton.setKey("POSTER_CENTER");
-		posterButton.setType("click");
-		
+		posterButton.setType("view");
+		posterButton.setUrl("https://aplha.cn/#/posterList");
 		CommonButton messageButton=new CommonButton();
 		messageButton.setName("消息通知");
 		messageButton.setKey("MESSAGE_CENTER");
@@ -55,16 +56,29 @@ public class MenuService {
 		userSubButtons[0]=posterButton;
 		userSubButtons[1]=messageButton;
 		userSubButtons[2]=useButton;
+		
+		/*CommonButton tweetButton=new CommonButton();
+		tweetButton.setName("吐个槽");
+		tweetButton.setKey("TWEET_CENTER");
+		tweetButton.setType("view");
+		tweetButton.setUrl("https://support.qq.com/products/55044");
+		
+		userSubButtons[3]=tweetButton;*/
+		
 		ComplexButton userCenter=new ComplexButton();
 		userCenter.setName("用户中心");
 		userCenter.setSub_button(userSubButtons);
+		
+		
+		
 		
 		Button [] authSubButtons=new Button[5];
 		
 		CommonButton createAuthButton=new CommonButton();
 		createAuthButton.setName("新增授权");
 		createAuthButton.setKey("CREATE_AUTH_CENTER");
-		createAuthButton.setType("click");
+		createAuthButton.setType("view");
+		createAuthButton.setUrl("http://aplha.cn/#/recommend");
 		
 		CommonButton groupButton=new CommonButton();
 		groupButton.setName("团队中心");
@@ -90,11 +104,13 @@ public class MenuService {
 		personalButton.setType("view");
 		personalButton.setUrl("https://aplha.cn/#/personal");
 		
+		
 		authSubButtons[0]=createAuthButton;
 		authSubButtons[1]=groupButton;
 		authSubButtons[2]=orderButton;
 		authSubButtons[3]=workbenchButton;
 		authSubButtons[4]=personalButton;
+		
 		ComplexButton authCenter=new ComplexButton();
 		authCenter.setName("授权中心");
 		authCenter.setSub_button(authSubButtons);
