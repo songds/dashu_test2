@@ -1,7 +1,10 @@
 package com.wechat.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -9,6 +12,9 @@ import com.wechat.menu.Button;
 import com.wechat.menu.CommonButton;
 import com.wechat.menu.ComplexButton;
 import com.wechat.menu.Menu;
+import com.wechat.message.resp.Article;
+import com.wechat.message.resp.NewsMessage;
+import com.wechat.util.MessageUtil;
 import com.wechat.util.WeixinUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuService {
 	
 	private static final String GET_MENU_URL="https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN";
+	
+	@Value("${application.system.manager.url}")
+	private String system_manager_url;
 	
 	public JSONObject getMenu(String accessToken){
 		String requestUrl=GET_MENU_URL.replace("ACCESS_TOKEN", accessToken);
@@ -35,7 +44,7 @@ public class MenuService {
 		prdocutButton.setName("商品中心");
 		prdocutButton.setKey("PRODUCT_CENTER");
 		prdocutButton.setType("view");
-		prdocutButton.setUrl("https://aplha.cn/#/shopCar/下单中心");
+		prdocutButton.setUrl("https://aplha.cn/#/shopCar");
 		Button [] userSubButtons=new Button[3];
 		
 		CommonButton posterButton=new CommonButton();
@@ -78,7 +87,7 @@ public class MenuService {
 		createAuthButton.setName("新增授权");
 		createAuthButton.setKey("CREATE_AUTH_CENTER");
 		createAuthButton.setType("view");
-		createAuthButton.setUrl("http://aplha.cn/#/recommend");
+		createAuthButton.setUrl("https://aplha.cn/#/recommend");
 		
 		CommonButton groupButton=new CommonButton();
 		groupButton.setName("团队中心");
@@ -96,7 +105,7 @@ public class MenuService {
 		workbenchButton.setName("工作台");
 		workbenchButton.setKey("WORKBENCH_CENTER");
 		workbenchButton.setType("view");
-		workbenchButton.setUrl("https://aplha.cn");
+		workbenchButton.setUrl(system_manager_url);
 		
 		CommonButton personalButton=new CommonButton();
 		personalButton.setName("我的");
@@ -126,7 +135,34 @@ public class MenuService {
 	
 	
 	public String menuCilck(Map<String, String> requestMap){
-		
-		return "您点击操作已收到，请您等待回复!";
+		String eventKey=requestMap.get("EventKey");
+		String openId=requestMap.get("FromUserName");
+        // 开发者微信号
+        String toUserName = requestMap.get("ToUserName");
+		if("USE_CENTER".equals(eventKey)){
+			String title="会员管理系统说明";
+			String description="会员管理系统说明";
+			String picUrl="https://aplha.cn/images/message/wmessage_20190303103412.png";
+			String url="https://aplha.cn/#/activity";
+			List<Article> articles=new ArrayList<Article>();
+			Article article=new Article();
+			article.setDescription(description);
+			article.setPicUrl(picUrl);
+			article.setTitle(title);
+			article.setUrl(url);
+			articles.add(article);
+			
+			NewsMessage newsMessage=new NewsMessage();
+			newsMessage.setArticleCount(articles.size());
+			newsMessage.setToUserName(openId);
+			newsMessage.setFromUserName(toUserName);
+			newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+			newsMessage.setCreateTime(System.currentTimeMillis());
+			newsMessage.setArticles(articles);
+			String respXml=MessageUtil.messageToXml(newsMessage);
+	    	log.info(" respXml : {} ",respXml);
+	    	return respXml;
+		}
+		return  null;
 	}
 }
