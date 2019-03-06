@@ -111,7 +111,7 @@ public class MenuService {
 		personalButton.setName("我的");
 		personalButton.setKey("PERSONAL_CENTER");
 		personalButton.setType("view");
-		personalButton.setUrl("https://aplha.cn/#/personal");
+		personalButton.setUrl("https://aplha.cn/#//personalCenter");
 		
 		
 		authSubButtons[0]=createAuthButton;
