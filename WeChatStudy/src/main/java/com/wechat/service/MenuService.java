@@ -44,7 +44,7 @@ public class MenuService {
 		prdocutButton.setName("商品中心");
 		prdocutButton.setKey("PRODUCT_CENTER");
 		prdocutButton.setType("view");
-		prdocutButton.setUrl("https://aplha.cn/#/shopCar/:001");
+		prdocutButton.setUrl("https://aplha.cn/#/shopCar/001");
 		Button [] userSubButtons=new Button[3];
 		
 		CommonButton posterButton=new CommonButton();
