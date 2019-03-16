@@ -99,7 +99,7 @@ public class MenuService {
 		orderButton.setName("订单中心");
 		orderButton.setKey("ORDER_CENTER");
 		orderButton.setType("view");
-		orderButton.setUrl("https://aplha.cn/#/orderList");
+		orderButton.setUrl("https://aplha.cn/#/OrderCenter");
 		
 		CommonButton workbenchButton=new CommonButton();
 		workbenchButton.setName("工作台");
