@@ -14,6 +14,8 @@ import javax.net.ssl.TrustManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.dto.Token;
@@ -25,13 +27,23 @@ import com.wechat.dto.Token;
 * 创建时间：  2015-9-30 </br>
 * 发布版本：V1.0  </br>
  */
+@Component
 public class CommonUtil {
     private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
 
     // 凭证获取（GET）
     public final static String token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+    
 
-    /**
+	public static String system_manager_url;
+    
+    
+	@Value("${application.system.manager.url}")
+    public static void setSystem_manager_url(String system_manager_url) {
+		CommonUtil.system_manager_url = system_manager_url;
+	}
+
+	/**
      * 发送https请求
      * 
      * @param requestUrl 请求地址

@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.message.resp.NewsMessage;
 import com.wechat.message.resp.TextMessage;
 import com.wechat.util.MessageUtil;
 
@@ -31,6 +31,13 @@ public class CoreService {
 	
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private MessageSerevice messageSerevice;
+	
+	@Value("${application.system.manager.url}")
+	private String system_manager_url;
+	
 	
 	
     /**
@@ -62,32 +69,33 @@ public class CoreService {
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
             // 文本消息
+            String url="<a href=\""+system_manager_url+"/images/template/company_qrcode.jpg\">客服</a>";
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-                respContent = "您发送的是文本消息！";
+            	respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
-                respContent = "您发送的是图片消息！";
+                respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 语音消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
-                respContent = "您发送的是语音消息！";
+            	respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 视频消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
-                respContent = "您发送的是视频消息！";
+            	respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 视频消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_SHORTVIDEO)) {
-                respContent = "您发送的是小视频消息！";
+            	respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 地理位置消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
-                respContent = "您发送的是地理位置消息！";
+            	respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 链接消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
-                respContent = "您发送的是链接消息！";
+            	respContent = "您在说什么,我都听不懂,要不要联系 "+url+" 聊聊";
             }
             // 事件推送
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
@@ -123,13 +131,21 @@ public class CoreService {
                 // 自定义菜单
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     // TODO 处理菜单点击事件
-                	respContent=menuService.menuCilck(requestMap);
+                	String result=menuService.menuCilck(requestMap);
+                	if(StringUtils.isBlank(result)){
+                		respContent="您点击操作已收到，请您等待回复!";
+                	}else{
+                		return result;
+                	}
+                }else if(eventType.equalsIgnoreCase(MessageUtil.EVENT_TYPE_TEMPLATESENDJOBFINISH)){
+                	messageSerevice.templateMessageCall(requestMap);
                 }
             }
             // 设置文本消息的内容
             textMessage.setContent(respContent);
             // 将文本消息对象转换成xml
             respXml = MessageUtil.messageToXml(textMessage);
+            log.info(" respXml --> {} ",respXml);
         } catch (Exception e) {
             e.printStackTrace();
         }

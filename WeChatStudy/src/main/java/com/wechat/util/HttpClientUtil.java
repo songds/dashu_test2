@@ -108,7 +108,7 @@ public class HttpClientUtil {
 	 * @return
 	 * @throws BusinessException
 	 */
-	public static String httpPostJson(String url, String parameters) throws Exception {
+	public static String httpPostJson(String url, String parameters)  {
 		// 创建实例
 		log.info("begin Sent Http Post Request,url={},paramt={}", url, parameters);
 		CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -131,9 +131,9 @@ public class HttpClientUtil {
 				}
 
 			} catch (IOException e) {
-				log.info("request is Error,Msg ={}",e.getMessage());
+				log.info("request is Error,Msg ={}",e);
 			} catch (Exception e) {
-				log.info("request is Error,Msg ={}",e.getMessage());
+				log.info("request is Error,Msg ={}",e);
 			}
 			log.info("end Sent Http Post Request,url={},result={}", url, parameters);
 		}

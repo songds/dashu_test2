@@ -61,6 +61,9 @@ public class MessageUtil {
     // 事件类型：CLICK(自定义菜单)
     public static final String EVENT_TYPE_CLICK = "CLICK";
 
+    //事件类型：TEMPLATESENDJOBFINISH（模板消息）
+    public static final String EVENT_TYPE_TEMPLATESENDJOBFINISH="TEMPLATESENDJOBFINISH";
+    
     // 响应消息类型：文本
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";
     // 响应消息类型：图片

@@ -115,7 +115,7 @@ public class UserService {
 		log.info(" USER INFO : {} ",userInfo);
 		JSONObject result=gfManagerUtil.wxAttention(JSONObject.toJSONString(userInfo));
 		log.info(" result : {} ",JSONObject.toJSONString(result));
-		if(StringUtils.isBlank(eventKey)){
+		if(!StringUtils.isBlank(eventKey)){
 			String message=scanQrcode(requestMap);
 			log.info(" respXml : {} ",message);
 			return message;
