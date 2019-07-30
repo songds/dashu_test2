@@ -54,9 +54,12 @@ public class TestRSAPasskey {
 			Map<String, Key> map=createKey(2048); 
 			String public_key=Base64.encode(map.get(PUBLIC_KEY_PATH).getEncoded());
 			String private_key=Base64.encode(map.get(PRIVATE_KEY_PATH).getEncoded());
+			//String public_key="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCvJC9MMGRKmxRBI0KMjDtz2KooIc6XOljHPWhTfAamhV3A5v5yPiZr4haMDpulU08Y0JxsegwDwfbscQrhG7nvilIqIa+HiI1xkfFxjtNUrMN5hpvO8HUUfwqzb5EdllQcv/C0xxBkeCECIb86JJry7ty4mNBkN2idbGxldMi90QIDAQAB";
+			//String private_key="MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAK8kL0wwZEqbFEEjQoyMO3PYqighzpc6WMc9aFN8BqaFXcDm/nI+JmviFowOm6VTTxjQnGx6DAPB9uxxCuEbue+KUiohr4eIjXGR8XGO01Ssw3mGm87wdRR/CrNvkR2WVBy/8LTHEGR4IQIhvzokmvLu3LiY0GQ3aJ1sbGV0yL3RAgMBAAECgYBO9Mgh19sOyzTpXKT+yaVvx2iGaR9Ci/pD8AodQNeasJsggMKK7DvT/PvfLiK6+IC7Fii+upK6CvJvi1K1QxOiCZ+3iZ62HPX87/TzdcfAE0oE+dLZ+htgN8HGqRe0fbrCgKOsSv87/CeCjqIWntvnImXJdqk3TH6I4XcJKEiEAQJBAPaBnosth3FI/yJpFgA86HXSYXkge3Z2Xz146M2KpUYyWRXlpc1PzSMBCv+RYZl8iOxxv/GRrBIpAqyi9yf30ZECQQC14vTaYGsIt+faJ0HBdN2KX7J6KBF4BmZGmpC4B9NFk3hEz7kPDepfQiIKRHejKLDHz2fV4abPUlNlHGhjUAhBAkBZVtDnEDEuVY5iIkPfAjQdv4mkJKmaXXxXAyMcm0sbDdRLo1db+bgXH6GkzkPZJNFbID64hlsemc5mUwnQaniBAkEArfzrolXnLVDWva0dzpQfNDW0wfvAMiNVBKboVtJNfFnEC3b1HHyAPR1C+LVkCDRtXsV9G3Ceo+WplqglBxNQwQJBAPUOH4y7c4xvkAeeu1uT2XWqMzdTzVAEp3IXRFj52OhvdxH0jv6G6umqEmZDvK68BZ7bFZz5g1NDjwUMlOiBeUE=";
 			System.out.println("PUBLIC_KEY_PATH:"+public_key);
 			System.out.println("PRIVATE_KEY_PATH:"+private_key);
-			String privateStr=privateToKey("钟桂平", private_key);
+			String privateStr=privateToKey("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Response version=\"2.0\">\n<Head>\n<Code>2009</Code><Message>非法交易！</Message></Head></Response><?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Response version=\"2.0\">\n<Head>\n<Code>2009</Code><Message>非法交易！</Message></Head></Response><?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Response version=\"2.0\">\n<Head>\n<Code>2009</Code><Message>非法交易！</Message></Head></Response><?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Response version=\"2.0\">\n<Head>\n<Code>2009</Code><Message>非法交易！</Message></Head></Response><?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Response version=\"2.0\">\n<Head>\n<Code>2009</Code><Message>非法交易！</Message></Head></Response>", private_key);
+			System.out.println(privateStr.length());
 			System.out.println("privateStr:"+privateStr);
 			String decryptPublicStr=decryptPublicKey(privateStr, public_key);
 			System.out.println("decryptPublicStr:"+decryptPublicStr);
