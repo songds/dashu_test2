@@ -1,0 +1,26 @@
+### the frame config
+spring.application.name: springboot_test
+server.port: ${port:8098}
+
+
+
+logging:
+  path: ${LOG_PATH:logs}
+  level.com: debug
+
+zuul:
+  max:
+    host:
+      connections: 100
+  host:
+    socket-timeout-millis: ${httpRequest.callTimeout}
+    connect-timeout-millis: ${httpRequest.connectTimeout}
+
+
+hystrix: 
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 60000  

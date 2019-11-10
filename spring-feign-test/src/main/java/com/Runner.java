@@ -17,7 +17,7 @@ public class Runner {
 		
 		ConfigurableApplicationContext configurableApplicationContext=SpringApplication.run(Runner.class, args);
 		Runner runner=configurableApplicationContext.getBean(Runner.class);
-		String str=runner.testSao.auditFindAll("{}");
+		String str=runner.testSao.auditFindAll("{}","123456789");
 		System.out.println(str);
 	}
 }
